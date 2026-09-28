@@ -9,4 +9,4 @@
 :HL["/suphonpha/_next/static/media/cc014fcb166cf364-s.p.2cu9iw-l3ih8o.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/suphonpha/_next/static/media/e12efafcac952e69-s.p.3gt1gw19188hm.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/suphonpha/_next/static/media/e9ed0bc71a38d6c1-s.p.2m2jj329378-j.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
-0:{"tree":{"name":"","param":null,"prefetchHints":4112,"slots":{"children":{"name":"product","param":null,"prefetchHints":4160,"slots":{"children":{"name":"id","param":{"type":"d","key":"prod-001","siblings":[]},"prefetchHints":4192,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}}}}}},"staleTime":300,"buildId":"68kP-jL1JdX0sd0li_SB7"}
+0:{"tree":{"name":"","param":null,"prefetchHints":4112,"slots":{"children":{"name":"product","param":null,"prefetchHints":4160,"slots":{"children":{"name":"id","param":{"type":"d","key":"prod-001","siblings":[]},"prefetchHints":4192,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}}}}}},"staleTime":300,"buildId":"e-EIBD5yl-dnkbNUhlFGT"}
