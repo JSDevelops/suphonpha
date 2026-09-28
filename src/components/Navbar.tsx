@@ -35,8 +35,8 @@ export function Navbar() {
         <span>จัดส่งฟรีทั่วประเทศเมื่อสั่งซื้อครบ 999 บาท | รับประกันของแท้พร้อม Digital Certificate</span>
       </div>
 
-      {/* Main Navigation (Non-sticky, scrolls naturally with page) */}
-      <header className="relative z-40 bg-[#F7F4EE] border-b border-[#E6E1D8]">
+      {/* Main Navigation (Sticky Header - stays visible on scroll) */}
+      <header className="sticky top-0 z-40 bg-[#F7F4EE]/95 backdrop-blur-md shadow-xs border-b border-[#E6E1D8] transition-all">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20 gap-4">
             {/* Mobile menu trigger */}
