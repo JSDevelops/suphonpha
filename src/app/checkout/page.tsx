@@ -15,6 +15,8 @@ import {
   ArrowLeft,
   Truck,
   AlertCircle,
+  Copy,
+  Check,
 } from 'lucide-react';
 
 export default function CheckoutPage() {
@@ -39,6 +41,7 @@ export default function CheckoutPage() {
   // Order submission
   const [submitting, setSubmitting] = useState(false);
   const [confirmedOrder, setConfirmedOrder] = useState<any>(null);
+  const [copiedAccount, setCopiedAccount] = useState(false);
 
   if (confirmedOrder) {
     return (
@@ -315,11 +318,34 @@ export default function CheckoutPage() {
                     <p>
                       ธนาคาร: <strong>{settings.bankName}</strong>
                     </p>
+                    <div className="flex items-center gap-2">
+                      <span className="font-mono">
+                        เลขบัญชี: <strong className="text-[#4A5D4E] text-sm tracking-wide">{settings.bankAccountNumber}</strong>
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          navigator.clipboard.writeText(settings.bankAccountNumber.replace(/-/g, ''));
+                          setCopiedAccount(true);
+                          setTimeout(() => setCopiedAccount(false), 2000);
+                        }}
+                        className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] bg-white border border-[#D8D1C7] hover:border-[#4A5D4E] text-[#4A5D4E] rounded transition-colors"
+                      >
+                        {copiedAccount ? (
+                          <>
+                            <Check className="w-3 h-3 text-[#4A5D4E]" />
+                            <span>คัดลอกแล้ว</span>
+                          </>
+                        ) : (
+                          <>
+                            <Copy className="w-3 h-3" />
+                            <span>คัดลอกเลขบัญชี</span>
+                          </>
+                        )}
+                      </button>
+                    </div>
                     <p className="font-mono">
-                      เลขบัญชี: <strong className="text-[#4A5D4E] text-sm">{settings.bankAccountNumber}</strong>
-                    </p>
-                    <p className="font-mono">
-                      พร้อมเพย์: <strong>{settings.promptPayId}</strong>
+                      พร้อมเพย์ (เลขนิติบุคคล): <strong>{settings.promptPayId}</strong>
                     </p>
                     <p className="text-xs text-[#A98336] font-semibold pt-1">
                       ยอดที่ต้องชำระ: ฿{total.toLocaleString()} บาท

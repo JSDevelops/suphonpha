@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ShieldCheck, Truck, RefreshCw, Lock, MessageCircle } from 'lucide-react';
+import { ShieldCheck, Truck, RefreshCw, Lock, MessageCircle, Phone, MapPin, Building2 } from 'lucide-react';
 
 export function Footer() {
   return (
@@ -72,17 +72,43 @@ export function Footer() {
               </span>
             </div>
             <p className="text-xs text-[#635F59] leading-relaxed max-w-sm">
-              แพลตฟอร์มจำหน่ายเครื่องรางนำโชค วัตถุมงคล พระเครื่อง และเครื่องประดับสายมูร่วมสมัย ผสานความงามแบบ Warm Minimal พร้อมระบบตรวจสอบความแท้ด้วย Digital Certificate ทุกชิ้น
+              แพลตฟอร์มจำหน่ายเครื่องรางนำโชค วัตถุมงคล พระเครื่อง และของเก่ามงคลร่วมสมัย ดำเนินงานถูกต้องตามกฎหมาย พร้อมระบบตรวจสอบ Digital Certificate ทุกชิ้น
             </p>
-            <div className="pt-2">
+
+            {/* Official Company Details */}
+            <div className="space-y-1.5 text-[11px] text-[#635F59] pt-1">
+              <div className="flex items-center gap-1.5 font-medium text-[#282522]">
+                <Building2 className="w-3.5 h-3.5 text-[#A98336] shrink-0" />
+                <span>บริษัท สุพรภา จำกัด (เลขทะเบียน: 0105569013597)</span>
+              </div>
+              <div className="flex items-start gap-1.5">
+                <MapPin className="w-3.5 h-3.5 text-gray-400 shrink-0 mt-0.5" />
+                <span className="leading-snug">เลขที่ 25 ซอยริมทางด่วน 2 แขวงพระโขนงใต้ เขตพระโขนง กรุงเทพฯ 10260</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <Phone className="w-3.5 h-3.5 text-[#4A5D4E] shrink-0" />
+                <a href="tel:0653062263" className="font-semibold text-[#4A5D4E] hover:underline">
+                  โทร. 065-306-2263
+                </a>
+              </div>
+            </div>
+
+            <div className="pt-2 flex flex-wrap items-center gap-2">
               <a
                 href="https://line.me"
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 bg-[#06C755] hover:bg-[#05b34c] text-white rounded-lg font-medium text-xs transition-colors shadow-2xs"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#06C755] hover:bg-[#05b34c] text-white rounded-lg font-medium text-xs transition-colors shadow-2xs"
               >
-                <MessageCircle className="w-4 h-4" />
-                <span>ติดต่อผ่าน LINE Official: @konduangdee</span>
+                <MessageCircle className="w-3.5 h-3.5" />
+                <span>LINE: @konduangdee</span>
+              </a>
+              <a
+                href="tel:0653062263"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-[#D8D1C7] hover:border-[#4A5D4E] text-[#4A5D4E] rounded-lg font-medium text-xs transition-colors shadow-2xs"
+              >
+                <Phone className="w-3.5 h-3.5" />
+                <span>โทร 065-306-2263</span>
               </a>
             </div>
           </div>

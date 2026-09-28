@@ -280,12 +280,17 @@ export const INITIAL_SETTINGS: SystemSettings = {
   lineMessagingEnabled: true,
   paymentGatewayProvider: 'omise',
   paymentGatewayKey: 'pkey_test_5kdd991209348123',
-  bankAccountName: 'บจก. คนดวงดี 2025 อินเตอร์เนชั่นแนล (รอข้อมูลจากผู้ดูแล)',
-  bankAccountNumber: '098-7-65432-1',
-  bankName: 'ธนาคารกสิกรไทย สาขาสยามสแควร์',
-  promptPayId: '0105568012345',
+  bankAccountName: 'บริษัท สุพรภา จำกัด',
+  bankAccountNumber: '237-8-02627-2',
+  bankName: 'ธนาคารกสิกรไทย สาขาสุขุมวิท 101',
+  promptPayId: '0105569013597',
+  companyName: 'บริษัท สุพรภา จำกัด',
+  companyTaxId: '0105569013597',
+  address: 'เลขที่ 25 ซอยริมทางด่วน 2 แขวงพระโขนงใต้ เขตพระโขนง กรุงเทพมหานคร 10260',
+  phoneNumber: '065-306-2263',
+  googleMapsUrl: 'https://maps.google.com/?q=%E0%B8%9A%E0%B8%A3%E0%B8%B4%E0%B8%A9%E0%B8%B1%E0%B8%97+%E0%B8%AA%E0%B8%B8%E0%B8%9E%E0%B8%A3%E0%B8%A0%E0%B8%B2+%E0%B8%88%E0%B8%B3%E0%B8%81%E0%B8%B1%E0%B8%94+%E0%B9%80%E0%B8%A5%E0%B8%82%E0%B8%97%E0%B8%B5%E0%B9%88+25+%E0%B8%8b%E0%B8%AD%E0%B8%A2%E0%B8%A3%E0%B8%B4%E0%B8%A1%E0%B8%97%E0%B8%B2%E0%B8%87%E0%B8%94%E0%B9%88%E0%B8%A7%E0%B8%99+2+%E0%B9%81%E0%B8%82%E0%B8%A7%E0%B8%87%E0%B8%9E%E0%B8%A3%E0%B8%B0%E0%B9%82%E0%B8%82%E0%B8%99%E0%B8%87%E0%B9%83%E0%B8%95%E0%B9%89+%E0%B9%80%E0%B8%82%E0%B8%95%E0%B8%9E%E0%B8%A3%E0%B8%B0%E0%B9%82%E0%B8%82%E0%B8%99%E0%B8%87+%E0%B8%81%E0%B8%A3%E0%B8%B8%E0%B8%87%E0%B9%80%E0%B8%97%E0%B8%9E%E0%B8%A1%E0%B8%87%E0%B8%84%E0%B8%A5+10260',
   siteName: 'คนดวงดี 2025 | วัตถุมงคลและเครื่องประดับมงคลร่วมสมัย',
-  siteDescription: 'จำหน่ายเครื่องรางนำโชค วัตถุมงคล พระเครื่อง และเครื่องประดับร่วมสมัย ดีไซน์มินิมอลอบอุ่น พร้อมระบบตรวจสอบ Digital Certificate',
+  siteDescription: 'ดำเนินงานโดย บริษัท สุพรภา จำกัด จำหน่ายเครื่องรางนำโชค วัตถุมงคล พระเครื่อง และเครื่องประดับร่วมสมัย ดีไซน์มินิมอลอบอุ่น พร้อมระบบตรวจสอบ Digital Certificate',
 };
 
 export const INITIAL_AUDIT_LOGS: AuditLog[] = [

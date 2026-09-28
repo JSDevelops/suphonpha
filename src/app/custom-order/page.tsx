@@ -175,10 +175,17 @@ export default function CustomOrderPage() {
                 <MessageCircle className="w-4 h-4" />
                 <span>แจ้งรหัสคำขอนี้ผ่าน LINE Official</span>
               </a>
+              <a
+                href="tel:0653062263"
+                className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-white border border-[#D8D1C7] hover:border-[#4A5D4E] text-[#4A5D4E] text-xs font-semibold rounded-xl transition-colors shadow-2xs"
+              >
+                <Phone className="w-4 h-4" />
+                <span>โทรด่วน 065-306-2263</span>
+              </a>
               <button
                 type="button"
                 onClick={() => setSubmittedInquiryId(null)}
-                className="px-6 py-2.5 bg-[#F7F4EE] text-gray-700 hover:bg-[#E8EFEA] text-xs font-medium rounded-xl border border-[#E6E1D8] transition-colors"
+                className="px-5 py-2.5 bg-[#F7F4EE] text-gray-700 hover:bg-[#E8EFEA] text-xs font-medium rounded-xl border border-[#E6E1D8] transition-colors"
               >
                 ส่งคำขอเพิ่มเติม
               </button>

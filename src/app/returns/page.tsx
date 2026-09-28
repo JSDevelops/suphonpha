@@ -33,6 +33,17 @@ export default function ReturnsPage() {
             วัตถุมงคลและเครื่องประดับทุกชิ้นที่มีบัตรรับรอง Digital Certificate หากตรวจสอบพบว่ามวลสารไม่ตรงกับข้อมูลในบัตรรับรอง ทางร้านยินดีคืนเงินเต็มจำนวน 100%
           </p>
         </section>
+
+        <section className="space-y-2">
+          <h2 className="font-serif text-base font-semibold text-[#282522]">
+            3. ที่อยู่สำหรับการส่งเคลมหรือส่งคืนสินค้า
+          </h2>
+          <div className="p-4 bg-[#F7F4EE] rounded-xl text-xs space-y-1">
+            <p><strong>ผู้รับ:</strong> บริษัท สุพรภา จำกัด (แผนกบริการลูกค้า คนดวงดี 2025)</p>
+            <p><strong>ที่อยู่:</strong> เลขที่ 25 ซอยริมทางด่วน 2 แขวงพระโขนงใต้ เขตพระโขนง กรุงเทพมหานคร 10260</p>
+            <p><strong>โทรศัพท์:</strong> <a href="tel:0653062263" className="text-[#4A5D4E] font-medium hover:underline">065-306-2263</a> | LINE: @konduangdee</p>
+          </div>
+        </section>
       </div>
     </div>
   );

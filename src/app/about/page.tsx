@@ -3,7 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ShieldCheck, Sparkles, Heart, MessageCircle, Mail, Phone, MapPin } from 'lucide-react';
+import { ShieldCheck, Sparkles, Heart, MessageCircle, Mail, Phone, MapPin, Building2, CreditCard, ExternalLink } from 'lucide-react';
 
 export default function AboutPage() {
   return (
@@ -76,40 +76,102 @@ export default function AboutPage() {
       </div>
 
       {/* Contact & Support */}
-      <div className="p-8 bg-white rounded-3xl border border-[#E6E1D8] space-y-6">
-        <h3 className="font-serif text-xl font-medium text-[#282522]">ช่องทางติดต่อเรา</h3>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-xs text-[#5C5852]">
-          <div className="flex items-start gap-3">
-            <MessageCircle className="w-5 h-5 text-[#06C755] shrink-0 mt-0.5" />
-            <div>
-              <strong className="text-[#282522] block font-medium">LINE Official Account</strong>
-              <p>@konduangdee (มีเครื่องหมาย @)</p>
-              <span className="text-[11px] text-gray-400">ให้บริการทุกวัน เวลา 09:00 - 20:00 น.</span>
+      <div className="p-8 bg-white rounded-3xl border border-[#E6E1D8] space-y-8">
+        <div className="border-b border-[#E6E1D8] pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div>
+            <h3 className="font-serif text-xl font-medium text-[#282522]">ข้อมูลนิติบุคคลและช่องทางติดต่อ</h3>
+            <p className="text-xs text-[#8E8A83] mt-0.5">โปร่งใส ตรวจสอบได้ตามกฎหมายและระเบียบพาณิชย์อิเล็กทรอนิกส์</p>
+          </div>
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#E8EFEA] text-[#344537] rounded-full text-xs font-medium">
+            <Building2 className="w-3.5 h-3.5" />
+            <span>เลขนิติบุคคล: 0105569013597</span>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-xs text-[#5C5852]">
+          {/* Left Column: Direct Contacts */}
+          <div className="space-y-5">
+            <h4 className="font-semibold text-sm text-[#282522] flex items-center gap-2">
+              <Phone className="w-4 h-4 text-[#A98336]" />
+              ช่องทางติดต่อสอบถาม & บริการลูกค้า
+            </h4>
+
+            <div className="flex items-start gap-3">
+              <Phone className="w-5 h-5 text-[#4A5D4E] shrink-0 mt-0.5" />
+              <div>
+                <strong className="text-[#282522] block font-medium">เบอร์โทรศัพท์สายตรง</strong>
+                <a href="tel:0653062263" className="text-sm font-semibold text-[#4A5D4E] hover:underline">
+                  065-306-2263
+                </a>
+                <span className="text-[11px] text-gray-400 block mt-0.5">ฝ่ายบริการลูกค้าและประสานงานจัดส่ง</span>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-3">
+              <MessageCircle className="w-5 h-5 text-[#06C755] shrink-0 mt-0.5" />
+              <div>
+                <strong className="text-[#282522] block font-medium">LINE Official Account</strong>
+                <a 
+                  href="https://line.me" 
+                  target="_blank" 
+                  rel="noreferrer" 
+                  className="font-medium text-[#06C755] hover:underline"
+                >
+                  @konduangdee (มีเครื่องหมาย @)
+                </a>
+                <span className="text-[11px] text-gray-400 block mt-0.5">ให้บริการทุกวัน เวลา 09:00 - 20:00 น.</span>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-3">
+              <Mail className="w-5 h-5 text-[#4A5D4E] shrink-0 mt-0.5" />
+              <div>
+                <strong className="text-[#282522] block font-medium">อีเมลฝ่ายบริการลูกค้า</strong>
+                <a href="mailto:contact@konduangdee.com" className="text-gray-700 hover:underline">
+                  contact@konduangdee.com
+                </a>
+                <span className="text-[11px] text-gray-400 block mt-0.5">ตอบกลับภายใน 24 ชั่วโมงทำการ</span>
+              </div>
             </div>
           </div>
 
-          <div className="flex items-start gap-3">
-            <Mail className="w-5 h-5 text-[#4A5D4E] shrink-0 mt-0.5" />
-            <div>
-              <strong className="text-[#282522] block font-medium">อีเมลฝ่ายบริการลูกค้า</strong>
-              <p>contact@konduangdee.com</p>
-              <span className="text-[11px] text-gray-400">ตอบกลับภายใน 24 ชั่วโมงทำการ</span>
-            </div>
-          </div>
+          {/* Right Column: Company Address & Bank Account */}
+          <div className="space-y-5">
+            <h4 className="font-semibold text-sm text-[#282522] flex items-center gap-2">
+              <MapPin className="w-4 h-4 text-[#A98336]" />
+              ที่ตั้งสำนักงานจดทะเบียน (Location)
+            </h4>
 
-          <div className="flex items-start gap-3">
-            <Phone className="w-5 h-5 text-[#4A5D4E] shrink-0 mt-0.5" />
-            <div>
-              <strong className="text-[#282522] block font-medium">ฝ่ายประสานงานและจัดส่ง</strong>
-              <p>02-XXX-XXXX (รอข้อมูลจากผู้ดูแล)</p>
+            <div className="p-4 bg-[#F7F4EE] rounded-2xl border border-[#E6E1D8] space-y-2">
+              <div className="font-semibold text-[#282522]">บริษัท สุพรภา จำกัด</div>
+              <p className="text-xs text-[#5C5852] leading-relaxed">
+                เลขที่ 25 ซอยริมทางด่วน 2 แขวงพระโขนงใต้ เขตพระโขนง กรุงเทพมหานคร 10260
+              </p>
+              <div className="pt-2">
+                <a
+                  href="https://maps.google.com/?q=%E0%B8%9A%E0%B8%A3%E0%B8%B4%E0%B8%A9%E0%B8%B1%E0%B8%97+%E0%B8%AA%E0%B8%B8%E0%B8%9E%E0%B8%A3%E0%B8%A0%E0%B8%B2+%E0%B8%88%E0%B8%B3%E0%B8%81%E0%B8%B1%E0%B8%94+%E0%B9%80%E0%B8%A5%E0%B8%82%E0%B8%97%E0%B8%B5%E0%B9%88+25+%E0%B8%8b%E0%B8%AD%E0%B8%A2%E0%B8%A3%E0%B8%B4%E0%B8%A1%E0%B8%97%E0%B8%B2%E0%B8%87%E0%B8%94%E0%B9%88%E0%B8%A7%E0%B8%99+2+%E0%B9%81%E0%B8%82%E0%B8%A7%E0%B8%87%E0%B8%9E%E0%B8%A3%E0%B8%B0%E0%B9%82%E0%B8%82%E0%B8%99%E0%B8%87%E0%B9%83%E0%B8%95%E0%B9%89+%E0%B9%80%E0%B8%82%E0%B8%95%E0%B8%9E%E0%B8%A3%E0%B8%B0%E0%B9%82%E0%B8%82%E0%B8%99%E0%B8%87+%E0%B8%81%E0%B8%A3%E0%B8%B8%E0%B8%87%E0%B9%80%E0%B8%97%E0%B8%9E%E0%B8%A1%E0%B8%87%E0%B8%84%E0%B8%A5+10260"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-[#D8D1C7] hover:border-[#4A5D4E] text-[#4A5D4E] rounded-lg text-xs font-medium transition-colors shadow-2xs"
+                >
+                  <MapPin className="w-3.5 h-3.5" />
+                  <span>เปิดดูแผนที่ Google Maps</span>
+                  <ExternalLink className="w-3 h-3 text-gray-400" />
+                </a>
+              </div>
             </div>
-          </div>
 
-          <div className="flex items-start gap-3">
-            <MapPin className="w-5 h-5 text-[#4A5D4E] shrink-0 mt-0.5" />
-            <div>
-              <strong className="text-[#282522] block font-medium">ที่ตั้งสำนักงาน</strong>
-              <p>กรุงเทพมหานคร ประเทศไทย (รอข้อมูลจากผู้ดูแล)</p>
+            {/* Official Bank Account for Verification */}
+            <div className="p-4 bg-[#F9F4E8] rounded-2xl border border-[#C6A052]/30 space-y-2">
+              <h5 className="font-semibold text-xs text-[#282522] flex items-center gap-1.5">
+                <CreditCard className="w-4 h-4 text-[#A98336]" />
+                บัญชีธนาคารทางการของนิติบุคคล
+              </h5>
+              <div className="text-xs space-y-1 text-[#5C5852]">
+                <p>ธนาคาร: <strong className="text-[#282522]">ธนาคารกสิกรไทย สาขาสุขุมวิท 101</strong></p>
+                <p>เลขที่บัญชี: <strong className="text-[#4A5D4E] font-mono text-sm tracking-wider">237-8-02627-2</strong></p>
+                <p>ชื่อบัญชี: <strong className="text-[#282522]">บริษัท สุพรภา จำกัด</strong></p>
+              </div>
             </div>
           </div>
         </div>

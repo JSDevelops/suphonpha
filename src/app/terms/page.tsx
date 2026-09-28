@@ -42,6 +42,18 @@ export default function TermsPage() {
             บัตรรับรองดิจิทัลออกให้เฉพาะวัตถุมงคลที่มีหมายเลขกำกับตรงกับองค์จริง หากพบว่ามีการแก้ไข ดัดแปลง หรือปลอมแปลงรหัสรับรอง ทางร้านขอสงวนสิทธิ์ในการระงับสถานะ (Revoke) บัตรรับรองดังกล่าวทันที
           </p>
         </section>
+
+        <section className="space-y-2">
+          <h2 className="font-serif text-base font-semibold text-[#282522]">
+            4. ข้อมูลนิติบุคคลผู้ให้บริการ
+          </h2>
+          <div className="p-4 bg-[#F7F4EE] rounded-xl text-xs space-y-1.5">
+            <p><strong>ผู้ประกอบการ:</strong> บริษัท สุพรภา จำกัด</p>
+            <p><strong>เลขทะเบียนนิติบุคคล / ผู้เสียภาษี:</strong> 0105569013597</p>
+            <p><strong>สำนักงานตั้งอยู่เลขที่:</strong> 25 ซอยริมทางด่วน 2 แขวงพระโขนงใต้ เขตพระโขนง กรุงเทพมหานคร 10260</p>
+            <p><strong>เบอร์โทรศัพท์ติดต่อ:</strong> <a href="tel:0653062263" className="text-[#4A5D4E] font-medium hover:underline">065-306-2263</a></p>
+          </div>
+        </section>
       </div>
     </div>
   );

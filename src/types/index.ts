@@ -122,6 +122,11 @@ export interface SystemSettings {
   bankAccountNumber: string;
   bankName: string;
   promptPayId: string;
+  companyName: string;
+  companyTaxId: string;
+  address: string;
+  phoneNumber: string;
+  googleMapsUrl: string;
   siteName: string;
   siteDescription: string;
 }
