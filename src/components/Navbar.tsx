@@ -29,12 +29,12 @@ export function Navbar() {
 
   return (
     <>
-      {/* Complete Sticky Header (Top bar + Main Navigation Bar stays visible on scroll) */}
-      <header className="sticky top-0 z-40 shadow-xs transition-all">
+      {/* Complete Fixed Header (Top bar + Main Navigation Bar stays permanently visible on scroll) */}
+      <header className="fixed top-0 left-0 right-0 z-40 shadow-xs transition-all">
         {/* Top Notification Bar */}
-        <div className="bg-[#4A5D4E] text-white text-xs py-2 px-4 text-center tracking-wide font-light flex items-center justify-center gap-2">
-          <Sparkles className="w-3.5 h-3.5 text-[#C6A052]" />
-          <span>จัดส่งฟรีทั่วประเทศเมื่อสั่งซื้อครบ 999 บาท | รับประกันของแท้พร้อม Digital Certificate</span>
+        <div className="bg-[#4A5D4E] text-white text-[11px] sm:text-xs py-2 px-3 sm:px-4 text-center tracking-wide font-light flex items-center justify-center gap-2">
+          <Sparkles className="w-3.5 h-3.5 text-[#C6A052] shrink-0" />
+          <span className="truncate">จัดส่งฟรีทั่วประเทศเมื่อสั่งซื้อครบ 999 บาท | รับประกันของแท้พร้อม Digital Certificate</span>
         </div>
 
         {/* Main Navigation Menu Bar */}
@@ -233,6 +233,9 @@ export function Navbar() {
         )}
         </div>
       </header>
+
+      {/* Spacer to prevent content from slipping under fixed header */}
+      <div className="h-[112px] w-full shrink-0" aria-hidden="true" />
 
       {/* Search Modal */}
       {searchModalOpen && (
