@@ -26,6 +26,7 @@ export async function fetchGoogleSheetData(): Promise<SheetDataResponse> {
     const res = await fetch(GOOGLE_SHEET_API_URL, {
       method: 'GET',
       next: { revalidate: 60 }, // แคช 60 วินาทีตามโมเดล เพื่อประหยัดโควต้าและโหลดเร็ว
+      redirect: 'follow',
     });
 
     if (!res.ok) {
@@ -72,10 +73,35 @@ export async function fetchGoogleSheetData(): Promise<SheetDataResponse> {
         verificationCount: Number(c.verification_count || 1),
       }));
 
+      const rawOrders = json.data.orders || [];
+      const mappedOrders: Order[] = rawOrders.map((o: any, index: number) => {
+        const orderNum = o['เลขออเดอร์'] || o.order_number || o.orderNumber || `KDD-ORD-${index + 1}`;
+        const total = Number(o['ยอดสุทธิ (บาท)'] || o.total || 0);
+        return {
+          id: `sheet-ord-${index + 1}`,
+          orderNumber: orderNum,
+          customerName: o['ชื่อลูกค้า'] || o.customer_name || o.customerName || 'ลูกค้า',
+          customerEmail: o['อีเมล'] || o.customer_email || o.customerEmail || '',
+          customerPhone: String(o['เบอร์โทรศัพท์'] || o.customer_phone || o.customerPhone || ''),
+          shippingAddress: o['ที่อยู่จัดส่ง'] || o.shipping_address || o.shippingAddress || '',
+          items: [],
+          subtotal: total,
+          discount: 0,
+          shippingFee: 0,
+          total: total,
+          status: (o['สถานะ'] === 'สำเร็จ' ? 'completed' : o['สถานะ'] === 'จัดส่งแล้ว' ? 'shipping' : 'awaiting_review') as any,
+          paymentMethod: (o['วิธีชำระเงิน'] || 'bank_transfer') as any,
+          slipUrl: o['ลิงก์สลิปโอนเงิน'] || o.slip_url || undefined,
+          trackingNumber: o['เลขติดตามพัสดุ'] || o.tracking_number || undefined,
+          courierName: o['บริษัทขนส่ง'] || o.courier_name || undefined,
+          createdAt: o['วันที่เวลา'] || new Date().toISOString(),
+        };
+      });
+
       return {
         products: mappedProducts.length > 0 ? mappedProducts : INITIAL_PRODUCTS,
         certificates: mappedCerts.length > 0 ? mappedCerts : INITIAL_CERTIFICATES,
-        orders: json.data.orders || [],
+        orders: mappedOrders,
       };
     }
   } catch (error) {
@@ -102,7 +128,7 @@ export async function submitOrderToGoogleSheet(order: Order): Promise<{ success:
     const res = await fetch(GOOGLE_SHEET_API_URL, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'text/plain;charset=utf-8',
       },
       body: JSON.stringify({
         action: 'CREATE_ORDER',
@@ -119,6 +145,7 @@ export async function submitOrderToGoogleSheet(order: Order): Promise<{ success:
           status: order.status,
         },
       }),
+      redirect: 'follow',
     });
 
     const json = await res.json();
@@ -147,12 +174,13 @@ export async function submitCustomInquiryToGoogleSheet(
     const res = await fetch(GOOGLE_SHEET_API_URL, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'text/plain;charset=utf-8',
       },
       body: JSON.stringify({
         action: 'CUSTOM_INQUIRY',
         inquiry,
       }),
+      redirect: 'follow',
     });
 
     const json = await res.json();
