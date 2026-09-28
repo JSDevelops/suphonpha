@@ -1,26 +1,68 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --bg-cream: #F7F4EE;
+    --bg-surface: #FFFFFF;
+    --bg-card: #FDFBF8;
+    --bg-sand: #EFECE6;
+    --brand-sage: #4A5D4E;
+    --brand-sage-dark: #37473A;
+    --brand-sage-light: #E8EFEA;
+    --brand-gold: #C6A052;
+    --brand-gold-dark: #A98336;
+    --brand-gold-light: #F9F4E8;
+    --text-primary: #282522;
+    --text-secondary: #5C5852;
+    --text-muted: #8E8A83;
+    --border-warm: #E6E1D8;
+  }
+
+  body {
+    background-color: var(--bg-cream);
+    color: var(--text-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.glass-panel {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(230, 225, 216, 0.9);
 }
+
+.btn-sage {
+  background-color: #4A5D4E;
+  color: #FFFFFF;
+  transition: all 0.2s ease;
+}
+
+.btn-sage:hover {
+  background-color: #37473A;
+  box-shadow: 0 4px 12px rgba(74, 93, 78, 0.2);
+}
+
+.badge-cert {
+  background-color: #F9F4E8;
+  color: #A98336;
+  border: 1px solid rgba(198, 160, 82, 0.35);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: #F7F4EE;
+}
+::-webkit-scrollbar-thumb {
+  background: #D8D1C7;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #BFA995;
+}
+
