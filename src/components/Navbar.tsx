@@ -35,10 +35,10 @@ export function Navbar() {
         <span>จัดส่งฟรีทั่วประเทศเมื่อสั่งซื้อครบ 999 บาท | รับประกันของแท้พร้อม Digital Certificate</span>
       </div>
 
-      {/* Main Navigation */}
-      <header className="sticky top-0 z-40 bg-[#F7F4EE]/90 backdrop-blur-md border-b border-[#E6E1D8] transition-all">
+      {/* Main Navigation (Non-sticky, scrolls naturally with page) */}
+      <header className="relative z-40 bg-[#F7F4EE] border-b border-[#E6E1D8]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20">
+          <div className="flex items-center justify-between h-20 gap-4">
             {/* Mobile menu trigger */}
             <div className="flex items-center lg:hidden">
               <button
@@ -52,8 +52,8 @@ export function Navbar() {
             </div>
 
             {/* Brand Logo & Name */}
-            <div className="flex items-center gap-2 sm:gap-3 min-w-0">
-              <Link href="/" className="flex items-center gap-2 sm:gap-2.5 group min-w-0">
+            <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+              <Link href="/" className="flex items-center gap-2 sm:gap-2.5 group">
                 <div className="relative w-8 h-8 rounded-full overflow-hidden border border-[#C6A052]/40 shadow-xs shrink-0">
                   <Image
                     src="/images/logo.png"
@@ -62,49 +62,49 @@ export function Navbar() {
                     className="object-cover"
                   />
                 </div>
-                <div className="min-w-0">
-                  <span className="font-serif text-base sm:text-xl md:text-2xl font-normal tracking-wider text-[#282522] uppercase group-hover:text-[#4A5D4E] transition-colors block truncate">
+                <div className="shrink-0">
+                  <span className="font-serif text-base sm:text-xl lg:text-2xl font-normal tracking-wider text-[#282522] uppercase group-hover:text-[#4A5D4E] transition-colors whitespace-nowrap">
                     KON DUANG DEE 2025
                   </span>
-                  <span className="hidden sm:block text-[9px] tracking-widest text-[#8E8A83] uppercase -mt-1 font-sans truncate">
+                  <span className="hidden sm:block text-[9px] tracking-widest text-[#8E8A83] uppercase -mt-1 font-sans whitespace-nowrap">
                     SACRED AMULETS & CONTEMPORARY BLESSINGS
                   </span>
                 </div>
               </Link>
             </div>
 
-            {/* Desktop Navigation Links */}
-            <nav className="hidden lg:flex items-center space-x-8">
+            {/* Desktop Navigation Links (Clean, concise, and no word-wrapping) */}
+            <nav className="hidden lg:flex items-center space-x-4 xl:space-x-7 shrink-0">
               <Link
                 href="/shop"
-                className="text-sm font-medium tracking-wider text-[#282522] hover:text-[#4A5D4E] transition-colors uppercase"
+                className="text-xs xl:text-sm font-medium tracking-wide text-[#282522] hover:text-[#4A5D4E] transition-colors whitespace-nowrap"
               >
-                SHOP (สินค้าทั้งหมด)
+                สินค้าทั้งหมด
               </Link>
               <button
                 onClick={() => setCertModalOpen(true)}
-                className="flex items-center gap-1.5 text-sm font-medium tracking-wider text-[#282522] hover:text-[#4A5D4E] transition-colors uppercase"
+                className="flex items-center gap-1.5 text-xs xl:text-sm font-medium tracking-wide text-[#282522] hover:text-[#4A5D4E] transition-colors whitespace-nowrap"
               >
-                <ShieldCheck className="w-4 h-4 text-[#C6A052]" />
-                CERTIFICATE (ตรวจใบรับรอง)
+                <ShieldCheck className="w-4 h-4 text-[#C6A052] shrink-0" />
+                <span>ตรวจใบรับรอง</span>
               </button>
               <Link
-                href="/articles"
-                className="text-sm font-medium tracking-wider text-[#282522] hover:text-[#4A5D4E] transition-colors uppercase"
-              >
-                ARTICLES (บทความ)
-              </Link>
-              <Link
                 href="/custom-order"
-                className="text-sm font-medium tracking-wider text-[#A98336] hover:text-[#4A5D4E] transition-colors uppercase font-semibold"
+                className="text-xs xl:text-sm font-medium tracking-wide text-[#A98336] hover:text-[#4A5D4E] transition-colors font-semibold whitespace-nowrap"
               >
                 สั่งสร้างวัตถุมงคล
               </Link>
               <Link
-                href="/about"
-                className="text-sm font-medium tracking-wider text-[#282522] hover:text-[#4A5D4E] transition-colors uppercase"
+                href="/articles"
+                className="text-xs xl:text-sm font-medium tracking-wide text-[#282522] hover:text-[#4A5D4E] transition-colors whitespace-nowrap"
               >
-                ABOUT US (เกี่ยวกับเรา)
+                บทความน่ารู้
+              </Link>
+              <Link
+                href="/about"
+                className="text-xs xl:text-sm font-medium tracking-wide text-[#282522] hover:text-[#4A5D4E] transition-colors whitespace-nowrap"
+              >
+                เกี่ยวกับเรา
               </Link>
             </nav>
 
@@ -194,7 +194,7 @@ export function Navbar() {
               onClick={() => setMobileMenuOpen(false)}
               className="block text-base font-medium text-[#282522] hover:text-[#4A5D4E] py-2"
             >
-              SHOP (สินค้าทั้งหมด)
+              สินค้าทั้งหมด
             </Link>
             <button
               onClick={() => {
@@ -204,28 +204,28 @@ export function Navbar() {
               className="flex items-center gap-2 w-full text-left text-base font-medium text-[#282522] hover:text-[#4A5D4E] py-2"
             >
               <ShieldCheck className="w-5 h-5 text-[#C6A052]" />
-              CERTIFICATE (ตรวจใบรับรอง)
+              ตรวจใบรับรอง
             </button>
-            <Link
-              href="/articles"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block text-base font-medium text-[#282522] hover:text-[#4A5D4E] py-2"
-            >
-              ARTICLES (บทความและความรู้)
-            </Link>
             <Link
               href="/custom-order"
               onClick={() => setMobileMenuOpen(false)}
               className="block text-base font-medium text-[#A98336] hover:text-[#4A5D4E] py-2 font-semibold"
             >
-              สั่งสร้างวัตถุมงคลเฉพาะรุ่น
+              สั่งสร้างวัตถุมงคล
+            </Link>
+            <Link
+              href="/articles"
+              onClick={() => setMobileMenuOpen(false)}
+              className="block text-base font-medium text-[#282522] hover:text-[#4A5D4E] py-2"
+            >
+              บทความน่ารู้
             </Link>
             <Link
               href="/about"
               onClick={() => setMobileMenuOpen(false)}
               className="block text-base font-medium text-[#282522] hover:text-[#4A5D4E] py-2"
             >
-              ABOUT US (เกี่ยวกับเรา & นโยบาย)
+              เกี่ยวกับเรา
             </Link>
           </div>
         )}
