@@ -29,15 +29,17 @@ export function Navbar() {
 
   return (
     <>
-      {/* Top Notification Bar */}
-      <div className="bg-[#4A5D4E] text-white text-xs py-2 px-4 text-center tracking-wide font-light flex items-center justify-center gap-2">
-        <Sparkles className="w-3.5 h-3.5 text-[#C6A052]" />
-        <span>จัดส่งฟรีทั่วประเทศเมื่อสั่งซื้อครบ 999 บาท | รับประกันของแท้พร้อม Digital Certificate</span>
-      </div>
+      {/* Complete Sticky Header (Top bar + Main Navigation Bar stays visible on scroll) */}
+      <header className="sticky top-0 z-40 shadow-xs transition-all">
+        {/* Top Notification Bar */}
+        <div className="bg-[#4A5D4E] text-white text-xs py-2 px-4 text-center tracking-wide font-light flex items-center justify-center gap-2">
+          <Sparkles className="w-3.5 h-3.5 text-[#C6A052]" />
+          <span>จัดส่งฟรีทั่วประเทศเมื่อสั่งซื้อครบ 999 บาท | รับประกันของแท้พร้อม Digital Certificate</span>
+        </div>
 
-      {/* Main Navigation (Sticky Header - stays visible on scroll) */}
-      <header className="sticky top-0 z-40 bg-[#F7F4EE]/95 backdrop-blur-md shadow-xs border-b border-[#E6E1D8] transition-all">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Main Navigation Menu Bar */}
+        <div className="bg-[#F7F4EE]/95 backdrop-blur-md border-b border-[#E6E1D8]">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20 gap-4">
             {/* Mobile menu trigger */}
             <div className="flex items-center lg:hidden">
@@ -229,6 +231,7 @@ export function Navbar() {
             </Link>
           </div>
         )}
+        </div>
       </header>
 
       {/* Search Modal */}
