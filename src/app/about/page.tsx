@@ -26,12 +26,12 @@ export default function AboutPage() {
       </div>
 
       {/* Brand Image Banner */}
-      <div className="relative aspect-16/9 rounded-3xl overflow-hidden bg-[#E6E1D8] border border-[#E6E1D8] shadow-sm">
+      <div className="relative aspect-16/9 sm:aspect-21/9 rounded-3xl overflow-hidden bg-[#F3EFEA] border border-[#E6E1D8] shadow-sm">
         <Image
-          src="/images/hero-banner.jpg"
-          alt="คนดวงดี 2025 Authentic Spiritual Jewelry"
+          src="/images/drive/550047.jpg"
+          alt="สุพรภา Suphonpha - คนดวงดี 2025 Authentic Spiritual Jewelry"
           fill
-          className="object-cover"
+          className="object-contain p-4"
         />
       </div>
 

@@ -56,20 +56,21 @@ export function Navbar() {
             {/* Brand Logo & Name */}
             <div className="flex items-center gap-2 sm:gap-3 shrink-0">
               <Link href="/" className="flex items-center gap-2 sm:gap-2.5 group">
-                <div className="relative w-8 h-8 rounded-full overflow-hidden border border-[#C6A052]/40 shadow-xs shrink-0">
+                <div className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-full overflow-hidden border border-[#C6A052]/50 shadow-xs shrink-0 bg-white/70 p-1 flex items-center justify-center">
                   <Image
-                    src="/images/logo.png"
-                    alt="คนดวงดี 2025"
+                    src="/images/drive/logo-01.png"
+                    alt="สุพรภา Suphonpha - คนดวงดี 2025"
                     fill
-                    className="object-cover"
+                    className="object-contain p-0.5"
+                    priority
                   />
                 </div>
-                <div className="shrink-0">
-                  <span className="font-serif text-base sm:text-xl lg:text-2xl font-normal tracking-wider text-[#282522] uppercase group-hover:text-[#4A5D4E] transition-colors whitespace-nowrap">
-                    KON DUANG DEE 2025
+                <div className="shrink-0 flex flex-col justify-center">
+                  <span className="font-serif text-base sm:text-xl lg:text-2xl font-normal tracking-wider text-[#282522] uppercase group-hover:text-[#4A5D4E] transition-colors whitespace-nowrap leading-tight">
+                    SUPHONPHA
                   </span>
-                  <span className="hidden sm:block text-[9px] tracking-widest text-[#8E8A83] uppercase -mt-1 font-sans whitespace-nowrap">
-                    SACRED AMULETS & CONTEMPORARY BLESSINGS
+                  <span className="text-[9px] sm:text-[10px] tracking-widest text-[#A98336] uppercase font-sans whitespace-nowrap font-medium">
+                    คนดวงดี 2025
                   </span>
                 </div>
               </Link>

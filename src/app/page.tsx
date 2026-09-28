@@ -218,8 +218,8 @@ export default function HomePage() {
           >
             <div className="relative w-18 h-18 sm:w-20 sm:h-20 mx-auto mb-3 rounded-2xl overflow-hidden bg-[#F7F4EE] border border-[#E6E1D8] shadow-xs group-hover:shadow-md transition-shadow">
               <Image
-                src="/images/products/bracelet-prosperity.jpg"
-                alt="กำไลหินมงคล"
+                src="/images/drive/550048_0.jpg"
+                alt="กำไลหินมงคลแท้"
                 fill
                 className="object-cover group-hover:scale-110 group-hover:rotate-1 transition-transform duration-500"
               />
@@ -229,7 +229,7 @@ export default function HomePage() {
                 กำไลหินมงคลแท้
               </h3>
               <span className="inline-block mt-1 px-2.5 py-0.5 text-[11px] font-semibold text-[#A98336] bg-[#F9F4E8] rounded-full border border-[#C6A052]/30 shadow-2xs">
-                เริ่มต้น 1,990 บาท
+                เริ่มต้น 1,190 บาท
               </span>
             </div>
           </Link>
@@ -240,18 +240,18 @@ export default function HomePage() {
           >
             <div className="relative w-18 h-18 sm:w-20 sm:h-20 mx-auto mb-3 rounded-2xl overflow-hidden bg-[#F7F4EE] border border-[#E6E1D8] shadow-xs group-hover:shadow-md transition-shadow">
               <Image
-                src="/images/products/pendant-buddha.jpg"
-                alt="พระเครื่องและเหรียญพุทธคุณ"
+                src="/images/drive/550054_0.jpg"
+                alt="พระเครื่องและเทวรูปมงคล"
                 fill
                 className="object-cover group-hover:scale-110 group-hover:rotate-1 transition-transform duration-500"
               />
             </div>
             <div>
               <h3 className="font-serif text-sm font-medium text-[#282522] group-hover:text-[#4A5D4E] transition-colors">
-                พระเครื่องเลี่ยมทอง
+                พระเครื่องและเทวรูปมงคล
               </h3>
               <span className="inline-block mt-1 px-2.5 py-0.5 text-[11px] font-semibold text-[#A98336] bg-[#F9F4E8] rounded-full border border-[#C6A052]/30 shadow-2xs">
-                หลากหลายระดับราคา
+                ผ่านพิธีพุทธาภิเษกแท้
               </span>
             </div>
           </Link>
@@ -262,18 +262,18 @@ export default function HomePage() {
           >
             <div className="relative w-18 h-18 sm:w-20 sm:h-20 mx-auto mb-3 rounded-2xl overflow-hidden bg-[#F7F4EE] border border-[#E6E1D8] shadow-xs group-hover:shadow-md transition-shadow">
               <Image
-                src="/images/products/citrine-ring.jpg"
-                alt="แหวนอัญมณีมงคล"
+                src="/images/drive/550058_0.jpg"
+                alt="แหวนอัญมณีนพเก้า"
                 fill
                 className="object-cover group-hover:scale-110 group-hover:rotate-1 transition-transform duration-500"
               />
             </div>
             <div>
               <h3 className="font-serif text-sm font-medium text-[#282522] group-hover:text-[#4A5D4E] transition-colors">
-                แหวนอัญมณีเสริมดวง
+                แหวนอัญมณีนพเก้าแท้
               </h3>
               <span className="inline-block mt-1 px-2.5 py-0.5 text-[11px] font-semibold text-[#A98336] bg-[#F9F4E8] rounded-full border border-[#C6A052]/30 shadow-2xs">
-                พลอยแท้ธรรมชาติ
+                อัญมณี 9 ประการ
               </span>
             </div>
           </Link>

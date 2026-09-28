@@ -67,10 +67,16 @@ export const StoreDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   };
 
   const verifyCertificate = (code: string) => {
+    if (!code) return null;
     const clean = code.trim().toUpperCase();
-    const found = certificates.find(
-      (c) => c.certNumber.toUpperCase() === clean
-    );
+    const found = certificates.find((c) => {
+      const target = c.certNumber.toUpperCase();
+      return (
+        target === clean ||
+        target.replace(/^SPP-/, 'KDD-') === clean ||
+        target.replace(/^KDD-/, 'SPP-') === clean
+      );
+    });
     return found || null;
   };
 

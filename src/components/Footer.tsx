@@ -116,17 +116,22 @@ export function Footer() {
             <div className="snap-center shrink-0 w-[calc(100vw-2rem)] max-w-[360px] bg-white rounded-2xl p-5 border border-[#E6E1D8] shadow-xs flex flex-col justify-between space-y-4">
               <div className="space-y-3">
                 <div className="flex items-center gap-2.5">
-                  <div className="relative w-8 h-8 rounded-full overflow-hidden border border-[#C6A052]">
+                  <div className="relative w-9 h-9 rounded-full overflow-hidden border border-[#C6A052] bg-white/80 p-0.5 shadow-2xs">
                     <Image
-                      src="/images/logo.png"
-                      alt="คนดวงดี 2025"
+                      src="/images/drive/logo-01.png"
+                      alt="สุพรภา Suphonpha - คนดวงดี 2025"
                       fill
-                      className="object-cover"
+                      className="object-contain p-0.5"
                     />
                   </div>
-                  <span className="font-serif text-base font-semibold text-[#282522] tracking-wider">
-                    KON DUANG DEE 2025
-                  </span>
+                  <div>
+                    <span className="font-serif text-base font-semibold text-[#282522] tracking-wider block leading-tight">
+                      SUPHONPHA
+                    </span>
+                    <span className="text-[10px] text-[#A98336] font-medium tracking-wide">
+                      คนดวงดี 2025
+                    </span>
+                  </div>
                 </div>
                 <p className="text-xs text-[#635F59] leading-relaxed">
                   แพลตฟอร์มจำหน่ายเครื่องรางนำโชค วัตถุมงคล พระเครื่อง และของเก่ามงคลร่วมสมัย ดำเนินงานถูกต้องตามกฎหมาย พร้อมระบบตรวจสอบ Digital Certificate ทุกชิ้น
@@ -317,17 +322,22 @@ export function Footer() {
           {/* Brand Intro */}
           <div className="md:col-span-2 space-y-4">
             <div className="flex items-center gap-2.5">
-              <div className="relative w-8 h-8 rounded-full overflow-hidden border border-[#C6A052]">
+              <div className="relative w-9 h-9 rounded-full overflow-hidden border border-[#C6A052] bg-white/80 p-0.5 shadow-2xs">
                 <Image
-                  src="/images/logo.png"
-                  alt="คนดวงดี 2025"
+                  src="/images/drive/logo-01.png"
+                  alt="สุพรภา Suphonpha - คนดวงดี 2025"
                   fill
-                  className="object-cover"
+                  className="object-contain p-0.5"
                 />
               </div>
-              <span className="font-serif text-lg font-medium text-[#282522] tracking-wider">
-                KON DUANG DEE 2025
-              </span>
+              <div>
+                <span className="font-serif text-lg font-semibold text-[#282522] tracking-wider block leading-tight">
+                  SUPHONPHA
+                </span>
+                <span className="text-[10px] text-[#A98336] font-medium tracking-wide">
+                  คนดวงดี 2025
+                </span>
+              </div>
             </div>
             <p className="text-xs text-[#635F59] leading-relaxed max-w-sm">
               แพลตฟอร์มจำหน่ายเครื่องรางนำโชค วัตถุมงคล พระเครื่อง และของเก่ามงคลร่วมสมัย ดำเนินงานถูกต้องตามกฎหมาย พร้อมระบบตรวจสอบ Digital Certificate ทุกชิ้น
