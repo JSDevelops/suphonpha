@@ -165,11 +165,6 @@ export function Footer() {
                   ข้อกำหนดและเงื่อนไขการสั่งซื้อ
                 </Link>
               </li>
-              <li>
-                <Link href="/admin" className="text-gray-400 hover:text-gray-700 transition-colors">
-                  เข้าสู่ระบบ Admin Panel
-                </Link>
-              </li>
             </ul>
           </div>
         </div>

@@ -20,7 +20,7 @@ import { CertificateModal } from './CertificateModal';
 
 export function Navbar() {
   const { itemCount, setIsCartOpen } = useCart();
-  const { user, isAdmin, switchRoleForTesting, logout } = useAuth();
+  const { user, logout } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchModalOpen, setSearchModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -100,14 +100,6 @@ export function Navbar() {
               >
                 ABOUT US (เกี่ยวกับเรา)
               </Link>
-              {isAdmin && (
-                <Link
-                  href="/admin"
-                  className="inline-flex items-center gap-1 px-3 py-1 text-xs font-semibold tracking-wider text-white bg-[#4A5D4E] rounded-full hover:bg-[#37473A] transition-colors shadow-xs"
-                >
-                  ADMIN PANEL
-                </Link>
-              )}
             </nav>
 
             {/* Header Right Action Icons */}
@@ -154,42 +146,6 @@ export function Navbar() {
                     >
                       จัดการบัญชี & ประวัติคำสั่งซื้อ
                     </Link>
-
-                    {isAdmin && (
-                      <Link
-                        href="/admin"
-                        className="block px-4 py-2 text-[#4A5D4E] font-medium hover:bg-[#F7F4EE]"
-                        onClick={() => setUserDropdownOpen(false)}
-                      >
-                        ระบบหลังบ้าน (Admin Panel)
-                      </Link>
-                    )}
-
-                    <div className="border-t border-gray-100 mt-1 pt-1 px-4 py-1">
-                      <p className="text-[10px] text-gray-400 mb-1">ทดสอบเปลี่ยนสิทธิ์ (Dev Tool):</p>
-                      <div className="flex gap-1">
-                        <button
-                          onClick={() => switchRoleForTesting('customer')}
-                          className={`px-2 py-0.5 text-[10px] rounded border ${
-                            user?.role === 'customer'
-                              ? 'bg-[#4A5D4E] text-white border-[#4A5D4E]'
-                              : 'bg-gray-50 text-gray-600'
-                          }`}
-                        >
-                          Customer
-                        </button>
-                        <button
-                          onClick={() => switchRoleForTesting('admin')}
-                          className={`px-2 py-0.5 text-[10px] rounded border ${
-                            user?.role === 'admin'
-                              ? 'bg-[#4A5D4E] text-white border-[#4A5D4E]'
-                              : 'bg-gray-50 text-gray-600'
-                          }`}
-                        >
-                          Admin
-                        </button>
-                      </div>
-                    </div>
 
                     <div className="border-t border-gray-100 mt-1 pt-1">
                       <button
@@ -258,15 +214,6 @@ export function Navbar() {
             >
               ABOUT US (เกี่ยวกับเรา & นโยบาย)
             </Link>
-            {isAdmin && (
-              <Link
-                href="/admin"
-                onClick={() => setMobileMenuOpen(false)}
-                className="block text-base font-medium text-white bg-[#4A5D4E] px-4 py-2 rounded-lg text-center"
-              >
-                ระบบจัดการหลังบ้าน (Admin Panel)
-              </Link>
-            )}
           </div>
         )}
       </header>

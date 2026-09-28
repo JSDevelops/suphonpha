@@ -9,10 +9,7 @@ interface AuthContextType {
   loginWithPhoneOtp: (phone: string, otp: string) => Promise<{ success: boolean; message?: string }>;
   loginWithLine: () => Promise<{ success: boolean; message?: string }>;
   logout: () => void;
-  switchRoleForTesting: (role: UserRole) => void;
   isAuthenticated: boolean;
-  isAdmin: boolean;
-  isEditor: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -109,20 +106,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     localStorage.removeItem('kdd_user');
   };
 
-  const switchRoleForTesting = (role: UserRole) => {
-    if (!user) return;
-    const updated: User = {
-      ...user,
-      role,
-      name: role === 'super_admin' || role === 'admin' ? 'ผู้ดูแลระบบ (Admin)' : user.name,
-    };
-    setUser(updated);
-    localStorage.setItem('kdd_user', JSON.stringify(updated));
-  };
-
   const isAuthenticated = !!user;
-  const isAdmin = user?.role === 'admin' || user?.role === 'super_admin';
-  const isEditor = isAdmin || user?.role === 'editor';
 
   return (
     <AuthContext.Provider
@@ -132,10 +116,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         loginWithPhoneOtp,
         loginWithLine,
         logout,
-        switchRoleForTesting,
         isAuthenticated,
-        isAdmin,
-        isEditor,
       }}
     >
       {children}
