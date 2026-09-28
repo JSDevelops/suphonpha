@@ -128,3 +128,42 @@ export async function submitOrderToGoogleSheet(order: Order): Promise<{ success:
     return { success: false, message: err.message };
   }
 }
+
+/**
+ * ส่งคำขอสั่งสร้าง / สั่งจองวัตถุมงคลไปยัง Google Sheet (แท็บ CustomInquiries)
+ */
+export async function submitCustomInquiryToGoogleSheet(
+  inquiry: any
+): Promise<{ success: boolean; message?: string; inquiryId?: string }> {
+  if (!GOOGLE_SHEET_API_URL) {
+    return {
+      success: true,
+      message: 'บันทึกคำขอสั่งสร้างเรียบร้อย (ระบบจะจัดเก็บในชีตเมื่อตั้งค่า URL)',
+      inquiryId: `INQ-LOCAL-${Date.now()}`,
+    };
+  }
+
+  try {
+    const res = await fetch(GOOGLE_SHEET_API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        action: 'CUSTOM_INQUIRY',
+        inquiry,
+      }),
+    });
+
+    const json = await res.json();
+    return {
+      success: json.status === 'success',
+      message: json.message,
+      inquiryId: json.inquiryId,
+    };
+  } catch (err: any) {
+    console.error('Error submitting custom inquiry to Google Sheet:', err);
+    return { success: false, message: err.message };
+  }
+}
+

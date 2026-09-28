@@ -262,6 +262,33 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* 4.5 CUSTOM SACRED COMMISSIONS & PRE-ORDER BANNER */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative rounded-3xl overflow-hidden bg-white border border-[#E6E1D8] p-8 sm:p-12 shadow-xs flex flex-col md:flex-row items-center justify-between gap-8">
+          <div className="space-y-3 max-w-xl">
+            <span className="text-xs font-semibold tracking-widest text-[#A98336] uppercase">
+              SPECIAL COMMISSIONS & PRE-ORDERS
+            </span>
+            <h2 className="font-serif text-2xl sm:text-3xl font-medium text-[#282522] leading-snug">
+              บริการสั่งสร้างวัตถุมงคลเฉพาะรุ่น & สั่งจองล่วงหน้า
+            </h2>
+            <p className="text-xs sm:text-sm text-[#5C5852] font-light leading-relaxed">
+              สำหรับวัด, องค์กร, หน่วยงาน หรือคณะศรัทธา ที่ต้องการจัดสร้างวัตถุมงคลเฉพาะกิจ พุทธศิลป์ประณีต พร้อมคัดสรรและผสมมวลสารแท้ ประสานงานพิธีพุทธาภิเษก และออกบัตร Digital Certificate ประจำองค์
+            </p>
+          </div>
+
+          <div className="shrink-0 flex flex-col sm:flex-row items-center gap-3">
+            <Link
+              href="/custom-order"
+              className="px-8 py-3.5 bg-[#4A5D4E] hover:bg-[#37473A] text-white text-xs sm:text-sm font-semibold tracking-wider uppercase rounded-xl transition-all shadow-md hover:shadow-lg inline-flex items-center gap-2"
+            >
+              <span>ปรึกษาและสั่งสร้างวัตถุมงคล</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* 5. ARTICLES & KNOWLEDGE SECTION */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">

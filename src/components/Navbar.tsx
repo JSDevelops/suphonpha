@@ -95,6 +95,12 @@ export function Navbar() {
                 ARTICLES (บทความ)
               </Link>
               <Link
+                href="/custom-order"
+                className="text-sm font-medium tracking-wider text-[#A98336] hover:text-[#4A5D4E] transition-colors uppercase font-semibold"
+              >
+                สั่งสร้างวัตถุมงคล
+              </Link>
+              <Link
                 href="/about"
                 className="text-sm font-medium tracking-wider text-[#282522] hover:text-[#4A5D4E] transition-colors uppercase"
               >
@@ -206,6 +212,13 @@ export function Navbar() {
               className="block text-base font-medium text-[#282522] hover:text-[#4A5D4E] py-2"
             >
               ARTICLES (บทความและความรู้)
+            </Link>
+            <Link
+              href="/custom-order"
+              onClick={() => setMobileMenuOpen(false)}
+              className="block text-base font-medium text-[#A98336] hover:text-[#4A5D4E] py-2 font-semibold"
+            >
+              สั่งสร้างวัตถุมงคลเฉพาะรุ่น
             </Link>
             <Link
               href="/about"

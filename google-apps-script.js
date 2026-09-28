@@ -116,6 +116,54 @@ function doPost(e) {
       })).setMimeType(ContentService.MimeType.JSON);
     }
 
+    // 2. จัดการคำขอสั่งสร้าง / สั่งจองวัตถุมงคล (Custom Amulet / Pre-Order)
+    if (action === 'CUSTOM_INQUIRY') {
+      let inquirySheet = ss.getSheetByName('CustomInquiries');
+      if (!inquirySheet) {
+        inquirySheet = ss.insertSheet('CustomInquiries');
+        inquirySheet.appendRow([
+          'วันที่เวลา',
+          'รหัสคำขอสั่งสร้าง',
+          'ชื่อผู้ติดต่อ/องค์กร',
+          'เบอร์โทรศัพท์',
+          'LINE ID',
+          'อีเมล',
+          'ประเภทวัตถุมงคล',
+          'จำนวนที่ต้องการ (ชิ้น)',
+          'งบประมาณโดยประมาณ',
+          'มวลสารที่มี/ต้องการผสม',
+          'ความประสงค์ด้านพิธี',
+          'รายละเอียดแบบพุทธศิลป์',
+          'สถานะดำเนินการ'
+        ]);
+      }
+
+      const inquiry = postData.inquiry || {};
+      const inquiryId = 'INQ-' + Utilities.formatDate(new Date(), 'GMT+7', 'yyyyMMdd-HHmmss');
+
+      inquirySheet.appendRow([
+        new Date().toLocaleString('th-TH', { timeZone: 'Asia/Bangkok' }),
+        inquiryId,
+        inquiry.contactName || '',
+        inquiry.phone || '',
+        inquiry.lineId || '',
+        inquiry.email || '',
+        inquiry.amuletType || '',
+        inquiry.quantity || '',
+        inquiry.budget || '',
+        inquiry.materials || '',
+        inquiry.ceremonyNeeds || '',
+        inquiry.details || '',
+        'รอเจ้าหน้าที่ติดต่อกลับ'
+      ]);
+
+      return ContentService.createTextOutput(JSON.stringify({
+        status: 'success',
+        message: 'บันทึกคำขอสั่งสร้างวัตถุมงคลลง Google Sheet เรียบร้อยแล้ว',
+        inquiryId: inquiryId
+      })).setMimeType(ContentService.MimeType.JSON);
+    }
+
     return ContentService.createTextOutput(JSON.stringify({
       status: 'error',
       message: 'Unknown action'

@@ -134,3 +134,19 @@ export interface AuditLog {
   details: string;
   ipAddress: string;
 }
+
+export interface CustomInquiry {
+  id?: string;
+  contactName: string;
+  phone: string;
+  lineId: string;
+  email?: string;
+  amuletType: string;
+  quantity: string;
+  budget?: string;
+  materials?: string;
+  ceremonyNeeds?: string;
+  details: string;
+  createdAt?: string;
+}
+

@@ -134,6 +134,11 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/custom-order" className="text-[#A98336] font-medium hover:underline">
+                  สั่งสร้างวัตถุมงคลเฉพาะรุ่น
+                </Link>
+              </li>
+              <li>
                 <Link href="/shipping" className="hover:text-[#4A5D4E] transition-colors">
                   นโยบายการจัดส่งสินค้า
                 </Link>
