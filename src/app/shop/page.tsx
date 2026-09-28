@@ -70,10 +70,10 @@ function ShopContent() {
             <button
               key={c.id}
               onClick={() => setSelectedCategory(c.id)}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-all ${
+              className={`px-4 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition-all duration-200 cursor-pointer ${
                 selectedCategory === c.id
-                  ? 'bg-[#4A5D4E] text-white shadow-xs'
-                  : 'bg-[#F7F4EE] text-[#5C5852] hover:bg-[#E8EFEA] hover:text-[#4A5D4E]'
+                  ? 'btn-3d-sage text-white shadow-md'
+                  : 'bg-[#F7F4EE] hover:bg-white text-[#5C5852] hover:text-[#4A5D4E] border border-[#E6E1D8] hover:border-[#C6A052] hover:shadow-xs hover:-translate-y-0.5 active:translate-y-0'
               }`}
             >
               {c.label}

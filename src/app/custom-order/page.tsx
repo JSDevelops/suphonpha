@@ -397,7 +397,7 @@ export default function CustomOrderPage() {
               <button
                 type="submit"
                 disabled={submitting}
-                className="w-full py-4 bg-[#4A5D4E] hover:bg-[#37473A] text-white text-xs sm:text-sm font-semibold tracking-wider uppercase rounded-xl transition-all shadow-md disabled:opacity-50 flex items-center justify-center gap-2"
+                className="btn-3d-sage w-full py-4 text-xs sm:text-sm font-semibold tracking-wider uppercase rounded-xl disabled:opacity-50 flex items-center justify-center gap-2 touch-target"
               >
                 {submitting ? (
                   <span>กำลังบันทึกข้อมูลเข้า Google Sheet...</span>

@@ -242,11 +242,11 @@ export function CartDrawer() {
                 </div>
               </div>
 
-              {/* Checkout Action Button */}
+              {/* Checkout Action Button with 3D tactile elevation */}
               <Link
                 href="/checkout"
                 onClick={() => setIsCartOpen(false)}
-                className="w-full flex items-center justify-center gap-2 py-3 bg-[#4A5D4E] hover:bg-[#37473A] text-white text-xs font-semibold tracking-wider rounded-lg transition-colors shadow-xs"
+                className="btn-3d-sage w-full flex items-center justify-center gap-2 py-3.5 text-xs font-semibold tracking-wider rounded-xl uppercase touch-target"
               >
                 <span>ดำเนินการชำระเงิน</span>
                 <ArrowRight className="w-4 h-4" />

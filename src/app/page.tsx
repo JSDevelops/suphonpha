@@ -128,32 +128,40 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Right Hero Image Column with Interactive Floating Card */}
-            <div className="lg:col-span-6 relative aspect-4/3 sm:aspect-16/10 lg:aspect-auto lg:h-[560px] w-full bg-[#E6E1D8] overflow-hidden group">
-              <Image
-                src="/images/hero-banner.jpg"
-                alt="Sacred Buddha Pendant on Sandstone"
-                fill
-                priority
-                className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-                sizes="(max-width: 1024px) 100vw, 50vw"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent pointer-events-none" />
+            {/* Right Hero Image Column with 3D Floating Sacred Amulet (No Background & Mystical Aura) */}
+            <div className="lg:col-span-6 relative aspect-square sm:aspect-4/3 lg:aspect-auto lg:h-[580px] w-full flex items-center justify-center overflow-hidden bg-radial from-[#FAF8F5] via-[#EFECE6]/60 to-transparent">
+              {/* Mystical Golden Aura Halo & Radiance Rings */}
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <div className="w-[340px] h-[340px] sm:w-[460px] sm:h-[460px] rounded-full bg-radial from-[#C6A052]/25 via-[#C6A052]/8 to-transparent blur-2xl animate-pulse-aura" />
+                <div className="w-[240px] h-[240px] sm:w-[320px] sm:h-[320px] rounded-full border border-[#C6A052]/25 animate-ping [animation-duration:5s] opacity-30" />
+              </div>
+
+              {/* 3D Sacred Floating Amulet (Gentle Levitation) */}
+              <div className="relative w-[300px] h-[300px] sm:w-[380px] sm:h-[380px] lg:w-[440px] lg:h-[440px] animate-float-sacred drop-shadow-[0_25px_35px_rgba(74,93,78,0.2)] hover:drop-shadow-[0_30px_45px_rgba(198,160,82,0.35)] transition-all duration-500 cursor-pointer">
+                <Image
+                  src="/images/hero-sacred-3d.jpg"
+                  alt="พระพุทธชินราชเลี่ยมทองคำแท้ 3D มิติ มวลสารศักดิ์สิทธิ์"
+                  fill
+                  priority
+                  className="object-contain select-none"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
+              </div>
 
               {/* Floating Interactive 3D Certificate Preview Badge */}
               <button
                 type="button"
                 onClick={() => handleOpenCert('KDD-2025-00101')}
-                className="absolute bottom-5 left-5 right-5 sm:right-auto bg-white/90 hover:bg-white backdrop-blur-md p-3.5 sm:p-4 rounded-2xl border border-white/80 hover:border-[#C6A052] shadow-xl hover:shadow-2xl hover:-translate-y-1.5 active:translate-y-0 transition-all duration-300 text-left cursor-pointer group/badge"
+                className="absolute bottom-5 left-5 right-5 sm:right-auto bg-white/95 hover:bg-white backdrop-blur-md p-3.5 sm:p-4 rounded-2xl border border-white/90 hover:border-[#C6A052] shadow-[0_10px_25px_rgba(40,37,34,0.08),0_2px_0_0_#C5BEB3] hover:shadow-[0_16px_32px_rgba(198,160,82,0.25),0_3px_0_0_#B38E3F] hover:-translate-y-1.5 active:translate-y-0 transition-all duration-300 text-left cursor-pointer group/badge z-20"
               >
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#F9F4E8] to-[#EFECE6] flex items-center justify-center text-[#C6A052] shrink-0 border border-[#C6A052]/30 shadow-xs group-hover/badge:scale-110 transition-transform">
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#F9F4E8] to-[#EFECE6] flex items-center justify-center text-[#C6A052] shrink-0 border border-[#C6A052]/30 shadow-xs group-hover/badge:scale-115 transition-transform duration-300">
                     <ShieldCheck className="w-5 h-5 text-[#C6A052]" />
                   </div>
                   <div>
                     <div className="flex items-center gap-2">
-                      <span className="text-xs font-bold text-[#282522]">พระสมเด็จเลี่ยมทองคำแท้</span>
-                      <span className="inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                      <span className="text-xs font-bold text-[#282522]">พระพุทธชินราชเลี่ยมทองคำแท้</span>
+                      <span className="inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 shadow-2xs">
                         <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1 animate-pulse" />
                         ของแท้
                       </span>
@@ -170,7 +178,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 2. CATEGORIES HIGHLIGHT (Including 99 THB Sticker) */}
+      {/* 2. CATEGORIES HIGHLIGHT (3D Tactile Cards) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-xl mx-auto mb-8">
           <span className="text-[11px] tracking-widest text-[#8E8A83] uppercase font-semibold">
@@ -184,74 +192,90 @@ export default function HomePage() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
           <Link
             href="/shop?cat=sticker"
-            className="group p-5 bg-white rounded-2xl border border-[#E6E1D8] hover:border-[#C6A052] transition-all duration-300 hover:shadow-md text-center"
+            className="card-3d group p-5 text-center flex flex-col items-center justify-between"
           >
-            <div className="relative w-16 h-16 mx-auto mb-3 rounded-xl overflow-hidden bg-[#F7F4EE]">
+            <div className="relative w-18 h-18 sm:w-20 sm:h-20 mx-auto mb-3 rounded-2xl overflow-hidden bg-[#F7F4EE] border border-[#E6E1D8] shadow-xs group-hover:shadow-md transition-shadow">
               <Image
                 src="/images/products/yantra-sticker.jpg"
                 alt="สติ๊กเกอร์ยันต์มงคล"
                 fill
-                className="object-cover group-hover:scale-110 transition-transform duration-300"
+                className="object-cover group-hover:scale-110 group-hover:rotate-1 transition-transform duration-500"
               />
             </div>
-            <h3 className="font-serif text-sm font-medium text-[#282522] group-hover:text-[#4A5D4E] transition-colors">
-              สติ๊กเกอร์ยันต์มงคล
-            </h3>
-            <p className="text-[11px] text-[#A98336] font-medium mt-1">เริ่มต้นเพียง 99 บาท</p>
+            <div>
+              <h3 className="font-serif text-sm font-medium text-[#282522] group-hover:text-[#4A5D4E] transition-colors">
+                สติ๊กเกอร์ยันต์มงคล
+              </h3>
+              <span className="inline-block mt-1 px-2.5 py-0.5 text-[11px] font-semibold text-[#A98336] bg-[#F9F4E8] rounded-full border border-[#C6A052]/30 shadow-2xs">
+                เริ่มต้นเพียง 99 บาท
+              </span>
+            </div>
           </Link>
 
           <Link
             href="/shop?cat=bracelet"
-            className="group p-5 bg-white rounded-2xl border border-[#E6E1D8] hover:border-[#C6A052] transition-all duration-300 hover:shadow-md text-center"
+            className="card-3d group p-5 text-center flex flex-col items-center justify-between"
           >
-            <div className="relative w-16 h-16 mx-auto mb-3 rounded-xl overflow-hidden bg-[#F7F4EE]">
+            <div className="relative w-18 h-18 sm:w-20 sm:h-20 mx-auto mb-3 rounded-2xl overflow-hidden bg-[#F7F4EE] border border-[#E6E1D8] shadow-xs group-hover:shadow-md transition-shadow">
               <Image
                 src="/images/products/bracelet-prosperity.jpg"
                 alt="กำไลหินมงคล"
                 fill
-                className="object-cover group-hover:scale-110 transition-transform duration-300"
+                className="object-cover group-hover:scale-110 group-hover:rotate-1 transition-transform duration-500"
               />
             </div>
-            <h3 className="font-serif text-sm font-medium text-[#282522] group-hover:text-[#4A5D4E] transition-colors">
-              กำไลหินมงคลแท้
-            </h3>
-            <p className="text-[11px] text-[#A98336] font-medium mt-1">เริ่มต้น 1,990 บาท</p>
+            <div>
+              <h3 className="font-serif text-sm font-medium text-[#282522] group-hover:text-[#4A5D4E] transition-colors">
+                กำไลหินมงคลแท้
+              </h3>
+              <span className="inline-block mt-1 px-2.5 py-0.5 text-[11px] font-semibold text-[#A98336] bg-[#F9F4E8] rounded-full border border-[#C6A052]/30 shadow-2xs">
+                เริ่มต้น 1,990 บาท
+              </span>
+            </div>
           </Link>
 
           <Link
             href="/shop?cat=amulet"
-            className="group p-5 bg-white rounded-2xl border border-[#E6E1D8] hover:border-[#C6A052] transition-all duration-300 hover:shadow-md text-center"
+            className="card-3d group p-5 text-center flex flex-col items-center justify-between"
           >
-            <div className="relative w-16 h-16 mx-auto mb-3 rounded-xl overflow-hidden bg-[#F7F4EE]">
+            <div className="relative w-18 h-18 sm:w-20 sm:h-20 mx-auto mb-3 rounded-2xl overflow-hidden bg-[#F7F4EE] border border-[#E6E1D8] shadow-xs group-hover:shadow-md transition-shadow">
               <Image
                 src="/images/products/pendant-buddha.jpg"
                 alt="พระเครื่องและเหรียญพุทธคุณ"
                 fill
-                className="object-cover group-hover:scale-110 transition-transform duration-300"
+                className="object-cover group-hover:scale-110 group-hover:rotate-1 transition-transform duration-500"
               />
             </div>
-            <h3 className="font-serif text-sm font-medium text-[#282522] group-hover:text-[#4A5D4E] transition-colors">
-              พระเครื่องเลี่ยมทอง
-            </h3>
-            <p className="text-[11px] text-[#A98336] font-medium mt-1">หลากหลายระดับราคา</p>
+            <div>
+              <h3 className="font-serif text-sm font-medium text-[#282522] group-hover:text-[#4A5D4E] transition-colors">
+                พระเครื่องเลี่ยมทอง
+              </h3>
+              <span className="inline-block mt-1 px-2.5 py-0.5 text-[11px] font-semibold text-[#A98336] bg-[#F9F4E8] rounded-full border border-[#C6A052]/30 shadow-2xs">
+                หลากหลายระดับราคา
+              </span>
+            </div>
           </Link>
 
           <Link
             href="/shop?cat=ring"
-            className="group p-5 bg-white rounded-2xl border border-[#E6E1D8] hover:border-[#C6A052] transition-all duration-300 hover:shadow-md text-center"
+            className="card-3d group p-5 text-center flex flex-col items-center justify-between"
           >
-            <div className="relative w-16 h-16 mx-auto mb-3 rounded-xl overflow-hidden bg-[#F7F4EE]">
+            <div className="relative w-18 h-18 sm:w-20 sm:h-20 mx-auto mb-3 rounded-2xl overflow-hidden bg-[#F7F4EE] border border-[#E6E1D8] shadow-xs group-hover:shadow-md transition-shadow">
               <Image
                 src="/images/products/citrine-ring.jpg"
                 alt="แหวนอัญมณีมงคล"
                 fill
-                className="object-cover group-hover:scale-110 transition-transform duration-300"
+                className="object-cover group-hover:scale-110 group-hover:rotate-1 transition-transform duration-500"
               />
             </div>
-            <h3 className="font-serif text-sm font-medium text-[#282522] group-hover:text-[#4A5D4E] transition-colors">
-              แหวนอัญมณีเสริมดวง
-            </h3>
-            <p className="text-[11px] text-[#A98336] font-medium mt-1">พลอยแท้ธรรมชาติ</p>
+            <div>
+              <h3 className="font-serif text-sm font-medium text-[#282522] group-hover:text-[#4A5D4E] transition-colors">
+                แหวนอัญมณีเสริมดวง
+              </h3>
+              <span className="inline-block mt-1 px-2.5 py-0.5 text-[11px] font-semibold text-[#A98336] bg-[#F9F4E8] rounded-full border border-[#C6A052]/30 shadow-2xs">
+                พลอยแท้ธรรมชาติ
+              </span>
+            </div>
           </Link>
         </div>
       </section>
@@ -269,10 +293,10 @@ export default function HomePage() {
           </div>
           <Link
             href="/shop"
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#4A5D4E] hover:text-[#37473A] transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#4A5D4E] hover:text-[#37473A] group transition-colors"
           >
             <span>ดูสินค้าทั้งหมดในร้าน ({products.length})</span>
-            <ArrowRight className="w-4 h-4" />
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
 
@@ -288,11 +312,14 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 4. DIGITAL CERTIFICATE VERIFICATION BANNER */}
+      {/* 4. DIGITAL CERTIFICATE VERIFICATION BANNER (3D Interactive Form) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-[#4A5D4E] to-[#37473A] text-white p-8 sm:p-12 shadow-xl border border-[#C6A052]/30">
-          <div className="max-w-2xl space-y-4">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-[#C6A052] text-xs font-medium border border-[#C6A052]/30">
+          {/* Subtle Golden Ray in Background */}
+          <div className="absolute -right-20 -top-20 w-80 h-80 rounded-full bg-[#C6A052]/20 blur-3xl pointer-events-none" />
+
+          <div className="max-w-2xl space-y-4 relative z-10">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-[#C6A052] text-xs font-medium border border-[#C6A052]/30 shadow-2xs">
               <ShieldCheck className="w-4 h-4" />
               <span>ความโปร่งใสและมาตรฐานความแท้</span>
             </div>
@@ -303,34 +330,36 @@ export default function HomePage() {
               วัตถุมงคลทุกชิ้นจากคนดวงดี 2025 จะมีรหัสกำกับเฉพาะองค์และ QR Code เพื่อให้คุณสามารถตรวจสอบมวลสาร ขนาด วันที่ออกบัตร และสถานะความถูกต้องได้ตลอดเวลา
             </p>
 
-            {/* Quick Verify Form */}
+            {/* Quick Verify Form with 3D Button */}
             <form onSubmit={handleVerifySubmit} className="pt-3 flex flex-col sm:flex-row gap-2 max-w-lg">
               <div className="relative flex-1">
-                <Search className="absolute left-3.5 top-3 w-4 h-4 text-gray-400" />
+                <Search className="absolute left-3.5 top-3.5 w-4 h-4 text-gray-400" />
                 <input
                   type="text"
                   placeholder="กรอกรหัสบัตร เช่น KDD-2025-00101"
                   value={verifyInput}
                   onChange={(e) => setVerifyInput(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 bg-white text-[#282522] rounded-xl text-xs sm:text-sm focus:outline-hidden font-mono shadow-md"
+                  className="w-full pl-10 pr-4 py-3 bg-white text-[#282522] rounded-xl text-xs sm:text-sm focus:outline-hidden font-mono shadow-md border border-[#E6E1D8]"
                 />
               </div>
               <button
                 type="submit"
-                className="px-6 py-3 bg-[#C6A052] hover:bg-[#b38f42] text-white font-semibold text-xs sm:text-sm rounded-xl transition-all shadow-md shrink-0"
+                className="btn-3d-gold px-7 py-3 text-xs sm:text-sm font-semibold tracking-wider rounded-xl uppercase inline-flex items-center justify-center gap-1.5 touch-target"
               >
-                ตรวจสอบทันที
+                <span>ตรวจสอบทันที</span>
+                <ArrowRight className="w-4 h-4" />
               </button>
             </form>
           </div>
         </div>
       </section>
 
-      {/* 4.5 CUSTOM SACRED COMMISSIONS & PRE-ORDER BANNER */}
+      {/* 4.5 CUSTOM SACRED COMMISSIONS & PRE-ORDER BANNER (3D Card) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative rounded-3xl overflow-hidden bg-white border border-[#E6E1D8] p-8 sm:p-12 shadow-xs flex flex-col md:flex-row items-center justify-between gap-8">
+        <div className="card-3d p-8 sm:p-12 flex flex-col md:flex-row items-center justify-between gap-8 border-[#C6A052]/30 bg-gradient-to-r from-white via-[#FCFAF7] to-[#F9F5EE]">
           <div className="space-y-3 max-w-xl">
-            <span className="text-xs font-semibold tracking-widest text-[#A98336] uppercase">
+            <span className="text-xs font-semibold tracking-widest text-[#A98336] uppercase flex items-center gap-2">
+              <Sparkles className="w-3.5 h-3.5 text-[#C6A052]" />
               SPECIAL COMMISSIONS & PRE-ORDERS
             </span>
             <h2 className="font-serif text-2xl sm:text-3xl font-medium text-[#282522] leading-snug">
@@ -344,7 +373,7 @@ export default function HomePage() {
           <div className="shrink-0 flex flex-col sm:flex-row items-center gap-3">
             <Link
               href="/custom-order"
-              className="px-8 py-3.5 bg-[#4A5D4E] hover:bg-[#37473A] text-white text-xs sm:text-sm font-semibold tracking-wider uppercase rounded-xl transition-all shadow-md hover:shadow-lg inline-flex items-center gap-2"
+              className="btn-3d-sage px-8 py-3.5 text-xs sm:text-sm font-semibold tracking-wider uppercase rounded-xl inline-flex items-center gap-2 touch-target"
             >
               <span>ปรึกษาและสั่งสร้างวัตถุมงคล</span>
               <ArrowRight className="w-4 h-4" />
@@ -378,7 +407,7 @@ export default function HomePage() {
             <Link
               key={art.id}
               href="/articles"
-              className="group flex flex-col sm:flex-row gap-5 p-5 bg-white rounded-2xl border border-[#E6E1D8] hover:border-[#C6A052]/50 transition-all hover:shadow-md"
+              className="card-3d group flex flex-col sm:flex-row gap-5 p-5 transition-all duration-300"
             >
               <div className="relative w-full sm:w-44 h-44 shrink-0 rounded-xl overflow-hidden bg-[#F7F4EE]">
                 <Image
