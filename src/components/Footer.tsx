@@ -10,7 +10,7 @@ export function Footer() {
     <footer className="bg-[#EFECE6] border-t border-[#E6E1D8] text-[#5C5852] text-xs pt-16 pb-12">
       {/* 4 Guarantees Badges */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 border-b border-[#D8D1C7]">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-[#4A5D4E] shadow-2xs">
               <ShieldCheck className="w-5 h-5 text-[#C6A052]" />

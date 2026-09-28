@@ -170,7 +170,7 @@ export function CartDrawer() {
 
           {/* Footer & Checkout */}
           {items.length > 0 && (
-            <div className="p-5 bg-white border-t border-[#E6E1D8] space-y-3.5">
+            <div className="p-5 bg-white border-t border-[#E6E1D8] space-y-3.5 safe-bottom">
               {/* Promo code field */}
               {promoCode ? (
                 <div className="flex items-center justify-between p-2.5 bg-[#E8EFEA] rounded-lg text-xs">

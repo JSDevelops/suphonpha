@@ -1,5 +1,5 @@
-import type { Metadata } from 'next';
-import { Cinzel, Sarabun } from 'next/font/google';
+import type { Metadata, Viewport } from 'next';
+import { Cinzel, Sarabun, Noto_Serif_Thai } from 'next/font/google';
 import './globals.css';
 import { Providers } from '@/components/Providers';
 import { Navbar } from '@/components/Navbar';
@@ -12,12 +12,27 @@ const cinzel = Cinzel({
   display: 'swap',
 });
 
+const notoSerifThai = Noto_Serif_Thai({
+  variable: '--font-thai-serif',
+  subsets: ['thai'],
+  weight: ['400', '500', '600', '700'],
+  display: 'swap',
+});
+
 const sarabun = Sarabun({
   variable: '--font-thai',
   subsets: ['thai', 'latin'],
   weight: ['300', '400', '500', '600'],
   display: 'swap',
 });
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  viewportFit: 'cover',
+  themeColor: '#4A5D4E',
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://konduangdee2025.com'),
@@ -48,7 +63,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="th" className={`${cinzel.variable} ${sarabun.variable} h-full antialiased`}>
+    <html lang="th" className={`${cinzel.variable} ${notoSerifThai.variable} ${sarabun.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-[#F7F4EE] text-[#282522]">
         <Providers>
           <Navbar />

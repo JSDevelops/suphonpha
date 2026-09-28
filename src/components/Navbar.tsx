@@ -44,7 +44,7 @@ export function Navbar() {
               <button
                 type="button"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="p-2 text-[#282522] hover:text-[#4A5D4E] transition-colors"
+                className="p-2.5 touch-target text-[#282522] hover:text-[#4A5D4E] transition-colors"
                 aria-label="Open mobile menu"
               >
                 {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -52,9 +52,9 @@ export function Navbar() {
             </div>
 
             {/* Brand Logo & Name */}
-            <div className="flex items-center gap-3">
-              <Link href="/" className="flex items-center gap-2.5 group">
-                <div className="relative w-8 h-8 rounded-full overflow-hidden border border-[#C6A052]/40 shadow-xs">
+            <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+              <Link href="/" className="flex items-center gap-2 sm:gap-2.5 group min-w-0">
+                <div className="relative w-8 h-8 rounded-full overflow-hidden border border-[#C6A052]/40 shadow-xs shrink-0">
                   <Image
                     src="/images/logo.png"
                     alt="คนดวงดี 2025"
@@ -62,11 +62,11 @@ export function Navbar() {
                     className="object-cover"
                   />
                 </div>
-                <div>
-                  <span className="font-serif text-xl sm:text-2xl font-normal tracking-wider text-[#282522] uppercase group-hover:text-[#4A5D4E] transition-colors">
+                <div className="min-w-0">
+                  <span className="font-serif text-base sm:text-xl md:text-2xl font-normal tracking-wider text-[#282522] uppercase group-hover:text-[#4A5D4E] transition-colors block truncate">
                     KON DUANG DEE 2025
                   </span>
-                  <span className="hidden sm:block text-[9px] tracking-widest text-[#8E8A83] uppercase -mt-1 font-sans">
+                  <span className="hidden sm:block text-[9px] tracking-widest text-[#8E8A83] uppercase -mt-1 font-sans truncate">
                     SACRED AMULETS & CONTEMPORARY BLESSINGS
                   </span>
                 </div>
@@ -109,12 +109,12 @@ export function Navbar() {
             </nav>
 
             {/* Header Right Action Icons */}
-            <div className="flex items-center space-x-3 sm:space-x-5">
+            <div className="flex items-center space-x-1 sm:space-x-3">
               {/* Search Button */}
               <button
                 type="button"
                 onClick={() => setSearchModalOpen(true)}
-                className="p-2 text-[#282522] hover:text-[#4A5D4E] transition-colors"
+                className="p-2 touch-target text-[#282522] hover:text-[#4A5D4E] transition-colors"
                 aria-label="Search items"
               >
                 <Search className="w-5 h-5" />
@@ -125,7 +125,7 @@ export function Navbar() {
                 <button
                   type="button"
                   onClick={() => setUserDropdownOpen(!userDropdownOpen)}
-                  className="flex items-center gap-1 p-2 text-[#282522] hover:text-[#4A5D4E] transition-colors"
+                  className="flex items-center gap-1 p-2 touch-target text-[#282522] hover:text-[#4A5D4E] transition-colors"
                   aria-label="User Account"
                 >
                   <User className="w-5 h-5" />
@@ -172,7 +172,7 @@ export function Navbar() {
               <button
                 type="button"
                 onClick={() => setIsCartOpen(true)}
-                className="relative p-2 text-[#282522] hover:text-[#4A5D4E] transition-colors"
+                className="relative p-2 touch-target text-[#282522] hover:text-[#4A5D4E] transition-colors"
                 aria-label="Shopping Cart"
               >
                 <ShoppingBag className="w-5 h-5" />

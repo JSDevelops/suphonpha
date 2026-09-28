@@ -82,7 +82,7 @@ function ShopContent() {
         </div>
 
         {/* Search & Sort Controls */}
-        <div className="flex items-center gap-3 w-full md:w-auto">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3 w-full md:w-auto">
           <div className="relative flex-1 md:w-64">
             <Search className="absolute left-3 top-2.5 w-4 h-4 text-gray-400" />
             <input
@@ -90,16 +90,16 @@ function ShopContent() {
               placeholder="ค้นหาชื่อ หรือ SKU..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-3 py-1.5 text-xs bg-[#F7F4EE] border border-gray-200 rounded-lg focus:outline-hidden focus:border-[#4A5D4E]"
+              className="w-full pl-9 pr-3 py-2 text-xs bg-[#F7F4EE] border border-gray-200 rounded-lg focus:outline-hidden focus:border-[#4A5D4E]"
             />
           </div>
 
           <div className="flex items-center gap-1.5 shrink-0">
-            <ArrowUpDown className="w-4 h-4 text-gray-400" />
+            <ArrowUpDown className="w-4 h-4 text-gray-400 shrink-0" />
             <select
               value={priceSort}
               onChange={(e) => setPriceSort(e.target.value as any)}
-              className="text-xs bg-[#F7F4EE] border border-gray-200 rounded-lg px-2.5 py-1.5 focus:outline-hidden text-[#5C5852]"
+              className="w-full sm:w-auto text-xs bg-[#F7F4EE] border border-gray-200 rounded-lg px-3 py-2 focus:outline-hidden text-[#5C5852]"
             >
               <option value="default">เรียงตามความนิยม</option>
               <option value="asc">ราคา: ต่ำไปสูง</option>

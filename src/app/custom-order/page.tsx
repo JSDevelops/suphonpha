@@ -428,7 +428,7 @@ export default function CustomOrderPage() {
           href="https://line.me"
           target="_blank"
           rel="noreferrer"
-          className="shrink-0 px-4 py-2 bg-[#06C755] hover:bg-[#05b34c] text-white rounded-lg font-medium text-xs flex items-center gap-1.5 transition-colors"
+          className="w-full sm:w-auto shrink-0 px-5 py-2.5 bg-[#06C755] hover:bg-[#05b34c] text-white rounded-xl font-medium text-xs flex items-center justify-center gap-1.5 transition-colors shadow-2xs touch-target"
         >
           <MessageCircle className="w-4 h-4" />
           <span>คุยกับช่างผ่าน LINE</span>

@@ -50,7 +50,7 @@ export default function ProductDetailPage() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-28 sm:pb-12 space-y-10">
       {/* Breadcrumb */}
       <nav className="flex items-center gap-1.5 text-xs text-[#8E8A83]">
         <Link href="/" className="hover:text-[#4A5D4E]">หน้าแรก</Link>
@@ -234,6 +234,35 @@ export default function ProductDetailPage() {
         onClose={() => setCertModalOpen(false)}
         initialCode={product.certificateCode}
       />
+
+      {/* Mobile Sticky Bottom Action Bar */}
+      <div className="sm:hidden fixed bottom-0 left-0 right-0 z-30 bg-white/95 backdrop-blur-md border-t border-[#E6E1D8] p-3 shadow-lg safe-bottom">
+        <div className="flex items-center gap-3">
+          <div className="flex flex-col min-w-[80px]">
+            <span className="text-[10px] text-gray-400">ราคาบูชา</span>
+            <span className="font-serif text-base font-bold text-[#4A5D4E] leading-tight">
+              ฿{price.toLocaleString()}
+            </span>
+          </div>
+          <div className="flex-1 flex gap-2">
+            <button
+              type="button"
+              onClick={handleAddToCart}
+              className="w-11 h-11 bg-[#F7F4EE] hover:bg-[#E8EFEA] text-[#4A5D4E] border border-[#E6E1D8] rounded-xl flex items-center justify-center shrink-0 transition-colors"
+              aria-label="เพิ่มลงในตะกร้า"
+            >
+              {addedToast ? <Check className="w-5 h-5 text-green-600" /> : <ShoppingBag className="w-5 h-5" />}
+            </button>
+            <button
+              type="button"
+              onClick={handleBuyNow}
+              className="flex-1 py-3 px-4 bg-[#4A5D4E] hover:bg-[#37473A] text-white font-semibold text-xs rounded-xl shadow-md flex items-center justify-center transition-colors"
+            >
+              <span>สั่งซื้อทันที (Buy Now)</span>
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

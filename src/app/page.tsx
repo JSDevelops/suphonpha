@@ -55,12 +55,12 @@ export default function HomePage() {
                 วัตถุมงคลและเครื่องประดับสายมูร่วมสมัย ตรวจสอบที่มาได้ทุกชิ้น
               </p>
 
-              <div className="flex flex-wrap items-center gap-4 pt-2">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
                 <Link
                   href="/shop"
-                  className="px-8 py-3.5 bg-[#4A5D4E] hover:bg-[#37473A] text-white text-xs sm:text-sm font-semibold tracking-wider uppercase rounded-lg transition-all shadow-md hover:shadow-lg inline-flex items-center gap-2"
+                  className="w-full sm:w-auto px-8 py-3.5 bg-[#4A5D4E] hover:bg-[#37473A] text-white text-xs sm:text-sm font-semibold tracking-wider uppercase rounded-xl transition-all shadow-md hover:shadow-lg inline-flex items-center justify-center gap-2 touch-target"
                 >
-                  <span>SHOP</span>
+                  <span>เลือกชมสินค้าทั้งหมด</span>
                   <ArrowRight className="w-4 h-4" />
                 </Link>
 
@@ -70,7 +70,7 @@ export default function HomePage() {
                     setSelectedCertCode('KDD-2025-00101');
                     setCertModalOpen(true);
                   }}
-                  className="px-6 py-3.5 bg-white hover:bg-[#FDFBF8] text-[#4A5D4E] text-xs sm:text-sm font-medium border border-[#E6E1D8] rounded-lg transition-all shadow-2xs inline-flex items-center gap-2"
+                  className="w-full sm:w-auto px-6 py-3.5 bg-white hover:bg-[#FDFBF8] text-[#4A5D4E] text-xs sm:text-sm font-medium border border-[#E6E1D8] rounded-xl transition-all shadow-2xs inline-flex items-center justify-center gap-2 touch-target"
                 >
                   <ShieldCheck className="w-4 h-4 text-[#C6A052]" />
                   <span>ตรวจสอบ Certificate</span>
