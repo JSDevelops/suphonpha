@@ -1,6 +1,6 @@
 import React from 'react';
 import { Metadata } from 'next';
-import Image from 'next/image';
+import Image from '@/components/SafeImage';
 import Link from 'next/link';
 import { ShieldCheck, Sparkles, Heart, MessageCircle, Mail, Phone, MapPin, Building2, CreditCard, ExternalLink } from 'lucide-react';
 

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import Image from 'next/image';
+import Image from '@/components/SafeImage';
 import { useStoreData } from '@/context/StoreDataContext';
 import { Article } from '@/types';
 import { BookOpen, Calendar, User, X, Clock, ArrowRight } from 'lucide-react';

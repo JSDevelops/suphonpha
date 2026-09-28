@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import Image from 'next/image';
+import Image from '@/components/SafeImage';
 import { useStoreData } from '@/context/StoreDataContext';
 import { Certificate } from '@/types';
 import { X, ShieldCheck, CheckCircle2, AlertTriangle, Search, QrCode, Calendar, Award } from 'lucide-react';

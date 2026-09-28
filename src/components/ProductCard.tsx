@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
+import Image from '@/components/SafeImage';
 import { Product } from '@/types';
 import { useCart } from '@/context/CartContext';
 import { ShoppingBag, ShieldCheck, Check } from 'lucide-react';
