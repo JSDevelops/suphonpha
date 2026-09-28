@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "deploy": "NEXT_PUBLIC_BASE_PATH=/suphonpha npm run build && npx gh-pages -d out -b gh-pages --dotfiles"
   },
   "dependencies": {
     "lucide-react": "^1.48.0",
