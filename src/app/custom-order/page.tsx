@@ -14,6 +14,7 @@ import {
   HelpCircle,
   Phone,
 } from 'lucide-react';
+import { submitCustomInquiryToGoogleSheet } from '@/lib/googleSheets';
 
 export default function CustomOrderPage() {
   const [contactName, setContactName] = useState('');
@@ -42,30 +43,23 @@ export default function CustomOrderPage() {
     setErrorMessage('');
 
     try {
-      const res = await fetch('/api/sheet/custom-inquiry', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          inquiry: {
-            contactName,
-            phone,
-            lineId,
-            email,
-            amuletType,
-            quantity,
-            budget,
-            materials,
-            ceremonyNeeds,
-            details,
-          },
-        }),
+      const res = await submitCustomInquiryToGoogleSheet({
+        contactName,
+        phone,
+        lineId,
+        email,
+        amuletType,
+        quantity,
+        budget,
+        materials,
+        ceremonyNeeds,
+        details,
       });
 
-      const json = await res.json();
-      if (json.success) {
-        setSubmittedInquiryId(json.inquiryId || `INQ-${Date.now().toString().slice(-6)}`);
+      if (res.success) {
+        setSubmittedInquiryId(res.inquiryId || `INQ-${Date.now().toString().slice(-6)}`);
       } else {
-        setErrorMessage(json.message || 'เกิดข้อผิดพลาดในการส่งข้อมูล โปรดลองอีกครั้ง');
+        setErrorMessage(res.message || 'เกิดข้อผิดพลาดในการส่งข้อมูล โปรดลองอีกครั้ง');
       }
     } catch {
       // Fallback local inquiry ID if offline

@@ -1,70 +1,56 @@
-import { describe, it, expect, vi } from 'vitest';
-import { GET as getSync } from '@/app/api/sheet/sync/route';
-import { POST as postOrder } from '@/app/api/sheet/order/route';
-import { POST as postInquiry } from '@/app/api/sheet/custom-inquiry/route';
+import { describe, it, expect } from 'vitest';
+import {
+  fetchGoogleSheetData,
+  submitOrderToGoogleSheet,
+  submitCustomInquiryToGoogleSheet,
+} from '@/lib/googleSheets';
 
-describe('Next.js API Routes Unit Tests', () => {
-  describe('GET /api/sheet/sync', () => {
-    it('returns 200 with products, certificates, and orders', async () => {
-      const response = await getSync();
-      expect(response.status).toBe(200);
-
-      const json = await response.json();
-      expect(json.status).toBe('success');
-      expect(json.data).toBeDefined();
-      expect(Array.isArray(json.data.products)).toBe(true);
-      expect(Array.isArray(json.data.certificates)).toBe(true);
+describe('Google Sheets Direct Client Unit Tests', () => {
+  describe('fetchGoogleSheetData', () => {
+    it('returns products, certificates, and orders with fallbacks', async () => {
+      const data = await fetchGoogleSheetData();
+      expect(data).toBeDefined();
+      expect(Array.isArray(data.products)).toBe(true);
+      expect(data.products.length).toBeGreaterThan(0);
+      expect(Array.isArray(data.certificates)).toBe(true);
+      expect(data.certificates.length).toBeGreaterThan(0);
     });
   });
 
-  describe('POST /api/sheet/order', () => {
-    it('successfully processes order submission request', async () => {
-      const mockReq = new Request('http://localhost:3000/api/sheet/order', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          order: {
-            orderNumber: 'KDD-ORD-TEST-99',
-            customerName: 'คุณทดสอบ ระบบ',
-            customerPhone: '065-306-2263',
-            items: [],
-            total: 1590,
-            status: 'pending',
-          },
-        }),
+  describe('submitOrderToGoogleSheet', () => {
+    it('successfully processes order submission', async () => {
+      const result = await submitOrderToGoogleSheet({
+        id: 'ord-test-unit',
+        orderNumber: 'KDD-ORD-UNIT-99',
+        customerName: 'คุณทดสอบ ระบบ',
+        customerPhone: '065-306-2263',
+        customerEmail: 'test@example.com',
+        shippingAddress: '123 กทม.',
+        items: [],
+        subtotal: 1590,
+        discount: 0,
+        shippingFee: 0,
+        total: 1590,
+        status: 'awaiting_review',
+        paymentMethod: 'bank_transfer',
+        createdAt: new Date().toISOString(),
       });
-
-      const response = await postOrder(mockReq);
-      expect(response.status).toBe(200);
-
-      const json = await response.json();
-      expect(json.success).toBe(true);
+      expect(result.success).toBe(true);
     });
   });
 
-  describe('POST /api/sheet/custom-inquiry', () => {
+  describe('submitCustomInquiryToGoogleSheet', () => {
     it('successfully processes custom amulet inquiry submission', async () => {
-      const mockReq = new Request('http://localhost:3000/api/sheet/custom-inquiry', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          inquiry: {
-            contactName: 'คุณศรัทธา มงคลยิ่ง',
-            phone: '065-306-2263',
-            lineId: 'sattha_line',
-            amuletType: 'พระผงพุทธคุณ',
-            quantity: '1,000 องค์',
-            budget: '80,000 บาท',
-          },
-        }),
+      const result = await submitCustomInquiryToGoogleSheet({
+        contactName: 'คุณศรัทธา มงคลยิ่ง',
+        phone: '065-306-2263',
+        lineId: 'sattha_line',
+        amuletType: 'พระผงพุทธคุณ',
+        quantity: '1,000 องค์',
+        budget: '80,000 บาท',
       });
-
-      const response = await postInquiry(mockReq);
-      expect(response.status).toBe(200);
-
-      const json = await response.json();
-      expect(json.success).toBe(true);
-      expect(json.inquiryId).toBeDefined();
+      expect(result.success).toBe(true);
+      expect(result.inquiryId).toBeDefined();
     });
   });
 });

@@ -9,6 +9,7 @@ import {
   INITIAL_ARTICLES,
   INITIAL_SETTINGS,
 } from '@/data/mockData';
+import { fetchGoogleSheetData, submitOrderToGoogleSheet } from '@/lib/googleSheets';
 
 interface StoreDataContextType {
   products: Product[];
@@ -37,16 +38,10 @@ export const StoreDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   useEffect(() => {
     async function loadData() {
       try {
-        // 1. Try fetching live data from Google Sheet API endpoint
-        const res = await fetch('/api/sheet/sync');
-        if (res.ok) {
-          const json = await res.json();
-          if (json.status === 'success' && json.data) {
-            if (json.data.products?.length > 0) setProducts(json.data.products);
-            if (json.data.certificates?.length > 0) setCertificates(json.data.certificates);
-            if (json.data.orders?.length > 0) setOrders(json.data.orders);
-          }
-        }
+        const sheetData = await fetchGoogleSheetData();
+        if (sheetData.products?.length > 0) setProducts(sheetData.products);
+        if (sheetData.certificates?.length > 0) setCertificates(sheetData.certificates);
+        if (sheetData.orders?.length > 0) setOrders(sheetData.orders);
       } catch (err) {
         console.warn('Using local starter data:', err);
       } finally {
@@ -60,14 +55,10 @@ export const StoreDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   const refreshFromGoogleSheet = async () => {
     setIsLoading(true);
     try {
-      const res = await fetch('/api/sheet/sync');
-      if (res.ok) {
-        const json = await res.json();
-        if (json.data) {
-          if (json.data.products?.length > 0) setProducts(json.data.products);
-          if (json.data.certificates?.length > 0) setCertificates(json.data.certificates);
-        }
-      }
+      const sheetData = await fetchGoogleSheetData();
+      if (sheetData.products?.length > 0) setProducts(sheetData.products);
+      if (sheetData.certificates?.length > 0) setCertificates(sheetData.certificates);
+      if (sheetData.orders?.length > 0) setOrders(sheetData.orders);
     } catch (e) {
       console.error('Failed to refresh from Google Sheet:', e);
     } finally {
@@ -96,13 +87,9 @@ export const StoreDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     // 1. Update local state
     setOrders((prev) => [newOrder, ...prev]);
 
-    // 2. Post directly to Google Sheet via API
+    // 2. Post directly to Google Sheet
     try {
-      await fetch('/api/sheet/order', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ order: newOrder }),
-      });
+      await submitOrderToGoogleSheet(newOrder);
     } catch (e) {
       console.warn('Order saved locally, failed to sync with remote sheet:', e);
     }
