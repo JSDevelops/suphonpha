@@ -1,0 +1,21 @@
+{
+  "name": "คนดวงดี 2025 | วัตถุมงคลและเครื่องประดับมงคลร่วมสมัย",
+  "short_name": "คนดวงดี",
+  "description": "ร้านวัตถุมงคล พระเครื่อง เครื่องรางนำโชค และเครื่องประดับสายมูร่วมสมัย พร้อมระบบตรวจสอบ Digital Certificate แท้ทุกชิ้น",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#F7F4EE",
+  "theme_color": "#4A5D4E",
+  "icons": [
+    {
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

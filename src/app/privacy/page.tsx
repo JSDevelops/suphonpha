@@ -1,8 +1,12 @@
-'use client';
-
 import React from 'react';
+import { Metadata } from 'next';
 import Link from 'next/link';
 import { ShieldCheck, Lock, Eye, FileText } from 'lucide-react';
+
+export const metadata: Metadata = {
+  title: 'นโยบายความเป็นส่วนตัว (PDPA Privacy Policy)',
+  description: 'นโยบายการคุ้มครองข้อมูลส่วนบุคคล (PDPA) ของร้าน คนดวงดี 2025 ความโปร่งใสและการเก็บรักษาข้อมูลลูกค้า',
+};
 
 export default function PrivacyPage() {
   return (

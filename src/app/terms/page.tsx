@@ -1,6 +1,10 @@
-'use client';
-
 import React from 'react';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'เงื่อนไขและข้อกำหนดการให้บริการ (Terms & Conditions)',
+  description: 'ข้อกำหนดและเงื่อนไขการใช้บริการ การสั่งซื้อวัตถุมงคล และการรับประกันของร้าน คนดวงดี 2025',
+};
 
 export default function TermsPage() {
   return (

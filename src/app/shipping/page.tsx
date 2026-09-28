@@ -1,7 +1,11 @@
-'use client';
-
 import React from 'react';
+import { Metadata } from 'next';
 import { Truck, ShieldCheck, Clock, MapPin } from 'lucide-react';
+
+export const metadata: Metadata = {
+  title: 'นโยบายการจัดส่ง (Shipping Policy)',
+  description: 'นโยบายการจัดส่งสินค้าของ คนดวงดี 2025 จัดส่งด่วนทั่วประเทศ รับประกันความปลอดภัยและการแพ็กเกจจิ้งมาตรฐานสากล',
+};
 
 export default function ShippingPage() {
   return (

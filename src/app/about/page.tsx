@@ -1,9 +1,13 @@
-'use client';
-
 import React from 'react';
+import { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ShieldCheck, Sparkles, Heart, MessageCircle, Mail, Phone, MapPin, Building2, CreditCard, ExternalLink } from 'lucide-react';
+
+export const metadata: Metadata = {
+  title: 'เกี่ยวกับเรา (About Us)',
+  description: 'เรื่องราวและเจตนารมณ์ คนดวงดี 2025 ผสานคุณค่าแห่งพุทธศิลป์ ความเชื่อ และเครื่องประดับร่วมสมัย เข้ากับความโปร่งใสในยุคดิจิทัล',
+};
 
 export default function AboutPage() {
   return (

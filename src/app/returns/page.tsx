@@ -1,7 +1,11 @@
-'use client';
-
 import React from 'react';
+import { Metadata } from 'next';
 import { RotateCcw, AlertTriangle, ShieldCheck } from 'lucide-react';
+
+export const metadata: Metadata = {
+  title: 'เงื่อนไขการรับประกันและการเปลี่ยนสินค้า',
+  description: 'นโยบายการรับประกันความเสียหายจากการจัดส่ง และการเปลี่ยนสินค้าของร้าน คนดวงดี 2025',
+};
 
 export default function ReturnsPage() {
   return (
