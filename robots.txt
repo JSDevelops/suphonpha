@@ -1,0 +1,11 @@
+User-Agent: *
+Allow: /
+Disallow: /checkout
+Disallow: /account
+
+User-Agent: Googlebot
+Allow: /
+Disallow: /checkout
+Disallow: /account
+
+Sitemap: https://jsdevelops.github.io/suphonpha/sitemap.xml
