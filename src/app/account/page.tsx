@@ -37,7 +37,10 @@ export default function AccountPage() {
   const handleEmailLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!emailInput) return;
-    await loginWithEmail(emailInput, passwordInput);
+    const res = await loginWithEmail(emailInput, passwordInput);
+    if (!res.success) {
+      setAuthError(res.message || 'เข้าสู่ระบบไม่สำเร็จ');
+    }
   };
 
   const handleSendOtp = () => {

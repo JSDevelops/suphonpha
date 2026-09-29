@@ -3,6 +3,34 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { User, UserRole } from '@/types';
 
+export interface AdminAccount {
+  username: string;
+  email: string;
+  password: string;
+  role: 'super_admin' | 'admin';
+  name: string;
+  description: string;
+}
+
+export const OFFICIAL_ADMIN_ACCOUNTS: AdminAccount[] = [
+  {
+    username: 'superadmin',
+    email: 'superadmin@konduangdee.com',
+    password: 'Kdd@2025Super!',
+    role: 'super_admin',
+    name: 'ผู้ดูแลระบบสูงสุด (Super Admin)',
+    description: 'มีสิทธิ์สูงสุดทุกฟังก์ชันในระบบ จัดการสินค้า, ออเดอร์, ตรวจสลิป, ออกใบรับรองพระแท้ และงานสั่งสร้าง',
+  },
+  {
+    username: 'admin',
+    email: 'admin@konduangdee.com',
+    password: 'Kdd@2025Admin!',
+    role: 'admin',
+    name: 'เจ้าหน้าที่แอดมิน (Admin Staff)',
+    description: 'สิทธิ์จัดการสินค้า, ตรวจสอบออเดอร์, กรอกเลขพัสดุจัดส่ง และตรวจเช็คใบรับรอง',
+  },
+];
+
 interface AuthContextType {
   user: User | null;
   loginWithEmail: (email: string, pass: string) => Promise<{ success: boolean; message?: string }>;
@@ -44,22 +72,71 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   }, []);
 
-  const loginWithEmail = async (email: string) => {
-    // Simulated safe login
-    const newUser: User = {
+  const loginWithEmail = async (identifier: string, pass: string) => {
+    const cleanId = (identifier || '').trim().toLowerCase();
+    const cleanPass = (pass || '').trim();
+
+    // 1. ตรวจสอบบัญชี Super Admin
+    if (cleanId === 'superadmin' || cleanId === 'superadmin@konduangdee.com') {
+      if (cleanPass !== 'Kdd@2025Super!') {
+        return { success: false, message: 'รหัสผ่านสำหรับ Super Admin ไม่ถูกต้อง (รหัสคือ Kdd@2025Super!)' };
+      }
+      const superAdminUser: User = {
+        id: 'usr-super-admin',
+        name: 'ผู้ดูแลระบบสูงสุด (Super Admin)',
+        email: 'superadmin@konduangdee.com',
+        role: 'super_admin',
+        emailVerified: true,
+        phoneVerified: true,
+        consentMarketing: true,
+        consentTerms: true,
+        createdAt: new Date().toISOString(),
+      };
+      setUser(superAdminUser);
+      localStorage.setItem('kdd_user', JSON.stringify(superAdminUser));
+      return { success: true, message: 'เข้าสู่ระบบในฐานะ Super Admin เรียบร้อยแล้ว' };
+    }
+
+    // 2. ตรวจสอบบัญชี Admin (เจ้าหน้าที่)
+    if (cleanId === 'admin' || cleanId === 'admin@konduangdee.com') {
+      if (cleanPass !== 'Kdd@2025Admin!') {
+        return { success: false, message: 'รหัสผ่านสำหรับ Admin ไม่ถูกต้อง (รหัสคือ Kdd@2025Admin!)' };
+      }
+      const adminUser: User = {
+        id: 'usr-admin-staff',
+        name: 'เจ้าหน้าที่แอดมิน (Admin Staff)',
+        email: 'admin@konduangdee.com',
+        role: 'admin',
+        emailVerified: true,
+        phoneVerified: true,
+        consentMarketing: true,
+        consentTerms: true,
+        createdAt: new Date().toISOString(),
+      };
+      setUser(adminUser);
+      localStorage.setItem('kdd_user', JSON.stringify(adminUser));
+      return { success: true, message: 'เข้าสู่ระบบในฐานะ Admin เรียบร้อยแล้ว' };
+    }
+
+    // 3. ตรวจสอบลูกค้าทั่วไป (Customer)
+    if (!cleanId.includes('@')) {
+      return { success: false, message: 'กรุณากรอกอีเมลที่ถูกต้อง' };
+    }
+
+    const customerUser: User = {
       id: `usr-${Date.now()}`,
-      name: email.split('@')[0],
-      email,
-      role: email.includes('admin') ? 'super_admin' : 'customer',
+      name: identifier.split('@')[0],
+      email: identifier,
+      role: 'customer',
       emailVerified: true,
       phoneVerified: false,
       consentMarketing: true,
       consentTerms: true,
       createdAt: new Date().toISOString(),
     };
-    setUser(newUser);
-    localStorage.setItem('kdd_user', JSON.stringify(newUser));
-    return { success: true };
+    setUser(customerUser);
+    localStorage.setItem('kdd_user', JSON.stringify(customerUser));
+    return { success: true, message: 'เข้าสู่ระบบสมาชิกสำเร็จ' };
   };
 
   const loginWithPhoneOtp = async (phone: string, otp: string) => {
