@@ -128,7 +128,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                   }`}
                 >
                   <LayoutDashboard className="w-4 h-4" />
-                  ภาพรวม (Dashboard)
+                  ภาพรวม
                 </Link>
 
                 <Link
@@ -140,7 +140,43 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                   }`}
                 >
                   <Package className="w-4 h-4" />
-                  จัดการสินค้า & ลงสินค้า
+                  จัดการสินค้า
+                </Link>
+
+                <Link
+                  href="/admin/orders"
+                  className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors inline-flex items-center gap-1.5 ${
+                    pathname.startsWith('/admin/orders')
+                      ? 'bg-[var(--brand-sage-light)] text-[var(--brand-sage-dark)] font-semibold'
+                      : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-stone-50'
+                  }`}
+                >
+                  <ShoppingBag className="w-4 h-4" />
+                  คำสั่งซื้อ & สลิป
+                </Link>
+
+                <Link
+                  href="/admin/certificates"
+                  className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors inline-flex items-center gap-1.5 ${
+                    pathname.startsWith('/admin/certificates')
+                      ? 'bg-[var(--brand-sage-light)] text-[var(--brand-sage-dark)] font-semibold'
+                      : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-stone-50'
+                  }`}
+                >
+                  <ShieldCheck className="w-4 h-4" />
+                  ใบรับรองพระแท้
+                </Link>
+
+                <Link
+                  href="/admin/inquiries"
+                  className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors inline-flex items-center gap-1.5 ${
+                    pathname.startsWith('/admin/inquiries')
+                      ? 'bg-[var(--brand-sage-light)] text-[var(--brand-sage-dark)] font-semibold'
+                      : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-stone-50'
+                  }`}
+                >
+                  <Sparkles className="w-4 h-4" />
+                  งานสั่งสร้าง
                 </Link>
               </nav>
             </div>
@@ -162,7 +198,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <div className="md:hidden flex border-t border-[var(--border-warm)] bg-stone-50/80 px-2 py-1.5 overflow-x-auto gap-1">
           <Link
             href="/admin"
-            className={`px-3 py-1.5 rounded text-xs font-medium whitespace-nowrap inline-flex items-center gap-1.5 ${
+            className={`px-2.5 py-1.5 rounded text-xs font-medium whitespace-nowrap inline-flex items-center gap-1 ${
               pathname === '/admin'
                 ? 'bg-[var(--brand-sage-dark)] text-white'
                 : 'text-[var(--text-secondary)]'
@@ -173,14 +209,47 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           </Link>
           <Link
             href="/admin/products"
-            className={`px-3 py-1.5 rounded text-xs font-medium whitespace-nowrap inline-flex items-center gap-1.5 ${
+            className={`px-2.5 py-1.5 rounded text-xs font-medium whitespace-nowrap inline-flex items-center gap-1 ${
               pathname.startsWith('/admin/products')
                 ? 'bg-[var(--brand-sage-dark)] text-white'
                 : 'text-[var(--text-secondary)]'
             }`}
           >
             <Package className="w-3.5 h-3.5" />
-            สินค้า & ลงสินค้า
+            สินค้า
+          </Link>
+          <Link
+            href="/admin/orders"
+            className={`px-2.5 py-1.5 rounded text-xs font-medium whitespace-nowrap inline-flex items-center gap-1 ${
+              pathname.startsWith('/admin/orders')
+                ? 'bg-[var(--brand-sage-dark)] text-white'
+                : 'text-[var(--text-secondary)]'
+            }`}
+          >
+            <ShoppingBag className="w-3.5 h-3.5" />
+            ออเดอร์
+          </Link>
+          <Link
+            href="/admin/certificates"
+            className={`px-2.5 py-1.5 rounded text-xs font-medium whitespace-nowrap inline-flex items-center gap-1 ${
+              pathname.startsWith('/admin/certificates')
+                ? 'bg-[var(--brand-sage-dark)] text-white'
+                : 'text-[var(--text-secondary)]'
+            }`}
+          >
+            <ShieldCheck className="w-3.5 h-3.5" />
+            ใบรับรอง
+          </Link>
+          <Link
+            href="/admin/inquiries"
+            className={`px-2.5 py-1.5 rounded text-xs font-medium whitespace-nowrap inline-flex items-center gap-1 ${
+              pathname.startsWith('/admin/inquiries')
+                ? 'bg-[var(--brand-sage-dark)] text-white'
+                : 'text-[var(--text-secondary)]'
+            }`}
+          >
+            <Sparkles className="w-3.5 h-3.5" />
+            สั่งสร้าง
           </Link>
         </div>
       </header>

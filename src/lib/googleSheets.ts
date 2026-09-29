@@ -1,5 +1,5 @@
-import { Product, Certificate, Order } from '@/types';
-import { INITIAL_PRODUCTS, INITIAL_CERTIFICATES } from '@/data/mockData';
+import { Product, Certificate, Order, CustomInquiry } from '@/types';
+import { INITIAL_PRODUCTS, INITIAL_CERTIFICATES, INITIAL_INQUIRIES } from '@/data/mockData';
 
 const GOOGLE_SHEET_API_URL = process.env.NEXT_PUBLIC_GOOGLE_SHEET_API_URL;
 
@@ -7,6 +7,7 @@ export interface SheetDataResponse {
   products: Product[];
   certificates: Certificate[];
   orders: Order[];
+  inquiries: CustomInquiry[];
 }
 
 /**
@@ -44,6 +45,7 @@ export async function fetchGoogleSheetData(): Promise<SheetDataResponse> {
       products: INITIAL_PRODUCTS,
       certificates: INITIAL_CERTIFICATES,
       orders: [],
+      inquiries: INITIAL_INQUIRIES,
     };
   }
 
@@ -119,10 +121,28 @@ export async function fetchGoogleSheetData(): Promise<SheetDataResponse> {
         };
       });
 
+      const rawInquiries = json.data.inquiries || [];
+      const mappedInquiries: CustomInquiry[] = rawInquiries.map((inq: any, index: number) => ({
+        id: inq['รหัสคำขอสั่งสร้าง'] || inq.inquiry_id || inq.id || `INQ-${index + 1}`,
+        contactName: inq['ชื่อผู้ติดต่อ/องค์กร'] || inq.contact_name || inq.contactName || 'ผู้ติดต่อ',
+        phone: String(inq['เบอร์โทรศัพท์'] || inq.phone || ''),
+        lineId: inq['LINE ID'] || inq.line_id || inq.lineId || '',
+        email: inq['อีเมล'] || inq.email || '',
+        amuletType: inq['ประเภทวัตถุมงคล'] || inq.amulet_type || inq.amuletType || 'วัตถุมงคล',
+        quantity: String(inq['จำนวนที่ต้องการ (ชิ้น)'] || inq.quantity || '1'),
+        budget: inq['งบประมาณโดยประมาณ'] || inq.budget || '',
+        materials: inq['มวลสารที่มี/ต้องการผสม'] || inq.materials || '',
+        ceremonyNeeds: inq['ความประสงค์ด้านพิธี'] || inq.ceremony_needs || '',
+        details: inq['รายละเอียดแบบพุทธศิลป์'] || inq.details || '',
+        status: inq['สถานะดำเนินการ'] || inq.status || 'รอเจ้าหน้าที่ติดต่อกลับ',
+        createdAt: inq['วันที่เวลา'] || new Date().toISOString(),
+      }));
+
       return {
         products: mappedProducts.length > 0 ? mappedProducts : INITIAL_PRODUCTS,
         certificates: mappedCerts.length > 0 ? mappedCerts : INITIAL_CERTIFICATES,
         orders: mappedOrders,
+        inquiries: mappedInquiries,
       };
     }
   } catch (error) {
@@ -133,6 +153,7 @@ export async function fetchGoogleSheetData(): Promise<SheetDataResponse> {
     products: INITIAL_PRODUCTS,
     certificates: INITIAL_CERTIFICATES,
     orders: [],
+    inquiries: [],
   };
 }
 
@@ -290,6 +311,166 @@ export async function deleteProductFromGoogleSheet(
     };
   } catch (err: any) {
     console.error('Error deleting product from Google Sheet:', err);
+    return { success: false, message: err.message };
+  }
+}
+
+/**
+ * อัปเดตสถานะคำสั่งซื้อ & เลขติดตามพัสดุใน Google Sheet (แท็บ Orders)
+ */
+export async function updateOrderStatusInGoogleSheet(
+  orderNumber: string,
+  status: string,
+  trackingNumber?: string,
+  courierName?: string
+): Promise<{ success: boolean; message?: string }> {
+  if (!GOOGLE_SHEET_API_URL) {
+    return {
+      success: true,
+      message: 'อัปเดตสถานะคำสั่งซื้อเรียบร้อย (บันทึกในเครื่อง/Local Mode)',
+    };
+  }
+
+  try {
+    const res = await fetch(GOOGLE_SHEET_API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'text/plain;charset=utf-8',
+      },
+      body: JSON.stringify({
+        action: 'UPDATE_ORDER_STATUS',
+        orderNumber,
+        status,
+        trackingNumber: trackingNumber || '',
+        courierName: courierName || '',
+      }),
+      redirect: 'follow',
+    });
+
+    const json = await res.json();
+    return {
+      success: json.status === 'success',
+      message: json.message,
+    };
+  } catch (err: any) {
+    console.error('Error updating order status in Google Sheet:', err);
+    return { success: false, message: err.message };
+  }
+}
+
+/**
+ * บันทึก หรือ แก้ไขใบรับรองใน Google Sheet (แท็บ Certificates)
+ */
+export async function saveCertificateToGoogleSheet(
+  certificate: Certificate
+): Promise<{ success: boolean; message?: string; certNumber?: string }> {
+  if (!GOOGLE_SHEET_API_URL) {
+    return {
+      success: true,
+      message: 'บันทึกใบรับรองเรียบร้อย (บันทึกในเครื่อง/Local Mode)',
+      certNumber: certificate.certNumber,
+    };
+  }
+
+  try {
+    const res = await fetch(GOOGLE_SHEET_API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'text/plain;charset=utf-8',
+      },
+      body: JSON.stringify({
+        action: 'SAVE_CERTIFICATE',
+        certificate,
+      }),
+      redirect: 'follow',
+    });
+
+    const json = await res.json();
+    return {
+      success: json.status === 'success',
+      message: json.message,
+      certNumber: json.certNumber || certificate.certNumber,
+    };
+  } catch (err: any) {
+    console.error('Error saving certificate to Google Sheet:', err);
+    return { success: false, message: err.message };
+  }
+}
+
+/**
+ * ลบใบรับรองจาก Google Sheet (แท็บ Certificates)
+ */
+export async function deleteCertificateFromGoogleSheet(
+  certNumber: string,
+  id?: string
+): Promise<{ success: boolean; message?: string }> {
+  if (!GOOGLE_SHEET_API_URL) {
+    return {
+      success: true,
+      message: 'ลบใบรับรองเรียบร้อย (บันทึกในเครื่อง/Local Mode)',
+    };
+  }
+
+  try {
+    const res = await fetch(GOOGLE_SHEET_API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'text/plain;charset=utf-8',
+      },
+      body: JSON.stringify({
+        action: 'DELETE_CERTIFICATE',
+        certNumber,
+        id,
+      }),
+      redirect: 'follow',
+    });
+
+    const json = await res.json();
+    return {
+      success: json.status === 'success',
+      message: json.message,
+    };
+  } catch (err: any) {
+    console.error('Error deleting certificate from Google Sheet:', err);
+    return { success: false, message: err.message };
+  }
+}
+
+/**
+ * อัปเดตสถานะคำขอสั่งสร้างวัตถุมงคลใน Google Sheet (แท็บ CustomInquiries)
+ */
+export async function updateInquiryStatusInGoogleSheet(
+  inquiryId: string,
+  status: string
+): Promise<{ success: boolean; message?: string }> {
+  if (!GOOGLE_SHEET_API_URL) {
+    return {
+      success: true,
+      message: 'อัปเดตสถานะคำขอสั่งสร้างเรียบร้อย (บันทึกในเครื่อง/Local Mode)',
+    };
+  }
+
+  try {
+    const res = await fetch(GOOGLE_SHEET_API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'text/plain;charset=utf-8',
+      },
+      body: JSON.stringify({
+        action: 'UPDATE_INQUIRY_STATUS',
+        inquiryId,
+        status,
+      }),
+      redirect: 'follow',
+    });
+
+    const json = await res.json();
+    return {
+      success: json.status === 'success',
+      message: json.message,
+    };
+  } catch (err: any) {
+    console.error('Error updating inquiry status in Google Sheet:', err);
     return { success: false, message: err.message };
   }
 }

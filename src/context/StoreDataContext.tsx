@@ -1,19 +1,24 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { Product, Certificate, Order, Article, OrderStatus } from '@/types';
+import { Product, Certificate, Order, Article, OrderStatus, CustomInquiry } from '@/types';
 import {
   INITIAL_PRODUCTS,
   INITIAL_CERTIFICATES,
   INITIAL_ORDERS,
   INITIAL_ARTICLES,
   INITIAL_SETTINGS,
+  INITIAL_INQUIRIES,
 } from '@/data/mockData';
 import {
   fetchGoogleSheetData,
   submitOrderToGoogleSheet,
   saveProductToGoogleSheet,
   deleteProductFromGoogleSheet,
+  updateOrderStatusInGoogleSheet,
+  saveCertificateToGoogleSheet,
+  deleteCertificateFromGoogleSheet,
+  updateInquiryStatusInGoogleSheet,
 } from '@/lib/googleSheets';
 
 interface StoreDataContextType {
@@ -21,14 +26,24 @@ interface StoreDataContextType {
   certificates: Certificate[];
   orders: Order[];
   articles: Article[];
+  inquiries: CustomInquiry[];
   settings: typeof INITIAL_SETTINGS;
   isLoading: boolean;
   verifyCertificate: (code: string) => Certificate | null;
   createOrder: (order: Omit<Order, 'id' | 'orderNumber' | 'createdAt'>) => Promise<Order>;
-  updateOrderStatus: (orderId: string, status: OrderStatus, trackingNumber?: string, courierName?: string) => void;
+  updateOrderStatus: (
+    orderId: string,
+    status: OrderStatus,
+    trackingNumber?: string,
+    courierName?: string
+  ) => Promise<{ success: boolean; message?: string }>;
   addProduct: (product: Omit<Product, 'id'> & { id?: string }) => Promise<{ success: boolean; message?: string; product?: Product }>;
   updateProduct: (product: Product) => Promise<{ success: boolean; message?: string }>;
   deleteProduct: (productId: string, sku?: string) => Promise<{ success: boolean; message?: string }>;
+  addCertificate: (cert: Omit<Certificate, 'id'> & { id?: string }) => Promise<{ success: boolean; message?: string; certificate?: Certificate }>;
+  updateCertificate: (cert: Certificate) => Promise<{ success: boolean; message?: string }>;
+  deleteCertificate: (certNumber: string, id?: string) => Promise<{ success: boolean; message?: string }>;
+  updateInquiryStatus: (inquiryId: string, status: string) => Promise<{ success: boolean; message?: string }>;
   refreshFromGoogleSheet: () => Promise<void>;
 }
 
@@ -38,6 +53,7 @@ export const StoreDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   const [products, setProducts] = useState<Product[]>(INITIAL_PRODUCTS);
   const [certificates, setCertificates] = useState<Certificate[]>(INITIAL_CERTIFICATES);
   const [orders, setOrders] = useState<Order[]>(INITIAL_ORDERS);
+  const [inquiries, setInquiries] = useState<CustomInquiry[]>(INITIAL_INQUIRIES);
   const [articles] = useState<Article[]>(INITIAL_ARTICLES);
   const [settings] = useState(INITIAL_SETTINGS);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -50,6 +66,7 @@ export const StoreDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         if (sheetData.products?.length > 0) setProducts(sheetData.products);
         if (sheetData.certificates?.length > 0) setCertificates(sheetData.certificates);
         if (sheetData.orders?.length > 0) setOrders(sheetData.orders);
+        if (sheetData.inquiries?.length > 0) setInquiries(sheetData.inquiries);
       } catch (err) {
         console.warn('Using local starter data:', err);
       } finally {
@@ -67,6 +84,7 @@ export const StoreDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       if (sheetData.products?.length > 0) setProducts(sheetData.products);
       if (sheetData.certificates?.length > 0) setCertificates(sheetData.certificates);
       if (sheetData.orders?.length > 0) setOrders(sheetData.orders);
+      if (sheetData.inquiries?.length > 0) setInquiries(sheetData.inquiries);
     } catch (e) {
       console.error('Failed to refresh from Google Sheet:', e);
     } finally {
@@ -111,15 +129,17 @@ export const StoreDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     return newOrder;
   };
 
-  const updateOrderStatus = (
+  const updateOrderStatus = async (
     orderId: string,
     status: OrderStatus,
     trackingNumber?: string,
     courierName?: string
-  ) => {
+  ): Promise<{ success: boolean; message?: string }> => {
+    const targetOrder = orders.find((o) => o.id === orderId || o.orderNumber === orderId);
+
     setOrders((prev) =>
       prev.map((o) => {
-        if (o.id === orderId) {
+        if (o.id === orderId || o.orderNumber === orderId) {
           return {
             ...o,
             status,
@@ -131,6 +151,22 @@ export const StoreDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         return o;
       })
     );
+
+    if (targetOrder) {
+      try {
+        const res = await updateOrderStatusInGoogleSheet(
+          targetOrder.orderNumber,
+          status,
+          trackingNumber,
+          courierName
+        );
+        return { success: true, message: res.message || 'อัปเดตสถานะสำเร็จ' };
+      } catch (err: any) {
+        console.warn('Order status updated locally, failed to sync with remote sheet:', err);
+        return { success: true, message: 'อัปเดตในเครื่องสำเร็จ' };
+      }
+    }
+    return { success: true, message: 'อัปเดตสถานะสำเร็จ' };
   };
 
   const addProduct = async (
@@ -201,6 +237,73 @@ export const StoreDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     }
   };
 
+  const addCertificate = async (
+    certData: Omit<Certificate, 'id'> & { id?: string }
+  ): Promise<{ success: boolean; message?: string; certificate?: Certificate }> => {
+    const newId = certData.id || `cert-${Date.now()}`;
+    const newCert: Certificate = {
+      ...certData,
+      id: newId,
+      verificationCount: certData.verificationCount || 1,
+    };
+
+    setCertificates((prev) => [newCert, ...prev]);
+
+    try {
+      const res = await saveCertificateToGoogleSheet(newCert);
+      return { success: true, message: res.message || 'ออกใบรับรองสำเร็จ', certificate: newCert };
+    } catch (e: any) {
+      console.warn('Certificate saved locally, sync warning:', e);
+      return { success: true, message: 'บันทึกใบรับรองในเครื่องสำเร็จ', certificate: newCert };
+    }
+  };
+
+  const updateCertificate = async (
+    cert: Certificate
+  ): Promise<{ success: boolean; message?: string }> => {
+    setCertificates((prev) => prev.map((c) => (c.id === cert.id || c.certNumber === cert.certNumber ? cert : c)));
+
+    try {
+      const res = await saveCertificateToGoogleSheet(cert);
+      return { success: true, message: res.message || 'อัปเดตใบรับรองสำเร็จ' };
+    } catch (e: any) {
+      console.warn('Certificate updated locally, sync warning:', e);
+      return { success: true, message: 'อัปเดตใบรับรองในเครื่องสำเร็จ' };
+    }
+  };
+
+  const deleteCertificate = async (
+    certNumber: string,
+    id?: string
+  ): Promise<{ success: boolean; message?: string }> => {
+    setCertificates((prev) => prev.filter((c) => c.certNumber !== certNumber && (!id || c.id !== id)));
+
+    try {
+      const res = await deleteCertificateFromGoogleSheet(certNumber, id);
+      return { success: true, message: res.message || 'ลบใบรับรองสำเร็จ' };
+    } catch (e: any) {
+      console.warn('Certificate deleted locally, sync warning:', e);
+      return { success: true, message: 'ลบใบรับรองในเครื่องสำเร็จ' };
+    }
+  };
+
+  const updateInquiryStatus = async (
+    inquiryId: string,
+    status: string
+  ): Promise<{ success: boolean; message?: string }> => {
+    setInquiries((prev) =>
+      prev.map((inq) => (inq.id === inquiryId ? { ...inq, status } : inq))
+    );
+
+    try {
+      const res = await updateInquiryStatusInGoogleSheet(inquiryId, status);
+      return { success: true, message: res.message || 'อัปเดตสถานะคำขอสำเร็จ' };
+    } catch (e: any) {
+      console.warn('Inquiry updated locally, sync warning:', e);
+      return { success: true, message: 'อัปเดตสถานะคำขอในเครื่องสำเร็จ' };
+    }
+  };
+
   return (
     <StoreDataContext.Provider
       value={{
@@ -208,6 +311,7 @@ export const StoreDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         certificates,
         orders,
         articles,
+        inquiries,
         settings,
         isLoading,
         verifyCertificate,
@@ -216,6 +320,10 @@ export const StoreDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         addProduct,
         updateProduct,
         deleteProduct,
+        addCertificate,
+        updateCertificate,
+        deleteCertificate,
+        updateInquiryStatus,
         refreshFromGoogleSheet,
       }}
     >
@@ -231,3 +339,4 @@ export const useStoreData = () => {
   }
   return context;
 };
+

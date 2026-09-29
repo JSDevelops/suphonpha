@@ -153,5 +153,6 @@ export interface CustomInquiry {
   ceremonyNeeds?: string;
   details: string;
   createdAt?: string;
+  status?: string;
 }
 

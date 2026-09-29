@@ -35,13 +35,18 @@ function doGet(e) {
     const ordersSheet = ss.getSheetByName('Orders');
     const orders = ordersSheet ? sheetToObjects(ordersSheet) : [];
 
+    // 4. อ่านข้อมูลคำขอสั่งสร้างวัตถุมงคล (Custom Inquiries)
+    const inqSheet = ss.getSheetByName('CustomInquiries');
+    const inquiries = inqSheet ? sheetToObjects(inqSheet) : [];
+
     const response = {
       status: 'success',
       timestamp: new Date().toISOString(),
       data: {
         products: products,
         certificates: certificates,
-        orders: orders
+        orders: orders,
+        inquiries: inquiries
       }
     };
 
@@ -309,6 +314,205 @@ function doPost(e) {
         return ContentService.createTextOutput(JSON.stringify({
           status: 'error',
           message: 'ไม่พบสินค้าที่ต้องการลบ'
+        })).setMimeType(ContentService.MimeType.JSON);
+      }
+    }
+
+    // 5. อัปเดตสถานะคำสั่งซื้อ & เลขติดตามพัสดุ (Update Order Status)
+    if (action === 'UPDATE_ORDER_STATUS') {
+      const ordersSheet = ss.getSheetByName('Orders');
+      if (!ordersSheet) {
+        return ContentService.createTextOutput(JSON.stringify({
+          status: 'error',
+          message: 'ไม่พบแผ่นงาน Orders'
+        })).setMimeType(ContentService.MimeType.JSON);
+      }
+
+      const orderNumber = String(postData.orderNumber || '').trim();
+      const newStatus = postData.status;
+      const courierName = postData.courierName;
+      const trackingNumber = postData.trackingNumber;
+
+      const data = ordersSheet.getDataRange().getValues();
+      let updated = false;
+
+      for (let i = 1; i < data.length; i++) {
+        const rowOrderNum = String(data[i][1]).trim(); // คอลัมน์ "เลขออเดอร์"
+        if (rowOrderNum === orderNumber) {
+          const rowIdx = i + 1; // 1-based
+          if (newStatus !== undefined) {
+            ordersSheet.getRange(rowIdx, 11).setValue(newStatus); // คอลัมน์ 11: สถานะ
+          }
+          if (courierName !== undefined) {
+            ordersSheet.getRange(rowIdx, 12).setValue(courierName); // คอลัมน์ 12: บริษัทขนส่ง
+          }
+          if (trackingNumber !== undefined) {
+            ordersSheet.getRange(rowIdx, 13).setValue(trackingNumber); // คอลัมน์ 13: เลขติดตามพัสดุ
+          }
+          updated = true;
+          break;
+        }
+      }
+
+      if (updated) {
+        return ContentService.createTextOutput(JSON.stringify({
+          status: 'success',
+          message: 'อัปเดตสถานะคำสั่งซื้อสำเร็จ',
+          orderNumber: orderNumber
+        })).setMimeType(ContentService.MimeType.JSON);
+      } else {
+        return ContentService.createTextOutput(JSON.stringify({
+          status: 'error',
+          message: 'ไม่พบเลขออเดอร์: ' + orderNumber
+        })).setMimeType(ContentService.MimeType.JSON);
+      }
+    }
+
+    // 6. บันทึก / แก้ไขใบรับรองวัตถุมงคล (Save or Update Certificate)
+    if (action === 'SAVE_CERTIFICATE') {
+      let certSheet = ss.getSheetByName('Certificates');
+      const certHeaders = [
+        'id',
+        'cert_number',
+        'product_name',
+        'image_url',
+        'material',
+        'dimensions',
+        'issued_date',
+        'status',
+        'blessing_master',
+        'notes',
+        'verification_count'
+      ];
+
+      if (!certSheet) {
+        certSheet = ss.insertSheet('Certificates');
+        certSheet.appendRow(certHeaders);
+      }
+
+      const c = postData.certificate || {};
+      const certId = c.id || ('cert-' + Utilities.formatDate(new Date(), 'GMT+7', 'yyyyMMdd-HHmmss'));
+      const certNumber = c.certNumber || c.cert_number || ('KDD-2025-' + String(Math.floor(10000 + Math.random() * 90000)));
+
+      const newRow = [
+        certId,
+        certNumber,
+        c.productName || c.product_name || 'วัตถุมงคลรับรองแท้',
+        c.image || c.image_url || '/images/products/pendant-buddha.jpg',
+        c.materialDetails || c.material || 'มวลสารแท้มาตรฐานสากล',
+        c.dimensions || 'ขนาดมาตรฐาน',
+        c.issuedDate || c.issued_date || Utilities.formatDate(new Date(), 'GMT+7', 'yyyy-MM-dd'),
+        c.status || 'active',
+        c.blessingMaster || c.blessing_master || 'พระเกจิอาจารย์ร่วมเจริญพระพุทธมนต์',
+        c.notes || '',
+        Number(c.verificationCount || c.verification_count || 1)
+      ];
+
+      const data = certSheet.getDataRange().getValues();
+      let rowIndexToUpdate = -1;
+
+      if (data.length > 1) {
+        for (let i = 1; i < data.length; i++) {
+          const rowCertId = String(data[i][0]).trim();
+          const rowCertNum = String(data[i][1]).trim();
+          if ((c.id && rowCertId === String(c.id).trim()) || (certNumber && rowCertNum === certNumber)) {
+            rowIndexToUpdate = i + 1;
+            break;
+          }
+        }
+      }
+
+      if (rowIndexToUpdate > 0) {
+        certSheet.getRange(rowIndexToUpdate, 1, 1, newRow.length).setValues([newRow]);
+        return ContentService.createTextOutput(JSON.stringify({
+          status: 'success',
+          message: 'อัปเดตใบรับรองสำเร็จ',
+          certNumber: certNumber
+        })).setMimeType(ContentService.MimeType.JSON);
+      } else {
+        certSheet.appendRow(newRow);
+        return ContentService.createTextOutput(JSON.stringify({
+          status: 'success',
+          message: 'ออกใบรับรองใหม่ลง Google Sheet สำเร็จ',
+          certNumber: certNumber
+        })).setMimeType(ContentService.MimeType.JSON);
+      }
+    }
+
+    // 7. ลบใบรับรอง (Delete Certificate)
+    if (action === 'DELETE_CERTIFICATE') {
+      const certSheet = ss.getSheetByName('Certificates');
+      if (!certSheet) {
+        return ContentService.createTextOutput(JSON.stringify({
+          status: 'error',
+          message: 'ไม่พบแผ่นงาน Certificates'
+        })).setMimeType(ContentService.MimeType.JSON);
+      }
+
+      const targetCertNum = String(postData.certNumber || '').trim();
+      const targetId = String(postData.id || '').trim();
+
+      const data = certSheet.getDataRange().getValues();
+      let deleted = false;
+
+      for (let i = data.length - 1; i >= 1; i--) {
+        const rowId = String(data[i][0]).trim();
+        const rowCertNum = String(data[i][1]).trim();
+        if ((targetCertNum && rowCertNum === targetCertNum) || (targetId && rowId === targetId)) {
+          certSheet.deleteRow(i + 1);
+          deleted = true;
+          break;
+        }
+      }
+
+      if (deleted) {
+        return ContentService.createTextOutput(JSON.stringify({
+          status: 'success',
+          message: 'ลบใบรับรองสำเร็จ'
+        })).setMimeType(ContentService.MimeType.JSON);
+      } else {
+        return ContentService.createTextOutput(JSON.stringify({
+          status: 'error',
+          message: 'ไม่พบใบรับรองที่ต้องการลบ'
+        })).setMimeType(ContentService.MimeType.JSON);
+      }
+    }
+
+    // 8. อัปเดตสถานะคำขอสั่งสร้างวัตถุมงคล (Update Inquiry Status)
+    if (action === 'UPDATE_INQUIRY_STATUS') {
+      const inquirySheet = ss.getSheetByName('CustomInquiries');
+      if (!inquirySheet) {
+        return ContentService.createTextOutput(JSON.stringify({
+          status: 'error',
+          message: 'ไม่พบแผ่นงาน CustomInquiries'
+        })).setMimeType(ContentService.MimeType.JSON);
+      }
+
+      const inquiryId = String(postData.inquiryId || '').trim();
+      const newStatus = postData.status;
+
+      const data = inquirySheet.getDataRange().getValues();
+      let updated = false;
+
+      for (let i = 1; i < data.length; i++) {
+        const rowInqId = String(data[i][1]).trim(); // คอลัมน์ "รหัสคำขอสั่งสร้าง"
+        if (rowInqId === inquiryId) {
+          inquirySheet.getRange(i + 1, 13).setValue(newStatus); // คอลัมน์ 13: สถานะดำเนินการ
+          updated = true;
+          break;
+        }
+      }
+
+      if (updated) {
+        return ContentService.createTextOutput(JSON.stringify({
+          status: 'success',
+          message: 'อัปเดตสถานะคำขอเรียบร้อยแล้ว',
+          inquiryId: inquiryId
+        })).setMimeType(ContentService.MimeType.JSON);
+      } else {
+        return ContentService.createTextOutput(JSON.stringify({
+          status: 'error',
+          message: 'ไม่พบรหัสคำขอ: ' + inquiryId
         })).setMimeType(ContentService.MimeType.JSON);
       }
     }

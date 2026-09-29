@@ -99,81 +99,124 @@ export default function AdminDashboardPage() {
 
         <div className="bg-white rounded-xl p-5 border border-[var(--border-warm)] shadow-xs">
           <div className="flex items-center justify-between text-stone-500 mb-2">
-            <span className="text-xs font-medium text-[var(--text-secondary)]">สินค้าแนะนำ (Featured)</span>
-            <Sparkles className="w-4 h-4 text-amber-500" />
-          </div>
-          <div className="text-2xl sm:text-3xl font-bold font-serif text-amber-700">
-            {isLoading ? '...' : featuredProducts}
-          </div>
-          <p className="text-xs text-stone-500 mt-1">แสดงเด่นบนหน้าแรก</p>
-        </div>
-
-        <div className="bg-white rounded-xl p-5 border border-[var(--border-warm)] shadow-xs">
-          <div className="flex items-center justify-between text-stone-500 mb-2">
-            <span className="text-xs font-medium text-[var(--text-secondary)]">สต็อกใกล้หมด / หมด</span>
-            <AlertTriangle className="w-4 h-4 text-rose-500" />
-          </div>
-          <div className="text-2xl sm:text-3xl font-bold font-serif text-rose-600">
-            {isLoading ? '...' : outOfStock + lowStock}
-          </div>
-          <p className="text-xs text-stone-500 mt-1">
-            หมด {outOfStock} รายการ | เหลือ ≤ 3 ชิ้น {lowStock} รายการ
-          </p>
-        </div>
-
-        <div className="bg-white rounded-xl p-5 border border-[var(--border-warm)] shadow-xs">
-          <div className="flex items-center justify-between text-stone-500 mb-2">
             <span className="text-xs font-medium text-[var(--text-secondary)]">คำสั่งซื้อในระบบ</span>
             <ShoppingBag className="w-4 h-4 text-emerald-600" />
           </div>
           <div className="text-2xl sm:text-3xl font-bold font-serif text-emerald-700">
             {isLoading ? '...' : totalOrders}
           </div>
-          <p className="text-xs text-stone-500 mt-1">ออเดอร์ทั้งหมดในชีต</p>
+          <p className="text-xs text-stone-500 mt-1">
+            รอตรวจสลิป {orders.filter((o) => o.status === 'awaiting_review').length} รายการ
+          </p>
+        </div>
+
+        <div className="bg-white rounded-xl p-5 border border-[var(--border-warm)] shadow-xs">
+          <div className="flex items-center justify-between text-stone-500 mb-2">
+            <span className="text-xs font-medium text-[var(--text-secondary)]">ใบรับรองพระแท้</span>
+            <CheckCircle2 className="w-4 h-4 text-amber-600" />
+          </div>
+          <div className="text-2xl sm:text-3xl font-bold font-serif text-amber-700">
+            {isLoading ? '...' : certificates.length}
+          </div>
+          <p className="text-xs text-stone-500 mt-1">Digital Certificate ออกแล้ว</p>
+        </div>
+
+        <div className="bg-white rounded-xl p-5 border border-[var(--border-warm)] shadow-xs">
+          <div className="flex items-center justify-between text-stone-500 mb-2">
+            <span className="text-xs font-medium text-[var(--text-secondary)]">งานสั่งสร้างเฉพาะบุคคล</span>
+            <Sparkles className="w-4 h-4 text-purple-600" />
+          </div>
+          <div className="text-2xl sm:text-3xl font-bold font-serif text-purple-700">
+            {isLoading ? '...' : (useStoreData().inquiries || []).length}
+          </div>
+          <p className="text-xs text-stone-500 mt-1">คำขอสั่งสร้างจากลูกค้า</p>
         </div>
       </div>
 
       {/* Quick Navigation Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="bg-white rounded-2xl p-6 border border-[var(--border-warm)] shadow-xs flex flex-col justify-between">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+        <div className="bg-white rounded-2xl p-5 border border-[var(--border-warm)] shadow-xs flex flex-col justify-between hover:border-[var(--brand-sage)] transition-all">
           <div>
-            <div className="w-10 h-10 rounded-xl bg-[var(--brand-sage-light)] text-[var(--brand-sage-dark)] flex items-center justify-center mb-4">
+            <div className="w-10 h-10 rounded-xl bg-[var(--brand-sage-light)] text-[var(--brand-sage-dark)] flex items-center justify-center mb-3">
               <Package className="w-5 h-5" />
             </div>
-            <h3 className="font-serif text-lg font-bold text-[var(--brand-sage-dark)] mb-2">
-              ระบบจัดการ & ลงสินค้า (Product Catalog)
+            <h3 className="font-serif text-base font-bold text-[var(--brand-sage-dark)] mb-1">
+              จัดการสินค้า & สต็อก
             </h3>
-            <p className="text-sm text-[var(--text-secondary)] leading-relaxed mb-4">
-              เพิ่มวัตถุมงคลใหม่, อัปเดตรูปภาพ, กำหนดราคาปกติและราคาโปรโมชั่น, กรอกรายละเอียดมวลสารและข้อมูลพิธีพุทธาภิเษก
+            <p className="text-xs text-[var(--text-secondary)] leading-relaxed mb-4">
+              เพิ่มวัตถุมงคลใหม่, อัปเดตรูปภาพ, กำหนดราคา, มวลสาร, และปรับสต็อกสินค้า
             </p>
           </div>
           <Link
             href="/admin/products"
-            className="inline-flex items-center gap-2 text-sm font-bold text-[var(--brand-sage)] hover:text-[var(--brand-sage-dark)] group"
+            className="inline-flex items-center gap-1.5 text-xs font-bold text-[var(--brand-sage)] hover:text-[var(--brand-sage-dark)] group"
           >
-            <span>ไปที่หน้าจัดการสินค้า</span>
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            <span>จัดการสินค้า</span>
+            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
 
-        <div className="bg-white rounded-2xl p-6 border border-[var(--border-warm)] shadow-xs flex flex-col justify-between">
+        <div className="bg-white rounded-2xl p-5 border border-[var(--border-warm)] shadow-xs flex flex-col justify-between hover:border-emerald-400 transition-all">
           <div>
-            <div className="w-10 h-10 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center mb-4">
-              <FileSpreadsheet className="w-5 h-5" />
+            <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center mb-3">
+              <ShoppingBag className="w-5 h-5" />
             </div>
-            <h3 className="font-serif text-lg font-bold text-[var(--brand-sage-dark)] mb-2">
-              โครงสร้างฐานข้อมูล Google Sheets
+            <h3 className="font-serif text-base font-bold text-[var(--brand-sage-dark)] mb-1">
+              คำสั่งซื้อ & ตรวจสลิป
             </h3>
-            <p className="text-sm text-[var(--text-secondary)] leading-relaxed mb-4">
-              ฐานข้อมูลใช้แท็บ <code className="bg-stone-100 px-1.5 py-0.5 rounded text-xs font-mono">Products</code>,{' '}
-              <code className="bg-stone-100 px-1.5 py-0.5 rounded text-xs font-mono">Orders</code>,{' '}
-              <code className="bg-stone-100 px-1.5 py-0.5 rounded text-xs font-mono">Certificates</code> ในการจัดเก็บข้อมูล
+            <p className="text-xs text-[var(--text-secondary)] leading-relaxed mb-4">
+              ตรวจสลิปโอนเงิน อนุมัติการชำระเงิน และกรอกเลขพัสดุ (Kerry, Flash, EMS)
             </p>
           </div>
-          <div className="flex items-center gap-2 text-xs text-stone-500">
-            <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-            <span>มีสคริปต์รองรับพร้อมใช้งานใน google-apps-script.js</span>
+          <Link
+            href="/admin/orders"
+            className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 hover:text-emerald-900 group"
+          >
+            <span>ดูรายการออเดอร์</span>
+            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+          </Link>
+        </div>
+
+        <div className="bg-white rounded-2xl p-5 border border-[var(--border-warm)] shadow-xs flex flex-col justify-between hover:border-amber-400 transition-all">
+          <div>
+            <div className="w-10 h-10 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center mb-3">
+              <CheckCircle2 className="w-5 h-5" />
+            </div>
+            <h3 className="font-serif text-base font-bold text-[var(--brand-sage-dark)] mb-1">
+              ใบรับรองพระแท้
+            </h3>
+            <p className="text-xs text-[var(--text-secondary)] leading-relaxed mb-4">
+              ออกใบรับรองดิจิทัล รหัสเฉพาะองค์ มวลสาร และข้อมูลพระเกจิผู้ปลุกเสก
+            </p>
           </div>
+          <Link
+            href="/admin/certificates"
+            className="inline-flex items-center gap-1.5 text-xs font-bold text-amber-700 hover:text-amber-900 group"
+          >
+            <span>จัดการใบรับรอง</span>
+            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+          </Link>
+        </div>
+
+        <div className="bg-white rounded-2xl p-5 border border-[var(--border-warm)] shadow-xs flex flex-col justify-between hover:border-purple-400 transition-all">
+          <div>
+            <div className="w-10 h-10 rounded-xl bg-purple-50 text-purple-700 flex items-center justify-center mb-3">
+              <Sparkles className="w-5 h-5" />
+            </div>
+            <h3 className="font-serif text-base font-bold text-[var(--brand-sage-dark)] mb-1">
+              งานสั่งสร้างเฉพาะบุคคล
+            </h3>
+            <p className="text-xs text-[var(--text-secondary)] leading-relaxed mb-4">
+              ติดตามคำขอสั่งสร้างพระเครื่อง มวลสาร พิธี และติดต่อกลับลูกค้าทางโทร/LINE
+            </p>
+          </div>
+          <Link
+            href="/admin/inquiries"
+            className="inline-flex items-center gap-1.5 text-xs font-bold text-purple-700 hover:text-purple-900 group"
+          >
+            <span>ดูงานสั่งสร้าง</span>
+            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+          </Link>
         </div>
       </div>
 
