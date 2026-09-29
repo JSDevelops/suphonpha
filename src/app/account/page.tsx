@@ -318,7 +318,15 @@ export default function AccountPage() {
                 </div>
               </div>
 
-              <div className="pt-3 border-t border-gray-100">
+              <div className="pt-3 border-t border-gray-100 space-y-2">
+                <Link
+                  href="/admin"
+                  className="w-full flex items-center justify-center gap-2 py-2.5 text-xs font-bold text-white bg-[var(--brand-sage-dark)] hover:bg-[var(--brand-sage)] rounded-xl transition-all shadow-xs"
+                >
+                  <Package className="w-4 h-4 text-[var(--brand-gold)]" />
+                  <span>เข้าสู่ระบบจัดการหลังบ้าน (Admin CMS)</span>
+                </Link>
+
                 <button
                   type="button"
                   onClick={logout}

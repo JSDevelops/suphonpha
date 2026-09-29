@@ -9,7 +9,12 @@ import {
   INITIAL_ARTICLES,
   INITIAL_SETTINGS,
 } from '@/data/mockData';
-import { fetchGoogleSheetData, submitOrderToGoogleSheet } from '@/lib/googleSheets';
+import {
+  fetchGoogleSheetData,
+  submitOrderToGoogleSheet,
+  saveProductToGoogleSheet,
+  deleteProductFromGoogleSheet,
+} from '@/lib/googleSheets';
 
 interface StoreDataContextType {
   products: Product[];
@@ -21,6 +26,9 @@ interface StoreDataContextType {
   verifyCertificate: (code: string) => Certificate | null;
   createOrder: (order: Omit<Order, 'id' | 'orderNumber' | 'createdAt'>) => Promise<Order>;
   updateOrderStatus: (orderId: string, status: OrderStatus, trackingNumber?: string, courierName?: string) => void;
+  addProduct: (product: Omit<Product, 'id'> & { id?: string }) => Promise<{ success: boolean; message?: string; product?: Product }>;
+  updateProduct: (product: Product) => Promise<{ success: boolean; message?: string }>;
+  deleteProduct: (productId: string, sku?: string) => Promise<{ success: boolean; message?: string }>;
   refreshFromGoogleSheet: () => Promise<void>;
 }
 
@@ -125,6 +133,74 @@ export const StoreDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     );
   };
 
+  const addProduct = async (
+    productData: Omit<Product, 'id'> & { id?: string }
+  ): Promise<{ success: boolean; message?: string; product?: Product }> => {
+    const newId = productData.id || `prod-${Date.now()}`;
+    const newProduct: Product = {
+      ...productData,
+      id: newId,
+      sku: productData.sku || `SKU-${Date.now().toString().slice(-6)}`,
+      categoryLabelTh:
+        productData.categoryLabelTh ||
+        (productData.category === 'amulet'
+          ? 'วัตถุมงคล'
+          : productData.category === 'bracelet'
+          ? 'กำไล / สร้อยข้อมือ'
+          : productData.category === 'ring'
+          ? 'แหวนมงคล'
+          : productData.category === 'sticker'
+          ? 'ผ้ายันต์ / สติ๊กเกอร์'
+          : 'ของมงคล'),
+      gallery: productData.gallery?.length ? productData.gallery : [productData.image],
+    };
+
+    // 1. Optimistic update
+    setProducts((prev) => [newProduct, ...prev]);
+
+    // 2. Sync to Google Sheet
+    try {
+      const res = await saveProductToGoogleSheet(newProduct);
+      return { success: true, message: res.message || 'เพิ่มสินค้าสำเร็จ', product: newProduct };
+    } catch (e: any) {
+      console.warn('Product saved locally, sync warning:', e);
+      return { success: true, message: 'บันทึกสินค้าในเครื่องสำเร็จ', product: newProduct };
+    }
+  };
+
+  const updateProduct = async (
+    product: Product
+  ): Promise<{ success: boolean; message?: string }> => {
+    // 1. Optimistic update
+    setProducts((prev) => prev.map((p) => (p.id === product.id ? product : p)));
+
+    // 2. Sync to Google Sheet
+    try {
+      const res = await saveProductToGoogleSheet(product);
+      return { success: true, message: res.message || 'อัปเดตสินค้าสำเร็จ' };
+    } catch (e: any) {
+      console.warn('Product updated locally, sync warning:', e);
+      return { success: true, message: 'อัปเดตสินค้าในเครื่องสำเร็จ' };
+    }
+  };
+
+  const deleteProduct = async (
+    productId: string,
+    sku?: string
+  ): Promise<{ success: boolean; message?: string }> => {
+    // 1. Optimistic update
+    setProducts((prev) => prev.filter((p) => p.id !== productId && (!sku || p.sku !== sku)));
+
+    // 2. Sync to Google Sheet
+    try {
+      const res = await deleteProductFromGoogleSheet(productId, sku);
+      return { success: true, message: res.message || 'ลบสินค้าสำเร็จ' };
+    } catch (e: any) {
+      console.warn('Product deleted locally, sync warning:', e);
+      return { success: true, message: 'ลบสินค้าในเครื่องสำเร็จ' };
+    }
+  };
+
   return (
     <StoreDataContext.Provider
       value={{
@@ -137,6 +213,9 @@ export const StoreDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         verifyCertificate,
         createOrder,
         updateOrderStatus,
+        addProduct,
+        updateProduct,
+        deleteProduct,
         refreshFromGoogleSheet,
       }}
     >

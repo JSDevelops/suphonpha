@@ -164,6 +164,133 @@ function doPost(e) {
       })).setMimeType(ContentService.MimeType.JSON);
     }
 
+    // 3. บันทึก / แก้ไขสินค้า (Save or Update Product)
+    if (action === 'SAVE_PRODUCT') {
+      let productsSheet = ss.getSheetByName('Products');
+      const productHeaders = [
+        'id',
+        'sku',
+        'title_th',
+        'title_en',
+        'category',
+        'category_label',
+        'short_desc',
+        'full_desc',
+        'price',
+        'sale_price',
+        'stock',
+        'image_url',
+        'dimensions',
+        'material',
+        'blessing_info',
+        'cert_code',
+        'is_featured',
+        'updated_at'
+      ];
+
+      if (!productsSheet) {
+        productsSheet = ss.insertSheet('Products');
+        productsSheet.appendRow(productHeaders);
+      }
+
+      const p = postData.product || {};
+      const prodId = p.id || ('prod-' + Utilities.formatDate(new Date(), 'GMT+7', 'yyyyMMdd-HHmmss'));
+      const updatedAt = new Date().toLocaleString('th-TH', { timeZone: 'Asia/Bangkok' });
+
+      const newRow = [
+        prodId,
+        p.sku || '',
+        p.titleTh || p.title_th || '',
+        p.titleEn || p.title_en || '',
+        p.category || 'amulet',
+        p.categoryLabelTh || p.category_label || 'วัตถุมงคล',
+        p.shortDesc || p.short_desc || '',
+        p.fullDesc || p.full_desc || '',
+        Number(p.regularPrice || p.price || 0),
+        p.salePrice !== undefined && p.salePrice !== null ? Number(p.salePrice) : '',
+        Number(p.stock !== undefined ? p.stock : 1),
+        p.image || p.image_url || '',
+        p.dimensions || '',
+        p.material || '',
+        p.blessingInfo || p.blessing_info || '',
+        p.certificateCode || p.cert_code || '',
+        p.isFeatured ? 'true' : 'false',
+        updatedAt
+      ];
+
+      // ค้นหาว่ามีสินค้ารหัสนี้อยู่แล้วหรือไม่เพื่อทำการแก้ไข (Update)
+      const data = productsSheet.getDataRange().getValues();
+      let rowIndexToUpdate = -1;
+
+      if (data.length > 1) {
+        for (let i = 1; i < data.length; i++) {
+          const rowProdId = String(data[i][0]).trim();
+          const rowSku = String(data[i][1]).trim();
+          if ((p.id && rowProdId === String(p.id).trim()) || (p.sku && rowSku === String(p.sku).trim())) {
+            rowIndexToUpdate = i + 1; // 1-based index in Sheet
+            break;
+          }
+        }
+      }
+
+      if (rowIndexToUpdate > 0) {
+        // อัปเดตแถวเดิม
+        productsSheet.getRange(rowIndexToUpdate, 1, 1, newRow.length).setValues([newRow]);
+        return ContentService.createTextOutput(JSON.stringify({
+          status: 'success',
+          message: 'อัปเดตข้อมูลสินค้าสำเร็จ',
+          id: prodId
+        })).setMimeType(ContentService.MimeType.JSON);
+      } else {
+        // เพิ่มแถวใหม่
+        productsSheet.appendRow(newRow);
+        return ContentService.createTextOutput(JSON.stringify({
+          status: 'success',
+          message: 'เพิ่มสินค้าใหม่ลง Google Sheet สำเร็จ',
+          id: prodId
+        })).setMimeType(ContentService.MimeType.JSON);
+      }
+    }
+
+    // 4. ลบสินค้า (Delete Product)
+    if (action === 'DELETE_PRODUCT') {
+      const productsSheet = ss.getSheetByName('Products');
+      if (!productsSheet) {
+        return ContentService.createTextOutput(JSON.stringify({
+          status: 'error',
+          message: 'ไม่พบแผ่นงาน Products'
+        })).setMimeType(ContentService.MimeType.JSON);
+      }
+
+      const targetId = String(postData.id || '').trim();
+      const targetSku = String(postData.sku || '').trim();
+
+      const data = productsSheet.getDataRange().getValues();
+      let deleted = false;
+
+      for (let i = data.length - 1; i >= 1; i--) {
+        const rowId = String(data[i][0]).trim();
+        const rowSku = String(data[i][1]).trim();
+        if ((targetId && rowId === targetId) || (targetSku && rowSku === targetSku)) {
+          productsSheet.deleteRow(i + 1);
+          deleted = true;
+          break;
+        }
+      }
+
+      if (deleted) {
+        return ContentService.createTextOutput(JSON.stringify({
+          status: 'success',
+          message: 'ลบสินค้าสำเร็จ'
+        })).setMimeType(ContentService.MimeType.JSON);
+      } else {
+        return ContentService.createTextOutput(JSON.stringify({
+          status: 'error',
+          message: 'ไม่พบสินค้าที่ต้องการลบ'
+        })).setMimeType(ContentService.MimeType.JSON);
+      }
+    }
+
     return ContentService.createTextOutput(JSON.stringify({
       status: 'error',
       message: 'Unknown action'
@@ -194,4 +321,143 @@ function sheetToObjects(sheet) {
     });
     return obj;
   });
+}
+
+/**
+ * ฟังก์ชันสำหรับติดตั้งและสร้างหัวตารางเริ่มต้น (Run ครั้งแรกครั้งเดียวใน Apps Script)
+ * กดเลือกฟังก์ชัน "setupInitialSheets" แล้วกดปุ่ม "เรียกใช้" (Run) ใน Apps Script
+ */
+function setupInitialSheets() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+
+  // 1. สร้างแท็บ Products
+  let prodSheet = ss.getSheetByName('Products');
+  if (!prodSheet) {
+    prodSheet = ss.insertSheet('Products');
+  }
+  if (prodSheet.getLastRow() === 0) {
+    prodSheet.appendRow([
+      'id',
+      'sku',
+      'title_th',
+      'title_en',
+      'category',
+      'category_label',
+      'short_desc',
+      'full_desc',
+      'price',
+      'sale_price',
+      'stock',
+      'image_url',
+      'dimensions',
+      'material',
+      'blessing_info',
+      'cert_code',
+      'is_featured',
+      'updated_at'
+    ]);
+    // ใส่ตัวอย่างสินค้า 1 ชิ้น
+    prodSheet.appendRow([
+      'prod-001',
+      'KDD-2025-001',
+      'เหรียญพระพุทธมงคลจำลอง รุ่นสร้างบารมี',
+      'Phra Buddha Mongkol Coin',
+      'amulet',
+      'วัตถุมงคล',
+      'พุทธคุณแคล้วคลาด ปลอดภัย เสริมบารมีและโชคลาภ',
+      'ผ่านพิธีมหาพุทธาภิเษกเข้มขลัง เนื้อสัมฤทธิ์โบราณผสมมวลสารศักดิ์สิทธิ์ 108',
+      1990,
+      1590,
+      10,
+      '/images/products/pendant-buddha.jpg',
+      'กว้าง 2.2 ซม. สูง 3.5 ซม.',
+      'สัมฤทธิ์โบราณ ผสมชนวนมวลสาร',
+      'พระเกจิอาจารย์ 9 รูป ร่วมอธิษฐานจิต',
+      'KDD-2025-00101',
+      'true',
+      new Date().toLocaleString('th-TH', { timeZone: 'Asia/Bangkok' })
+    ]);
+  }
+
+  // 2. สร้างแท็บ Certificates
+  let certSheet = ss.getSheetByName('Certificates');
+  if (!certSheet) {
+    certSheet = ss.insertSheet('Certificates');
+  }
+  if (certSheet.getLastRow() === 0) {
+    certSheet.appendRow([
+      'id',
+      'cert_number',
+      'product_name',
+      'image_url',
+      'material',
+      'dimensions',
+      'issued_date',
+      'status',
+      'blessing_master',
+      'notes',
+      'verification_count'
+    ]);
+    certSheet.appendRow([
+      'cert-001',
+      'KDD-2025-00101',
+      'เหรียญพระพุทธมงคลจำลอง รุ่นสร้างบารมี',
+      '/images/products/pendant-buddha.jpg',
+      'สัมฤทธิ์โบราณ ผสมชนวนมวลสาร',
+      'กว้าง 2.2 ซม. สูง 3.5 ซม.',
+      '2025-01-01',
+      'active',
+      'พระเกจิอาจารย์ร่วมเจริญพระพุทธมนต์',
+      'ออกโดยศูนย์พระเครื่องคนดวงดี 2025',
+      1
+    ]);
+  }
+
+  // 3. สร้างแท็บ Orders
+  let orderSheet = ss.getSheetByName('Orders');
+  if (!orderSheet) {
+    orderSheet = ss.insertSheet('Orders');
+  }
+  if (orderSheet.getLastRow() === 0) {
+    orderSheet.appendRow([
+      'วันที่เวลา',
+      'เลขออเดอร์',
+      'ชื่อลูกค้า',
+      'เบอร์โทรศัพท์',
+      'อีเมล',
+      'ที่อยู่จัดส่ง',
+      'รายการสินค้า',
+      'ยอดสุทธิ (บาท)',
+      'วิธีชำระเงิน',
+      'ลิงก์สลิปโอนเงิน',
+      'สถานะ',
+      'บริษัทขนส่ง',
+      'เลขติดตามพัสดุ'
+    ]);
+  }
+
+  // 4. สร้างแท็บ CustomInquiries
+  let inqSheet = ss.getSheetByName('CustomInquiries');
+  if (!inqSheet) {
+    inqSheet = ss.insertSheet('CustomInquiries');
+  }
+  if (inqSheet.getLastRow() === 0) {
+    inqSheet.appendRow([
+      'วันที่เวลา',
+      'รหัสคำขอสั่งสร้าง',
+      'ชื่อผู้ติดต่อ/องค์กร',
+      'เบอร์โทรศัพท์',
+      'LINE ID',
+      'อีเมล',
+      'ประเภทวัตถุมงคล',
+      'จำนวนที่ต้องการ (ชิ้น)',
+      'งบประมาณโดยประมาณ',
+      'มวลสารที่มี/ต้องการผสม',
+      'ความประสงค์ด้านพิธี',
+      'รายละเอียดแบบพุทธศิลป์',
+      'สถานะดำเนินการ'
+    ]);
+  }
+
+  Logger.log('ตั้งค่าชีตทั้ง 4 แท็บเรียบร้อยแล้ว!');
 }

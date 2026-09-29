@@ -152,4 +152,83 @@ describe('StoreDataContext Unit Tests', () => {
       expect(updated?.paidAt).toBeDefined();
     });
   });
+
+  describe('Product Management (Admin Operations)', () => {
+    it('adds a new product successfully with auto-generated id and default category label', async () => {
+      const { result } = renderHook(() => useStoreData(), { wrapper });
+      await waitFor(() => expect(result.current.isLoading).toBe(false));
+
+      const initialCount = result.current.products.length;
+
+      let res: any;
+      await act(async () => {
+        res = await result.current.addProduct({
+          sku: 'KDD-NEW-001',
+          titleTh: 'เหรียญพระราหูอมจันทร์ รุ่นเศรษฐีหมื่นล้าน',
+          titleEn: 'Rahu Amulet',
+          category: 'amulet',
+          categoryLabelTh: 'วัตถุมงคล',
+          shortDesc: 'แคล้วคลาด ปลอดภัย เสริมดวงชะตา',
+          fullDesc: 'เนื้อสัมฤทธิ์โบราณ ผ่านพิธีพุทธาภิเษกเข้มขลัง',
+          regularPrice: 2990,
+          salePrice: 1990,
+          stock: 9,
+          image: '/images/products/pendant-buddha.jpg',
+          gallery: ['/images/products/pendant-buddha.jpg'],
+          dimensions: '3.0 x 4.2 cm',
+          material: 'สัมฤทธิ์โบราณ',
+          blessingInfo: 'พระเกจิอาจารย์ 9 รูป',
+          isFeatured: true,
+        });
+      });
+
+      expect(res.success).toBe(true);
+      expect(result.current.products.length).toBe(initialCount + 1);
+      const added = result.current.products.find((p) => p.sku === 'KDD-NEW-001');
+      expect(added).toBeDefined();
+      expect(added?.titleTh).toBe('เหรียญพระราหูอมจันทร์ รุ่นเศรษฐีหมื่นล้าน');
+      expect(added?.regularPrice).toBe(2990);
+    });
+
+    it('updates an existing product correctly', async () => {
+      const { result } = renderHook(() => useStoreData(), { wrapper });
+      await waitFor(() => expect(result.current.isLoading).toBe(false));
+
+      const target = result.current.products[0];
+      const updatedProduct = {
+        ...target,
+        titleTh: target.titleTh + ' (รุ่นพิเศษปรับปรุงราคา)',
+        regularPrice: 9999,
+        stock: 50,
+      };
+
+      await act(async () => {
+        const res = await result.current.updateProduct(updatedProduct);
+        expect(res.success).toBe(true);
+      });
+
+      const found = result.current.products.find((p) => p.id === target.id);
+      expect(found?.titleTh).toContain('(รุ่นพิเศษปรับปรุงราคา)');
+      expect(found?.regularPrice).toBe(9999);
+      expect(found?.stock).toBe(50);
+    });
+
+    it('deletes a product by id properly', async () => {
+      const { result } = renderHook(() => useStoreData(), { wrapper });
+      await waitFor(() => expect(result.current.isLoading).toBe(false));
+
+      const target = result.current.products[0];
+      const initialCount = result.current.products.length;
+
+      await act(async () => {
+        const res = await result.current.deleteProduct(target.id, target.sku);
+        expect(res.success).toBe(true);
+      });
+
+      expect(result.current.products.length).toBe(initialCount - 1);
+      const found = result.current.products.find((p) => p.id === target.id);
+      expect(found).toBeUndefined();
+    });
+  });
 });
+

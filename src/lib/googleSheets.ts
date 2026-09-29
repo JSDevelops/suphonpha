@@ -195,3 +195,80 @@ export async function submitCustomInquiryToGoogleSheet(
   }
 }
 
+/**
+ * บันทึก หรือ แก้ไขสินค้าใน Google Sheet (แท็บ Products)
+ */
+export async function saveProductToGoogleSheet(
+  product: Product
+): Promise<{ success: boolean; message?: string; id?: string }> {
+  if (!GOOGLE_SHEET_API_URL) {
+    return {
+      success: true,
+      message: 'บันทึกสินค้าเรียบร้อย (บันทึกในเครื่อง/Local Mode)',
+      id: product.id,
+    };
+  }
+
+  try {
+    const res = await fetch(GOOGLE_SHEET_API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'text/plain;charset=utf-8',
+      },
+      body: JSON.stringify({
+        action: 'SAVE_PRODUCT',
+        product,
+      }),
+      redirect: 'follow',
+    });
+
+    const json = await res.json();
+    return {
+      success: json.status === 'success',
+      message: json.message,
+      id: json.id || product.id,
+    };
+  } catch (err: any) {
+    console.error('Error saving product to Google Sheet:', err);
+    return { success: false, message: err.message };
+  }
+}
+
+/**
+ * ลบสินค้าจาก Google Sheet (แท็บ Products)
+ */
+export async function deleteProductFromGoogleSheet(
+  id: string,
+  sku?: string
+): Promise<{ success: boolean; message?: string }> {
+  if (!GOOGLE_SHEET_API_URL) {
+    return {
+      success: true,
+      message: 'ลบสินค้าเรียบร้อย (บันทึกในเครื่อง/Local Mode)',
+    };
+  }
+
+  try {
+    const res = await fetch(GOOGLE_SHEET_API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'text/plain;charset=utf-8',
+      },
+      body: JSON.stringify({
+        action: 'DELETE_PRODUCT',
+        id,
+        sku,
+      }),
+      redirect: 'follow',
+    });
+
+    const json = await res.json();
+    return {
+      success: json.status === 'success',
+      message: json.message,
+    };
+  } catch (err: any) {
+    console.error('Error deleting product from Google Sheet:', err);
+    return { success: false, message: err.message };
+  }
+}

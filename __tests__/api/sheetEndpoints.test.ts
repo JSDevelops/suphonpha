@@ -53,4 +53,34 @@ describe('Google Sheets Direct Client Unit Tests', () => {
       expect(result.inquiryId).toBeDefined();
     });
   });
+
+  describe('saveProductToGoogleSheet and deleteProductFromGoogleSheet', () => {
+    it('successfully calls saveProductToGoogleSheet with fallback', async () => {
+      const { saveProductToGoogleSheet } = await import('@/lib/googleSheets');
+      const result = await saveProductToGoogleSheet({
+        id: 'unit-prod-01',
+        sku: 'UNIT-SKU-01',
+        titleTh: 'เหรียญเสมาหลวงปู่ศิลา',
+        titleEn: 'Luang Pu Sila Amulet',
+        category: 'amulet',
+        categoryLabelTh: 'วัตถุมงคล',
+        shortDesc: 'รุ่นสร้างบารมี',
+        fullDesc: 'เนื้อทองทิพย์',
+        regularPrice: 2900,
+        stock: 5,
+        image: '/images/products/pendant-buddha.jpg',
+        gallery: ['/images/products/pendant-buddha.jpg'],
+      });
+      expect(result.success).toBe(true);
+      expect(result.id).toBe('unit-prod-01');
+    });
+
+    it('successfully calls deleteProductFromGoogleSheet with fallback', async () => {
+      const { deleteProductFromGoogleSheet } = await import('@/lib/googleSheets');
+      const result = await deleteProductFromGoogleSheet('unit-prod-01', 'UNIT-SKU-01');
+      expect(result.success).toBe(true);
+      expect(result.message).toBeDefined();
+    });
+  });
 });
+
