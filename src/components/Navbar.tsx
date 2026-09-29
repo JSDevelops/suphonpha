@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import Image from '@/components/SafeImage';
 import { useCart } from '@/context/CartContext';
@@ -26,13 +26,30 @@ export function Navbar() {
   const [searchQuery, setSearchQuery] = useState('');
   const [certModalOpen, setCertModalOpen] = useState(false);
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // ปิด user dropdown เมื่อ click outside (ทำงานบน touch device ด้วย)
+  useEffect(() => {
+    if (!userDropdownOpen) return;
+    const handler = (e: MouseEvent | TouchEvent) => {
+      if (!dropdownRef.current?.contains(e.target as Node)) {
+        setUserDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handler);
+    document.addEventListener('touchstart', handler);
+    return () => {
+      document.removeEventListener('mousedown', handler);
+      document.removeEventListener('touchstart', handler);
+    };
+  }, [userDropdownOpen]);
 
   return (
     <>
       {/* Complete Fixed Header (Top bar + Main Navigation Bar stays permanently visible on scroll) */}
       <header className="fixed top-0 left-0 right-0 z-40 shadow-xs transition-all">
         {/* Top Notification Bar */}
-        <div className="bg-[#4A5D4E] text-white text-[11px] sm:text-xs py-2 px-3 sm:px-4 text-center tracking-wide font-light flex items-center justify-center gap-2">
+        <div className="bg-[#4A5D4E] text-white text-xs py-2 px-3 sm:px-4 text-center tracking-wide font-light flex items-center justify-center gap-2">
           <Sparkles className="w-3.5 h-3.5 text-[#C6A052] shrink-0" />
           <span className="truncate">จัดส่งฟรีทั่วประเทศเมื่อสั่งซื้อครบ 999 บาท | รับประกันของแท้พร้อม Digital Certificate</span>
         </div>
@@ -124,12 +141,13 @@ export function Navbar() {
               </button>
 
               {/* User Account Dropdown */}
-              <div className="relative">
+              <div className="relative" ref={dropdownRef}>
                 <button
                   type="button"
                   onClick={() => setUserDropdownOpen(!userDropdownOpen)}
                   className="flex items-center gap-1 p-2 touch-target text-[#282522] hover:text-[#4A5D4E] transition-colors"
                   aria-label="User Account"
+                  aria-expanded={userDropdownOpen}
                 >
                   <User className="w-5 h-5" />
                   <ChevronDown className="w-3 h-3 text-[#8E8A83]" />
@@ -137,13 +155,12 @@ export function Navbar() {
 
                 {userDropdownOpen && (
                   <div
-                    className="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-xl border border-[#E6E1D8] py-2 z-50 text-xs"
-                    onMouseLeave={() => setUserDropdownOpen(false)}
+                    className="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-xl border border-[#E6E1D8] py-2 z-50 text-xs animate-[fadeInDown_0.2s_ease]"
                   >
                     <div className="px-4 py-2 border-b border-gray-100">
                       <p className="font-semibold text-gray-800 truncate">{user?.name || 'ผู้เยี่ยมชม'}</p>
-                      <p className="text-gray-500 text-[11px] truncate">{user?.email || 'กรุณาเข้าสู่ระบบ'}</p>
-                      <span className="inline-block mt-1 px-2 py-0.5 text-[10px] rounded-full bg-[#E8EFEA] text-[#4A5D4E] font-medium">
+                      <p className="text-gray-500 text-xs truncate">{user?.email || 'กรุณาเข้าสู่ระบบ'}</p>
+                      <span className="inline-block mt-1 px-2 py-0.5 text-xs rounded-full bg-[#E8EFEA] text-[#4A5D4E] font-medium">
                         สิทธิ์: {user?.role || 'Guest'}
                       </span>
                     </div>
@@ -189,13 +206,17 @@ export function Navbar() {
           </div>
         </div>
 
-        {/* Mobile Navigation Drawer */}
-        {mobileMenuOpen && (
-          <div className="lg:hidden border-t border-[#E6E1D8] bg-[#F7F4EE] px-4 pt-3 pb-6 space-y-3">
+        {/* Mobile Navigation Drawer — slide-down animation */}
+        <div
+          className={`lg:hidden border-t border-[#E6E1D8] bg-[#F7F4EE] overflow-hidden transition-all duration-300 ease-out ${
+            mobileMenuOpen ? 'max-h-[400px] opacity-100' : 'max-h-0 opacity-0'
+          }`}
+        >
+          <div className="px-4 pt-3 pb-6 space-y-1">
             <Link
               href="/shop"
               onClick={() => setMobileMenuOpen(false)}
-              className="block text-base font-medium text-[#282522] hover:text-[#4A5D4E] py-2"
+              className="block text-base font-medium text-[#282522] hover:text-[#4A5D4E] py-2.5 border-b border-[#F0ECE6]"
             >
               สินค้าทั้งหมด
             </Link>
@@ -204,7 +225,7 @@ export function Navbar() {
                 setMobileMenuOpen(false);
                 setCertModalOpen(true);
               }}
-              className="flex items-center gap-2 w-full text-left text-base font-medium text-[#282522] hover:text-[#4A5D4E] py-2"
+              className="flex items-center gap-2 w-full text-left text-base font-medium text-[#282522] hover:text-[#4A5D4E] py-2.5 border-b border-[#F0ECE6]"
             >
               <ShieldCheck className="w-5 h-5 text-[#C6A052]" />
               ตรวจใบรับรอง
@@ -212,26 +233,26 @@ export function Navbar() {
             <Link
               href="/custom-order"
               onClick={() => setMobileMenuOpen(false)}
-              className="block text-base font-medium text-[#A98336] hover:text-[#4A5D4E] py-2 font-semibold"
+              className="block text-base font-semibold text-[#A98336] hover:text-[#4A5D4E] py-2.5 border-b border-[#F0ECE6]"
             >
               สั่งสร้างวัตถุมงคล
             </Link>
             <Link
               href="/articles"
               onClick={() => setMobileMenuOpen(false)}
-              className="block text-base font-medium text-[#282522] hover:text-[#4A5D4E] py-2"
+              className="block text-base font-medium text-[#282522] hover:text-[#4A5D4E] py-2.5 border-b border-[#F0ECE6]"
             >
               บทความน่ารู้
             </Link>
             <Link
               href="/about"
               onClick={() => setMobileMenuOpen(false)}
-              className="block text-base font-medium text-[#282522] hover:text-[#4A5D4E] py-2"
+              className="block text-base font-medium text-[#282522] hover:text-[#4A5D4E] py-2.5"
             >
               เกี่ยวกับเรา
             </Link>
           </div>
-        )}
+        </div>
         </div>
       </header>
 

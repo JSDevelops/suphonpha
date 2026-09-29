@@ -34,6 +34,8 @@ export function ProductCard({ product, onOpenCert }: ProductCardProps) {
           src={product.image}
           alt={product.titleTh}
           fill
+          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+          loading="lazy"
           className="object-cover transition-transform duration-500 group-hover:scale-108"
         />
 
@@ -47,7 +49,7 @@ export function ProductCard({ product, onOpenCert }: ProductCardProps) {
                 e.stopPropagation();
                 onOpenCert?.(product.certificateCode!);
               }}
-              className="pointer-events-auto flex items-center gap-1 px-2 py-0.5 rounded-full text-[9px] sm:text-[10px] font-medium bg-white/95 text-[#A98336] border border-[#C6A052]/40 backdrop-blur-xs shadow-2xs hover:bg-[#F9F4E8] hover:border-[#C6A052] hover:-translate-y-0.5 active:translate-y-0 transition-all"
+              className="pointer-events-auto flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] sm:text-xs font-medium bg-white/95 text-[#A98336] border border-[#C6A052]/40 backdrop-blur-xs shadow-2xs hover:bg-[#F9F4E8] hover:border-[#C6A052] hover:-translate-y-0.5 active:translate-y-0 transition-all"
             >
               <ShieldCheck className="w-3 h-3 text-[#C6A052] shrink-0" />
               <span className="hidden xs:inline">มีใบรับรอง</span>
@@ -66,11 +68,11 @@ export function ProductCard({ product, onOpenCert }: ProductCardProps) {
       {/* Product Information */}
       <div className="p-3.5 sm:p-4 flex-1 flex flex-col justify-between">
         <div>
-          <span className="text-[10px] tracking-wider text-[#8E8A83] uppercase block truncate">
+          <span className="text-xs tracking-wider text-[#8E8A83] uppercase block truncate">
             {product.categoryLabelTh}
           </span>
           <Link href={`/product/${product.id}`}>
-            <h3 className="font-serif text-xs sm:text-sm font-medium text-[#282522] mt-0.5 line-clamp-2 group-hover:text-[#4A5D4E] transition-colors leading-snug">
+            <h3 className="font-serif text-[13px] sm:text-sm font-medium text-[#282522] mt-0.5 line-clamp-2 group-hover:text-[#4A5D4E] transition-colors leading-snug">
               {product.titleTh}
             </h3>
           </Link>
