@@ -116,11 +116,12 @@ export function Footer() {
             <div className="snap-center shrink-0 w-[calc(100vw-2rem)] max-w-[360px] bg-white rounded-2xl p-5 border border-[#E6E1D8] shadow-xs flex flex-col justify-between space-y-4">
               <div className="space-y-3">
                 <div className="flex items-center gap-2.5">
-                  <div className="relative w-9 h-9 rounded-full overflow-hidden border border-[#C6A052] bg-white/80 p-0.5 shadow-2xs">
+                  <div className="relative w-9 h-9 rounded-full overflow-hidden border border-[#C6A052]/70 ring-1 ring-[#C6A052]/30 bg-gradient-to-b from-white to-[#FAF7F2] p-0.5 shadow-2xs">
                     <Image
-                      src="/images/drive/logo-01.png"
+                      src="/images/logo-suphonpha-emblem.png"
                       alt="สุพรภา Suphonpha - คนดวงดี 2025"
                       fill
+                      sizes="36px"
                       className="object-contain p-0.5"
                     />
                   </div>
@@ -322,11 +323,12 @@ export function Footer() {
           {/* Brand Intro */}
           <div className="md:col-span-2 space-y-4">
             <div className="flex items-center gap-2.5">
-              <div className="relative w-9 h-9 rounded-full overflow-hidden border border-[#C6A052] bg-white/80 p-0.5 shadow-2xs">
+              <div className="relative w-9 h-9 rounded-full overflow-hidden border border-[#C6A052]/70 ring-1 ring-[#C6A052]/30 bg-gradient-to-b from-white to-[#FAF7F2] p-0.5 shadow-2xs">
                 <Image
-                  src="/images/drive/logo-01.png"
+                  src="/images/logo-suphonpha-emblem.png"
                   alt="สุพรภา Suphonpha - คนดวงดี 2025"
                   fill
+                  sizes="36px"
                   className="object-contain p-0.5"
                 />
               </div>

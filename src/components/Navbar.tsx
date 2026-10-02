@@ -73,12 +73,13 @@ export function Navbar() {
             {/* Brand Logo & Name */}
             <div className="flex items-center gap-2 sm:gap-3 shrink-0">
               <Link href="/" className="flex items-center gap-2 sm:gap-2.5 group">
-                <div className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-full overflow-hidden border border-[#C6A052]/50 shadow-xs shrink-0 bg-white/70 p-1 flex items-center justify-center">
+                <div className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-full overflow-hidden border border-[#C6A052]/60 ring-2 ring-[#C6A052]/20 shadow-xs shrink-0 bg-gradient-to-b from-white to-[#FAF7F2] p-1 flex items-center justify-center transition-all duration-300 group-hover:border-[#C6A052] group-hover:shadow-[0_0_12px_rgba(198,160,82,0.25)]">
                   <Image
-                    src="/images/drive/logo-01.png"
+                    src="/images/logo-suphonpha-emblem.png"
                     alt="สุพรภา Suphonpha - คนดวงดี 2025"
                     fill
-                    className="object-contain p-0.5"
+                    sizes="(max-width: 640px) 36px, 40px"
+                    className="object-contain p-0.5 transition-transform duration-300 group-hover:scale-105"
                     priority
                   />
                 </div>
