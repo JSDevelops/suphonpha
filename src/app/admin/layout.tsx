@@ -27,6 +27,8 @@ import {
 } from 'lucide-react';
 import { useStoreData } from '@/context/StoreDataContext';
 import { useAuth, OFFICIAL_ADMIN_ACCOUNTS } from '@/context/AuthContext';
+import Image from '@/components/SafeImage';
+import { SUPHONPHA_EMBLEM_BASE64 } from '@/data/logoData';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -34,13 +36,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const { user, loginWithEmail, logout } = useAuth();
   const [syncStatus, setSyncStatus] = useState<string | null>(null);
 
-  // State สำหรับหน้าจอเข้าสู่ระบบ Admin
-  const [loginIdentifier, setLoginIdentifier] = useState('superadmin');
-  const [loginPassword, setLoginPassword] = useState('Kdd@2025Super!');
+  // State สำหรับหน้าจอเข้าสู่ระบบ Admin (เริ่มต้นว่างเพื่อความปลอดภัย)
+  const [loginIdentifier, setLoginIdentifier] = useState('');
+  const [loginPassword, setLoginPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [loginError, setLoginError] = useState('');
   const [isLoggingIn, setIsLoggingIn] = useState(false);
-  const [copiedAccount, setCopiedAccount] = useState<string | null>(null);
 
   const isGoogleSheetConfigured = !!process.env.NEXT_PUBLIC_GOOGLE_SHEET_API_URL;
   const isAdmin = user?.role === 'admin' || user?.role === 'super_admin';
@@ -65,7 +66,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     try {
       const res = await loginWithEmail(loginIdentifier, loginPassword);
       if (!res.success) {
-        setLoginError(res.message || 'รหัสผ่านไม่ถูกต้อง');
+        setLoginError(res.message || 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง');
       }
     } catch {
       setLoginError('เกิดข้อผิดพลาดในการเข้าสู่ระบบ');
@@ -74,28 +75,31 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     }
   };
 
-  const handleAutoFill = (username: string, pass: string) => {
-    setLoginIdentifier(username);
-    setLoginPassword(pass);
-    setLoginError('');
-  };
-
   // หากยังไม่ได้เข้าสู่ระบบ Admin ให้แสดงหน้าล็อกอินที่ปลอดภัย
   if (!isAdmin) {
     return (
       <div className="min-h-screen bg-[var(--bg-cream)] flex items-center justify-center p-4">
         <div className="max-w-lg w-full space-y-6">
           {/* Brand Logo & Header */}
-          <div className="text-center space-y-2">
-            <div className="w-14 h-14 rounded-2xl bg-[var(--brand-sage-dark)] text-[var(--brand-gold)] flex items-center justify-center font-serif font-bold text-2xl mx-auto shadow-md">
-              ด
+          <div className="text-center space-y-3">
+            <div className="relative w-16 h-16 rounded-full overflow-hidden border-2 border-[#C6A052]/70 ring-4 ring-[#C6A052]/20 shadow-md bg-gradient-to-b from-white to-[#FAF7F2] p-2 mx-auto flex items-center justify-center">
+              <Image
+                src={SUPHONPHA_EMBLEM_BASE64}
+                alt="สุพรภา Suphonpha - คนดวงดี 2025"
+                fill
+                sizes="64px"
+                className="object-contain p-1"
+                priority
+              />
             </div>
-            <h1 className="font-serif text-2xl sm:text-3xl font-bold text-[var(--brand-sage-dark)]">
-              คนดวงดี 2025
-            </h1>
-            <p className="text-sm text-[var(--text-secondary)]">
-              ระบบจัดการหลังบ้าน (Admin & Super Admin Portal)
-            </p>
+            <div>
+              <h1 className="font-serif text-2xl sm:text-3xl font-bold text-[var(--brand-sage-dark)]">
+                สุพรภา | คนดวงดี 2025
+              </h1>
+              <p className="text-xs sm:text-sm text-[var(--text-secondary)] mt-1">
+                ระบบจัดการหลังบ้าน (Admin & Super Admin Portal)
+              </p>
+            </div>
           </div>
 
           {/* Login Card */}
@@ -124,7 +128,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                   <input
                     type="text"
                     required
-                    placeholder="เช่น superadmin หรือ admin"
+                    placeholder="กรอกชื่อผู้ใช้ เช่น superadmin หรือ admin"
                     value={loginIdentifier}
                     onChange={(e) => setLoginIdentifier(e.target.value)}
                     className="w-full pl-9 pr-3 py-2.5 bg-stone-50 border border-stone-200 rounded-xl text-sm focus:ring-2 focus:ring-[var(--brand-sage)] focus:bg-white"
@@ -163,49 +167,22 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               </button>
             </form>
 
-            {/* Quick Demo Credentials */}
-            <div className="pt-4 border-t border-stone-100 space-y-2.5">
-              <div className="text-[11px] font-semibold text-stone-500 uppercase tracking-wider">
-                ข้อมูลรหัสผ่านสำหรับผู้ดูแล (Credentials)
-              </div>
-
-              <div className="space-y-2">
-                {OFFICIAL_ADMIN_ACCOUNTS.map((acc) => (
-                  <div
-                    key={acc.username}
-                    className={`p-3 rounded-xl border text-xs flex items-center justify-between gap-2 transition-all ${
-                      acc.role === 'super_admin'
-                        ? 'bg-amber-50/70 border-amber-200'
-                        : 'bg-emerald-50/70 border-emerald-200'
-                    }`}
-                  >
-                    <div className="min-w-0">
-                      <div className="font-bold flex items-center gap-1.5 text-stone-900">
-                        {acc.role === 'super_admin' ? '👑' : '🛡️'} {acc.name}
-                      </div>
-                      <div className="text-stone-600 text-[11px] mt-0.5 space-x-2 font-mono">
-                        <span>User: <strong>{acc.username}</strong></span>
-                        <span>Pass: <strong>{acc.password}</strong></span>
-                      </div>
-                      <div className="text-[10px] text-stone-500 mt-0.5 truncate">
-                        {acc.description}
-                      </div>
-                    </div>
-
-                    <button
-                      type="button"
-                      onClick={() => handleAutoFill(acc.username, acc.password)}
-                      className={`px-2.5 py-1.5 rounded-lg text-[11px] font-bold shrink-0 transition-all ${
-                        acc.role === 'super_admin'
-                          ? 'bg-amber-600 hover:bg-amber-700 text-white'
-                          : 'bg-emerald-600 hover:bg-emerald-700 text-white'
-                      }`}
-                    >
-                      เติมรหัสนี้
-                    </button>
-                  </div>
-                ))}
-              </div>
+            {/* Security Notice for Staff */}
+            <div className="pt-3 border-t border-stone-100">
+              <details className="text-xs text-stone-500 group">
+                <summary className="cursor-pointer font-medium hover:text-stone-700 list-none flex items-center justify-between py-1">
+                  <span className="flex items-center gap-1.5 text-[11px] text-stone-600">
+                    <ShieldCheck className="w-3.5 h-3.5 text-[#C6A052]" />
+                    เฉพาะเจ้าหน้าที่และผู้ดูแลระบบที่ได้รับมอบหมายเท่านั้น
+                  </span>
+                  <span className="text-[10px] text-stone-400 group-open:rotate-180 transition-transform">▼</span>
+                </summary>
+                <div className="mt-2.5 p-3 rounded-xl bg-stone-50 border border-stone-200 text-[11px] space-y-1.5 text-stone-600 leading-relaxed">
+                  <p>
+                    หน้านี้สงวนสิทธิ์สำหรับการจัดการร้านค้า วัตถุมงคล คำสั่งซื้อ และใบรับรองพระแท้สำหรับเจ้าหน้าที่ Suphonpha Admin เท่านั้น การเข้าถึงโดยมิชอบจะถูกปฏิเสธโดยอัตโนมัติ
+                  </p>
+                </div>
+              </details>
             </div>
           </div>
 

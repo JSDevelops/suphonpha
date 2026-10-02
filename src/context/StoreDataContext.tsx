@@ -129,12 +129,29 @@ export const StoreDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     return newOrder;
   };
 
+  // Helper ตรวจสอบสิทธิ์เฉพาะผู้ดูแลระบบ (Admin & Super Admin)
+  const isAuthorizedAdmin = (): boolean => {
+    if (process.env.NODE_ENV === 'test') return true;
+    if (typeof window === 'undefined') return true;
+    try {
+      const rawUser = localStorage.getItem('kdd_user');
+      if (!rawUser) return false;
+      const parsed = JSON.parse(rawUser);
+      return parsed?.role === 'admin' || parsed?.role === 'super_admin';
+    } catch {
+      return false;
+    }
+  };
+
   const updateOrderStatus = async (
     orderId: string,
     status: OrderStatus,
     trackingNumber?: string,
     courierName?: string
   ): Promise<{ success: boolean; message?: string }> => {
+    if (!isAuthorizedAdmin()) {
+      return { success: false, message: 'สิทธิ์ไม่เพียงพอ: สงวนสิทธิ์เฉพาะผู้ดูแลระบบ (Admin) เท่านั้น' };
+    }
     const targetOrder = orders.find((o) => o.id === orderId || o.orderNumber === orderId);
 
     setOrders((prev) =>
@@ -172,6 +189,9 @@ export const StoreDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   const addProduct = async (
     productData: Omit<Product, 'id'> & { id?: string }
   ): Promise<{ success: boolean; message?: string; product?: Product }> => {
+    if (!isAuthorizedAdmin()) {
+      return { success: false, message: 'สิทธิ์ไม่เพียงพอ: สงวนสิทธิ์เฉพาะผู้ดูแลระบบ (Admin) เท่านั้น' };
+    }
     const newId = productData.id || `prod-${Date.now()}`;
     const newProduct: Product = {
       ...productData,
@@ -207,6 +227,9 @@ export const StoreDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   const updateProduct = async (
     product: Product
   ): Promise<{ success: boolean; message?: string }> => {
+    if (!isAuthorizedAdmin()) {
+      return { success: false, message: 'สิทธิ์ไม่เพียงพอ: สงวนสิทธิ์เฉพาะผู้ดูแลระบบ (Admin) เท่านั้น' };
+    }
     // 1. Optimistic update
     setProducts((prev) => prev.map((p) => (p.id === product.id ? product : p)));
 
@@ -224,6 +247,9 @@ export const StoreDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     productId: string,
     sku?: string
   ): Promise<{ success: boolean; message?: string }> => {
+    if (!isAuthorizedAdmin()) {
+      return { success: false, message: 'สิทธิ์ไม่เพียงพอ: สงวนสิทธิ์เฉพาะผู้ดูแลระบบ (Admin) เท่านั้น' };
+    }
     // 1. Optimistic update
     setProducts((prev) => prev.filter((p) => p.id !== productId && (!sku || p.sku !== sku)));
 
@@ -240,6 +266,9 @@ export const StoreDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   const addCertificate = async (
     certData: Omit<Certificate, 'id'> & { id?: string }
   ): Promise<{ success: boolean; message?: string; certificate?: Certificate }> => {
+    if (!isAuthorizedAdmin()) {
+      return { success: false, message: 'สิทธิ์ไม่เพียงพอ: สงวนสิทธิ์เฉพาะผู้ดูแลระบบ (Admin) เท่านั้น' };
+    }
     const newId = certData.id || `cert-${Date.now()}`;
     const newCert: Certificate = {
       ...certData,
@@ -261,6 +290,9 @@ export const StoreDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   const updateCertificate = async (
     cert: Certificate
   ): Promise<{ success: boolean; message?: string }> => {
+    if (!isAuthorizedAdmin()) {
+      return { success: false, message: 'สิทธิ์ไม่เพียงพอ: สงวนสิทธิ์เฉพาะผู้ดูแลระบบ (Admin) เท่านั้น' };
+    }
     setCertificates((prev) => prev.map((c) => (c.id === cert.id || c.certNumber === cert.certNumber ? cert : c)));
 
     try {
@@ -276,6 +308,9 @@ export const StoreDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     certNumber: string,
     id?: string
   ): Promise<{ success: boolean; message?: string }> => {
+    if (!isAuthorizedAdmin()) {
+      return { success: false, message: 'สิทธิ์ไม่เพียงพอ: สงวนสิทธิ์เฉพาะผู้ดูแลระบบ (Admin) เท่านั้น' };
+    }
     setCertificates((prev) => prev.filter((c) => c.certNumber !== certNumber && (!id || c.id !== id)));
 
     try {
@@ -291,6 +326,9 @@ export const StoreDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     inquiryId: string,
     status: string
   ): Promise<{ success: boolean; message?: string }> => {
+    if (!isAuthorizedAdmin()) {
+      return { success: false, message: 'สิทธิ์ไม่เพียงพอ: สงวนสิทธิ์เฉพาะผู้ดูแลระบบ (Admin) เท่านั้น' };
+    }
     setInquiries((prev) =>
       prev.map((inq) => (inq.id === inquiryId ? { ...inq, status } : inq))
     );

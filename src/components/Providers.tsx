@@ -7,10 +7,10 @@ import { StoreDataProvider } from '@/context/StoreDataContext';
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
-    <StoreDataProvider>
-      <AuthProvider>
+    <AuthProvider>
+      <StoreDataProvider>
         <CartProvider>{children}</CartProvider>
-      </AuthProvider>
-    </StoreDataProvider>
+      </StoreDataProvider>
+    </AuthProvider>
   );
 }
