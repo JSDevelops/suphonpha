@@ -4,6 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from '@/components/SafeImage';
 import { ShieldCheck, Truck, RefreshCw, Lock, MessageCircle, Phone, MapPin, Building2 } from 'lucide-react';
+import { SUPHONPHA_EMBLEM_BASE64 } from '@/data/logoData';
 
 export function Footer() {
   const [activeSlide, setActiveSlide] = React.useState(0);
@@ -118,7 +119,7 @@ export function Footer() {
                 <div className="flex items-center gap-2.5">
                   <div className="relative w-9 h-9 rounded-full overflow-hidden border border-[#C6A052]/70 ring-1 ring-[#C6A052]/30 bg-gradient-to-b from-white to-[#FAF7F2] p-0.5 shadow-2xs">
                     <Image
-                      src="/images/logo-suphonpha-emblem.png"
+                      src={SUPHONPHA_EMBLEM_BASE64}
                       alt="สุพรภา Suphonpha - คนดวงดี 2025"
                       fill
                       sizes="36px"
@@ -325,7 +326,7 @@ export function Footer() {
             <div className="flex items-center gap-2.5">
               <div className="relative w-9 h-9 rounded-full overflow-hidden border border-[#C6A052]/70 ring-1 ring-[#C6A052]/30 bg-gradient-to-b from-white to-[#FAF7F2] p-0.5 shadow-2xs">
                 <Image
-                  src="/images/logo-suphonpha-emblem.png"
+                  src={SUPHONPHA_EMBLEM_BASE64}
                   alt="สุพรภา Suphonpha - คนดวงดี 2025"
                   fill
                   sizes="36px"

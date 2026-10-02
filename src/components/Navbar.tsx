@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { CartDrawer } from './CartDrawer';
 import { CertificateModal } from './CertificateModal';
+import { SUPHONPHA_EMBLEM_BASE64 } from '@/data/logoData';
 
 export function Navbar() {
   const { itemCount, setIsCartOpen } = useCart();
@@ -75,7 +76,7 @@ export function Navbar() {
               <Link href="/" className="flex items-center gap-2 sm:gap-2.5 group">
                 <div className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-full overflow-hidden border border-[#C6A052]/60 ring-2 ring-[#C6A052]/20 shadow-xs shrink-0 bg-gradient-to-b from-white to-[#FAF7F2] p-1 flex items-center justify-center transition-all duration-300 group-hover:border-[#C6A052] group-hover:shadow-[0_0_12px_rgba(198,160,82,0.25)]">
                   <Image
-                    src="/images/logo-suphonpha-emblem.png"
+                    src={SUPHONPHA_EMBLEM_BASE64}
                     alt="สุพรภา Suphonpha - คนดวงดี 2025"
                     fill
                     sizes="(max-width: 640px) 36px, 40px"
