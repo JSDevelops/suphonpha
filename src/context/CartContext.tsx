@@ -106,7 +106,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const applyPromoCode = (code: string) => {
     const trimmed = code.trim().toUpperCase();
-    if (trimmed === 'SUPHONPHA' || trimmed === 'LUCK2025' || trimmed === 'KONDUANGDEE') {
+    if (trimmed === 'SUPHONPHA' || trimmed === 'LUCK2025') {
       const discountVal = 100;
       setPromoCode(trimmed);
       setDiscount(discountVal);

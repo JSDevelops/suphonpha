@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from '@/components/SafeImage';
-import { ShieldCheck, Truck, RefreshCw, Lock, MessageCircle, Phone, MapPin, Building2 } from 'lucide-react';
+import { ShieldCheck, Truck, RefreshCw, Lock, Phone, MapPin, Building2 } from 'lucide-react';
 import { SUPHONPHA_EMBLEM_BASE64 } from '@/data/logoData';
 
 export function Footer() {

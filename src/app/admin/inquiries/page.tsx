@@ -50,7 +50,6 @@ export default function AdminInquiriesPage() {
       const matchQuery =
         inq.contactName.toLowerCase().includes(searchQuery.toLowerCase()) ||
         inq.phone.includes(searchQuery) ||
-        inq.lineId.toLowerCase().includes(searchQuery.toLowerCase()) ||
         inq.amuletType.toLowerCase().includes(searchQuery.toLowerCase()) ||
         (inq.id && inq.id.toLowerCase().includes(searchQuery.toLowerCase()));
 

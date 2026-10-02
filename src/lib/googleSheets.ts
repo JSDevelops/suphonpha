@@ -126,7 +126,6 @@ export async function fetchGoogleSheetData(): Promise<SheetDataResponse> {
         id: inq['รหัสคำขอสั่งสร้าง'] || inq.inquiry_id || inq.id || `INQ-${index + 1}`,
         contactName: inq['ชื่อผู้ติดต่อ/องค์กร'] || inq.contact_name || inq.contactName || 'ผู้ติดต่อ',
         phone: String(inq['เบอร์โทรศัพท์'] || inq.phone || ''),
-        lineId: inq['LINE ID'] || inq.line_id || inq.lineId || '',
         email: inq['อีเมล'] || inq.email || '',
         amuletType: inq['ประเภทวัตถุมงคล'] || inq.amulet_type || inq.amuletType || 'วัตถุมงคล',
         quantity: String(inq['จำนวนที่ต้องการ (ชิ้น)'] || inq.quantity || '1'),

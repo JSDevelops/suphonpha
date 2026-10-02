@@ -44,7 +44,6 @@ export default function CustomOrderPage() {
       const res = await submitCustomInquiryToGoogleSheet({
         contactName,
         phone,
-        lineId: '',
         email,
         amuletType,
         quantity,

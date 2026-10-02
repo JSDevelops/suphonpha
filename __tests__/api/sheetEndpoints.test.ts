@@ -44,7 +44,6 @@ describe('Google Sheets Direct Client Unit Tests', () => {
       const result = await submitCustomInquiryToGoogleSheet({
         contactName: 'คุณศรัทธา มงคลยิ่ง',
         phone: '065-306-2263',
-        lineId: 'sattha_line',
         amuletType: 'พระผงพุทธคุณ',
         quantity: '1,000 องค์',
         budget: '80,000 บาท',

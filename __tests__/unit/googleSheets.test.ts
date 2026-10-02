@@ -117,7 +117,6 @@ describe('Google Sheets Client Integration & Fallbacks', () => {
       const mockInquiry = {
         contactName: 'คุณวัชระ นพดล',
         phone: '065-306-2263',
-        lineId: 'watchara_line',
         email: 'watchara@test.com',
         amuletType: 'เหรียญปั๊มโลหะ',
         quantity: '500 องค์',

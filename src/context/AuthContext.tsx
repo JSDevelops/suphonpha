@@ -76,7 +76,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const cleanPass = (pass || '').trim();
 
     // 1. ตรวจสอบบัญชี Super Admin
-    if (cleanId === 'superadmin' || cleanId === 'superadmin@suphonpha.com' || cleanId === 'superadmin@konduangdee.com') {
+    if (cleanId === 'superadmin' || cleanId === 'superadmin@suphonpha.com') {
       if (cleanPass !== 'Kdd@2025Super!') {
         return { success: false, message: 'รหัสผ่านสำหรับ Super Admin ไม่ถูกต้อง (รหัสคือ Kdd@2025Super!)' };
       }
@@ -97,7 +97,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
 
     // 2. ตรวจสอบบัญชี Admin (เจ้าหน้าที่)
-    if (cleanId === 'admin' || cleanId === 'admin@suphonpha.com' || cleanId === 'admin@konduangdee.com') {
+    if (cleanId === 'admin' || cleanId === 'admin@suphonpha.com') {
       if (cleanPass !== 'Kdd@2025Admin!') {
         return { success: false, message: 'รหัสผ่านสำหรับ Admin ไม่ถูกต้อง (รหัสคือ Kdd@2025Admin!)' };
       }

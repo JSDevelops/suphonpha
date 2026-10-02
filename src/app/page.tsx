@@ -48,7 +48,7 @@ export default function HomePage() {
               {/* Interactive Collection Tag */}
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/85 backdrop-blur-xs border border-[#C6A052]/30 text-[#4A5D4E] text-xs font-medium tracking-wide shadow-2xs hover:shadow-md hover:border-[#C6A052] hover:-translate-y-0.5 transition-all duration-300 cursor-default">
                 <Sparkles className="w-3.5 h-3.5 text-[#C6A052] animate-pulse" />
-                <span className="font-medium">คอลเลกชันใหม่ปี 2025</span>
+                <span className="font-medium">คอลเลกชันใหม่ SUPHONPHA</span>
                 <span className="w-1.5 h-1.5 rounded-full bg-[#4A5D4E]/50"></span>
                 <span className="text-[11px] text-[#A98336]">ผ่านพิธีพุทธาภิเษกแท้</span>
               </div>

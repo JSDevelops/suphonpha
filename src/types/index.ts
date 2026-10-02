@@ -5,7 +5,6 @@ export interface User {
   name: string;
   email: string;
   phone?: string;
-  lineId?: string;
   role: UserRole;
   emailVerified: boolean;
   phoneVerified: boolean;
@@ -112,10 +111,6 @@ export interface SystemSettings {
   googleGa4Id: string;
   googleGtmId: string;
   googleSearchConsoleToken: string;
-  lineChannelId: string;
-  lineChannelSecret: string; // masked in UI
-  lineWebhookUrl: string;
-  lineMessagingEnabled: boolean;
   paymentGatewayProvider: string; // Omise, GBPrimePay, etc.
   paymentGatewayKey: string;
   bankAccountName: string;
@@ -144,7 +139,6 @@ export interface CustomInquiry {
   id?: string;
   contactName: string;
   phone: string;
-  lineId: string;
   email?: string;
   amuletType: string;
   quantity: string;
