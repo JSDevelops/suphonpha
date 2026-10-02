@@ -14,19 +14,18 @@ import {
   ShieldCheck,
   Mail,
   Phone,
-  MessageCircle,
   ExternalLink,
   LogOut,
   AlertCircle,
 } from 'lucide-react';
 
 export default function AccountPage() {
-  const { user, loginWithEmail, loginWithPhoneOtp, loginWithLine, logout, isAuthenticated } =
+  const { user, loginWithEmail, loginWithPhoneOtp, logout, isAuthenticated } =
     useAuth();
   const { orders } = useStoreData();
 
   // Login forms state
-  const [authMethod, setAuthMethod] = useState<'email' | 'phone' | 'line'>('email');
+  const [authMethod, setAuthMethod] = useState<'email' | 'phone'>('email');
   const [emailInput, setEmailInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
   const [phoneInput, setPhoneInput] = useState('');
@@ -58,10 +57,6 @@ export default function AccountPage() {
     if (!res.success) {
       setAuthError(res.message || 'รหัส OTP ไม่ถูกต้อง');
     }
-  };
-
-  const handleLineLogin = async () => {
-    await loginWithLine();
   };
 
   const getStatusBadge = (status: string) => {
@@ -143,17 +138,6 @@ export default function AccountPage() {
               }`}
             >
               เบอร์โทร OTP
-            </button>
-            <button
-              onClick={() => {
-                setAuthMethod('line');
-                setAuthError('');
-              }}
-              className={`flex-1 py-2 text-xs font-medium rounded-lg transition-all ${
-                authMethod === 'line' ? 'bg-[#06C755] text-white shadow-xs' : 'text-gray-500'
-              }`}
-            >
-              LINE Login
             </button>
           </div>
 
@@ -247,25 +231,8 @@ export default function AccountPage() {
             </div>
           )}
 
-          {/* LINE Login button */}
-          {authMethod === 'line' && (
-            <div className="space-y-4 text-center">
-              <p className="text-xs text-gray-600">
-                เข้าสู่ระบบด้วยบัญชี LINE อย่างสะดวก ปลอดภัย โดยไม่ต้องจำรหัสผ่าน
-              </p>
-              <button
-                type="button"
-                onClick={handleLineLogin}
-                className="w-full py-3 bg-[#06C755] hover:bg-[#05b34c] text-white rounded-xl font-medium text-xs flex items-center justify-center gap-2 shadow-xs transition-colors"
-              >
-                <MessageCircle className="w-5 h-5" />
-                <span>เข้าสู่ระบบด้วย LINE</span>
-              </button>
-            </div>
-          )}
-
           <div className="pt-2 text-[10px] text-gray-400 text-center leading-relaxed">
-            การเข้าสู่ระบบถือว่าท่านยอมรับข้อกำหนดการให้บริการและนโยบายความเป็นส่วนตัว (PDPA) ของ คนดวงดี 2025
+            การเข้าสู่ระบบถือว่าท่านยอมรับข้อกำหนดการให้บริการและนโยบายความเป็นส่วนตัว (PDPA) ของ สุพรภา (Suphonpha)
           </div>
         </div>
       ) : (
@@ -307,16 +274,6 @@ export default function AccountPage() {
                   </div>
                   <span className="text-[10px] text-green-700 bg-green-100 px-2 py-0.5 rounded-full font-medium">
                     {user?.phone || 'เชื่อมต่อแล้ว'}
-                  </span>
-                </div>
-
-                <div className="flex items-center justify-between p-2 rounded-lg bg-gray-50">
-                  <div className="flex items-center gap-2 text-gray-700">
-                    <MessageCircle className="w-4 h-4 text-[#06C755]" />
-                    <span>LINE Login</span>
-                  </div>
-                  <span className="text-[10px] text-gray-500 bg-gray-200 px-2 py-0.5 rounded-full font-medium">
-                    {user?.lineId ? 'เชื่อมต่อแล้ว' : 'ยังไม่เชื่อม'}
                   </span>
                 </div>
               </div>

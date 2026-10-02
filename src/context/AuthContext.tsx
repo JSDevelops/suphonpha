@@ -15,7 +15,7 @@ export interface AdminAccount {
 export const OFFICIAL_ADMIN_ACCOUNTS: AdminAccount[] = [
   {
     username: 'superadmin',
-    email: 'superadmin@konduangdee.com',
+    email: 'superadmin@suphonpha.com',
     password: 'Kdd@2025Super!',
     role: 'super_admin',
     name: 'ผู้ดูแลระบบสูงสุด (Super Admin)',
@@ -23,7 +23,7 @@ export const OFFICIAL_ADMIN_ACCOUNTS: AdminAccount[] = [
   },
   {
     username: 'admin',
-    email: 'admin@konduangdee.com',
+    email: 'admin@suphonpha.com',
     password: 'Kdd@2025Admin!',
     role: 'admin',
     name: 'เจ้าหน้าที่แอดมิน (Admin Staff)',
@@ -35,7 +35,6 @@ interface AuthContextType {
   user: User | null;
   loginWithEmail: (email: string, pass: string) => Promise<{ success: boolean; message?: string }>;
   loginWithPhoneOtp: (phone: string, otp: string) => Promise<{ success: boolean; message?: string }>;
-  loginWithLine: () => Promise<{ success: boolean; message?: string }>;
   logout: () => void;
   isAuthenticated: boolean;
 }
@@ -55,7 +54,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         const defaultUser: User = {
           id: 'usr-customer-1',
           name: 'คุณณัฐพร วงศ์สว่าง',
-          email: 'customer@konduangdee.com',
+          email: 'customer@suphonpha.com',
           phone: '081-234-5678',
           role: 'customer',
           emailVerified: true,
@@ -77,14 +76,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const cleanPass = (pass || '').trim();
 
     // 1. ตรวจสอบบัญชี Super Admin
-    if (cleanId === 'superadmin' || cleanId === 'superadmin@konduangdee.com') {
+    if (cleanId === 'superadmin' || cleanId === 'superadmin@suphonpha.com' || cleanId === 'superadmin@konduangdee.com') {
       if (cleanPass !== 'Kdd@2025Super!') {
         return { success: false, message: 'รหัสผ่านสำหรับ Super Admin ไม่ถูกต้อง (รหัสคือ Kdd@2025Super!)' };
       }
       const superAdminUser: User = {
         id: 'usr-super-admin',
         name: 'ผู้ดูแลระบบสูงสุด (Super Admin)',
-        email: 'superadmin@konduangdee.com',
+        email: 'superadmin@suphonpha.com',
         role: 'super_admin',
         emailVerified: true,
         phoneVerified: true,
@@ -98,14 +97,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
 
     // 2. ตรวจสอบบัญชี Admin (เจ้าหน้าที่)
-    if (cleanId === 'admin' || cleanId === 'admin@konduangdee.com') {
+    if (cleanId === 'admin' || cleanId === 'admin@suphonpha.com' || cleanId === 'admin@konduangdee.com') {
       if (cleanPass !== 'Kdd@2025Admin!') {
         return { success: false, message: 'รหัสผ่านสำหรับ Admin ไม่ถูกต้อง (รหัสคือ Kdd@2025Admin!)' };
       }
       const adminUser: User = {
         id: 'usr-admin-staff',
         name: 'เจ้าหน้าที่แอดมิน (Admin Staff)',
-        email: 'admin@konduangdee.com',
+        email: 'admin@suphonpha.com',
         role: 'admin',
         emailVerified: true,
         phoneVerified: true,
@@ -146,29 +145,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const newUser: User = {
       id: `usr-${Date.now()}`,
       name: `ผู้ใช้เบอร์ ${phone.slice(-4)}`,
-      email: `${phone}@phone.konduangdee.com`,
+      email: `${phone}@phone.suphonpha.com`,
       phone,
       role: 'customer',
       emailVerified: false,
       phoneVerified: true,
-      consentMarketing: true,
-      consentTerms: true,
-      createdAt: new Date().toISOString(),
-    };
-    setUser(newUser);
-    localStorage.setItem('kdd_user', JSON.stringify(newUser));
-    return { success: true };
-  };
-
-  const loginWithLine = async () => {
-    const newUser: User = {
-      id: `usr-line-${Date.now()}`,
-      name: 'LINE Customer',
-      email: 'line_user@example.com',
-      lineId: 'U8974a981c2...',
-      role: 'customer',
-      emailVerified: true,
-      phoneVerified: false,
       consentMarketing: true,
       consentTerms: true,
       createdAt: new Date().toISOString(),
@@ -191,7 +172,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         user,
         loginWithEmail,
         loginWithPhoneOtp,
-        loginWithLine,
         logout,
         isAuthenticated,
       }}

@@ -7,7 +7,6 @@ import {
   Search,
   Filter,
   Phone,
-  MessageCircle,
   Mail,
   Calendar,
   Clock,
@@ -197,7 +196,7 @@ export default function AdminInquiriesPage() {
           <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-stone-400" />
           <input
             type="text"
-            placeholder="ค้นหาตามชื่อผู้ติดต่อ, เบอร์โทร, LINE ID, หรือประเภทวัตถุมงคล..."
+            placeholder="ค้นหาตามชื่อผู้ติดต่อ, เบอร์โทร, อีเมล, หรือประเภทวัตถุมงคล..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full pl-10 pr-4 py-2 bg-stone-50 border border-[var(--border-warm)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--brand-sage)] focus:bg-white"
@@ -278,21 +277,6 @@ export default function AdminInquiriesPage() {
                         {inq.phone}
                       </a>
                     </div>
-                    {inq.lineId && (
-                      <div className="flex items-center gap-2">
-                        <MessageCircle className="w-3 h-3 text-emerald-600 shrink-0" />
-                        <span>LINE: </span>
-                        <a
-                          href={`https://line.me/ti/p/~${inq.lineId}`}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="text-emerald-700 font-mono hover:underline inline-flex items-center gap-0.5"
-                        >
-                          <strong>{inq.lineId}</strong>
-                          <ExternalLink className="w-2.5 h-2.5" />
-                        </a>
-                      </div>
-                    )}
                     {inq.email && (
                       <div className="flex items-center gap-2">
                         <Mail className="w-3 h-3 text-stone-400 shrink-0" />

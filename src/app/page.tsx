@@ -327,7 +327,7 @@ export default function HomePage() {
               ตรวจสอบความแท้ของวัตถุมงคลด้วยระบบ Digital Certificate
             </h2>
             <p className="text-xs sm:text-sm text-white/80 font-light leading-relaxed">
-              วัตถุมงคลทุกชิ้นจากคนดวงดี 2025 จะมีรหัสกำกับเฉพาะองค์และ QR Code เพื่อให้คุณสามารถตรวจสอบมวลสาร ขนาด วันที่ออกบัตร และสถานะความถูกต้องได้ตลอดเวลา
+              วัตถุมงคลทุกชิ้นจากสุพรภา (Suphonpha) จะมีรหัสกำกับเฉพาะองค์และ QR Code เพื่อให้คุณสามารถตรวจสอบมวลสาร ขนาด วันที่ออกบัตร และสถานะความถูกต้องได้ตลอดเวลา
             </p>
 
             {/* Quick Verify Form with 3D Button */}

@@ -2,11 +2,11 @@ import React from 'react';
 import { Metadata } from 'next';
 import Image from '@/components/SafeImage';
 import Link from 'next/link';
-import { ShieldCheck, Sparkles, Heart, MessageCircle, Mail, Phone, MapPin, Building2, CreditCard, ExternalLink } from 'lucide-react';
+import { ShieldCheck, Sparkles, Heart, Mail, Phone, MapPin, Building2, CreditCard, ExternalLink } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'เกี่ยวกับเรา (About Us)',
-  description: 'เรื่องราวและเจตนารมณ์ คนดวงดี 2025 ผสานคุณค่าแห่งพุทธศิลป์ ความเชื่อ และเครื่องประดับร่วมสมัย เข้ากับความโปร่งใสในยุคดิจิทัล',
+  description: 'เรื่องราวและเจตนารมณ์ สุพรภา (Suphonpha) ผสานคุณค่าแห่งพุทธศิลป์ ความเชื่อ และเครื่องประดับร่วมสมัย เข้ากับความโปร่งใสในยุคดิจิทัล',
 };
 
 export default function AboutPage() {
@@ -18,7 +18,7 @@ export default function AboutPage() {
           OUR STORY & PHILOSOPHY
         </span>
         <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-normal text-[#282522]">
-          เรื่องราวและเจตนารมณ์ &ldquo;คนดวงดี 2025&rdquo;
+          เรื่องราวและเจตนารมณ์ &ldquo;สุพรภา (Suphonpha)&rdquo;
         </h1>
         <p className="text-sm sm:text-base text-[#5C5852] font-light max-w-2xl mx-auto leading-relaxed">
           ผสานคุณค่าแห่งพุทธศิลป์ ความเชื่อ และเครื่องประดับร่วมสมัย เข้ากับความโปร่งใสในยุคดิจิทัล
@@ -29,7 +29,7 @@ export default function AboutPage() {
       <div className="relative aspect-16/9 sm:aspect-21/9 rounded-3xl overflow-hidden bg-[#F3EFEA] border border-[#E6E1D8] shadow-sm">
         <Image
           src="/images/drive/550047.jpg"
-          alt="สุพรภา Suphonpha - คนดวงดี 2025 Authentic Spiritual Jewelry"
+          alt="สุพรภา Suphonpha Authentic Spiritual Jewelry"
           fill
           className="object-contain p-4"
         />
@@ -75,7 +75,7 @@ export default function AboutPage() {
           พันธสัญญาความซื่อสัตย์และการไม่โฆษณาเกินจริง
         </h4>
         <p>
-          ร้าน &ldquo;คนดวงดี 2025&rdquo; ยึดถือนโยบายไม่กล่าวอ้างสรรพคุณปาฏิหาริย์หรือรับประกันผลทางวัตถุหรือโชคลาภที่ไม่สามารถยืนยันได้ตามกฎหมายคุ้มครองผู้บริโภค หากรายการใดไม่มีข้อมูลพิธีหรือผู้จัดสร้างอย่างเป็นทางการ ระบบจะระบุว่า <strong>&ldquo;รอข้อมูลจากผู้ดูแล&rdquo;</strong> เสมอ เพื่อให้ลูกค้าได้รับข้อมูลตามข้อเท็จจริงสูงสุด
+          ร้าน &ldquo;สุพรภา&rdquo; ยึดถือนโยบายไม่กล่าวอ้างสรรพคุณปาฏิหาริย์หรือรับประกันผลทางวัตถุหรือโชคลาภที่ไม่สามารถยืนยันได้ตามกฎหมายคุ้มครองผู้บริโภค หากรายการใดไม่มีข้อมูลพิธีหรือผู้จัดสร้างอย่างเป็นทางการ ระบบจะระบุว่า <strong>&ldquo;รอข้อมูลจากผู้ดูแล&rdquo;</strong> เสมอ เพื่อให้ลูกค้าได้รับข้อมูลตามข้อเท็จจริงสูงสุด
         </p>
       </div>
 
@@ -112,27 +112,11 @@ export default function AboutPage() {
             </div>
 
             <div className="flex items-start gap-3">
-              <MessageCircle className="w-5 h-5 text-[#06C755] shrink-0 mt-0.5" />
-              <div>
-                <strong className="text-[#282522] block font-medium">LINE Official Account</strong>
-                <a 
-                  href="https://line.me" 
-                  target="_blank" 
-                  rel="noreferrer" 
-                  className="font-medium text-[#06C755] hover:underline"
-                >
-                  @konduangdee (มีเครื่องหมาย @)
-                </a>
-                <span className="text-[11px] text-gray-400 block mt-0.5">ให้บริการทุกวัน เวลา 09:00 - 20:00 น.</span>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-3">
               <Mail className="w-5 h-5 text-[#4A5D4E] shrink-0 mt-0.5" />
               <div>
                 <strong className="text-[#282522] block font-medium">อีเมลฝ่ายบริการลูกค้า</strong>
-                <a href="mailto:contact@konduangdee.com" className="text-gray-700 hover:underline">
-                  contact@konduangdee.com
+                <a href="mailto:contact@suphonpha.com" className="text-gray-700 hover:underline">
+                  contact@suphonpha.com
                 </a>
                 <span className="text-[11px] text-gray-400 block mt-0.5">ตอบกลับภายใน 24 ชั่วโมงทำการ</span>
               </div>

@@ -40,14 +40,15 @@ const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'คนดวงดี 2025 | วัตถุมงคลและเครื่องประดับมงคลร่วมสมัย',
-    template: '%s | คนดวงดี 2025',
+    default: 'สุพรภา (Suphonpha) | วัตถุมงคลและเครื่องประดับมงคลร่วมสมัย',
+    template: '%s | สุพรภา Suphonpha',
   },
   description:
-    'ศูนย์รวมวัตถุมงคล พระเครื่อง เครื่องรางนำโชค กำไลหินมงคล และเครื่องประดับสายมูร่วมสมัย ตรวจสอบ Digital Certificate ความแท้ได้ทุกชิ้น รับสั่งสร้างวัตถุมงคลและประสานงานพิธีพุทธาภิเษก',
-  applicationName: 'คนดวงดี 2025',
+    'ศูนย์รวมวัตถุมงคล พระเครื่อง เครื่องรางนำโชค กำไลหินมงคล และเครื่องประดับสายมูร่วมสมัย สุพรภา (Suphonpha) ตรวจสอบ Digital Certificate ความแท้ได้ทุกชิ้น รับสั่งสร้างวัตถุมงคลและประสานงานพิธีพุทธาภิเษก',
+  applicationName: 'สุพรภา Suphonpha',
   keywords: [
-    'คนดวงดี 2025',
+    'สุพรภา',
+    'Suphonpha',
     'วัตถุมงคล',
     'พระเครื่อง',
     'พระแท้',
@@ -61,9 +62,9 @@ export const metadata: Metadata = {
     'ของขวัญมงคล',
     'Amulet Thailand',
   ],
-  authors: [{ name: 'คนดวงดี 2025' }],
-  creator: 'คนดวงดี 2025',
-  publisher: 'คนดวงดี 2025',
+  authors: [{ name: 'สุพรภา Suphonpha' }],
+  creator: 'สุพรภา Suphonpha',
+  publisher: 'สุพรภา Suphonpha',
   formatDetection: {
     email: false,
     address: false,
@@ -83,11 +84,11 @@ export const metadata: Metadata = {
   },
   manifest: `${basePath}/site.webmanifest`,
   openGraph: {
-    title: 'คนดวงดี 2025 | วัตถุมงคลและเครื่องประดับมงคลร่วมสมัย',
+    title: 'สุพรภา (Suphonpha) | วัตถุมงคลและเครื่องประดับมงคลร่วมสมัย',
     description:
       'วัตถุมงคล พระเครื่อง เครื่องรางนำโชค และเครื่องประดับสายมูมินิมอล ดีไซน์ร่วมสมัย มวลสารแท้ พร้อมระบบตรวจสอบ Digital Certificate เฉพาะองค์',
     url: siteUrl,
-    siteName: 'คนดวงดี 2025',
+    siteName: 'สุพรภา Suphonpha',
     locale: 'th_TH',
     type: 'website',
     images: [
@@ -95,13 +96,13 @@ export const metadata: Metadata = {
         url: '/images/hero-banner.jpg',
         width: 1200,
         height: 630,
-        alt: 'คนดวงดี 2025 วัตถุมงคลและเครื่องประดับมงคลร่วมสมัย',
+        alt: 'สุพรภา Suphonpha วัตถุมงคลและเครื่องประดับมงคลร่วมสมัย',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'คนดวงดี 2025 | วัตถุมงคลและเครื่องประดับมงคลร่วมสมัย',
+    title: 'สุพรภา (Suphonpha) | วัตถุมงคลและเครื่องประดับมงคลร่วมสมัย',
     description:
       'วัตถุมงคล พระเครื่อง และเครื่องประดับสายมูร่วมสมัย ตรวจสอบ Digital Certificate ความแท้ได้ทุกชิ้น',
     images: ['/images/hero-banner.jpg'],
@@ -128,15 +129,14 @@ const jsonLd = {
     {
       '@type': 'Organization',
       '@id': `${siteUrl}/#organization`,
-      name: 'คนดวงดี 2025',
+      name: 'สุพรภา (Suphonpha)',
       url: siteUrl,
       logo: {
         '@type': 'ImageObject',
         url: `${siteUrl}/icon-512.png`,
       },
       sameAs: [
-        'https://line.me/R/ti/p/@konduangdee',
-        'https://facebook.com/konduangdee2025',
+        'https://facebook.com/suphonpha',
       ],
       contactPoint: {
         '@type': 'ContactPoint',
@@ -149,7 +149,7 @@ const jsonLd = {
       '@type': 'WebSite',
       '@id': `${siteUrl}/#website`,
       url: siteUrl,
-      name: 'คนดวงดี 2025',
+      name: 'สุพรภา (Suphonpha)',
       publisher: {
         '@id': `${siteUrl}/#organization`,
       },
@@ -162,7 +162,7 @@ const jsonLd = {
     {
       '@type': 'Store',
       '@id': `${siteUrl}/#store`,
-      name: 'คนดวงดี 2025 (Kon Duang Dee)',
+      name: 'สุพรภา (Suphonpha)',
       description: 'ร้านวัตถุมงคล พระเครื่อง เครื่องราง และเครื่องประดับสายมูร่วมสมัย พร้อมระบบ Digital Certificate',
       url: siteUrl,
       telephone: '+66-65-306-2263',

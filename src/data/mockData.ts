@@ -21,7 +21,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     certificateId: 'cert-001',
     certificateCode: 'KDD-2025-00101',
     isFeatured: true,
-    seoTitle: 'กำไลหินสตรอว์เบอร์รีควอตซ์ & ไวท์ฮาวไลต์แท้ | สุพรภา คนดวงดี 2025',
+    seoTitle: 'กำไลหินสตรอว์เบอร์รีควอตซ์ & ไวท์ฮาวไลต์แท้ | สุพรภา (Suphonpha)',
     seoDesc: 'กำไลหินมงคลแท้ เสริมเมตตามหานิยมและความสงบ คัดเกรดธรรมชาติ 100% พร้อมบัตรรับรองดิจิทัล',
   },
   {
@@ -44,7 +44,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     certificateId: 'cert-002',
     certificateCode: 'KDD-2025-00102',
     isFeatured: true,
-    seoTitle: 'กำไลหินโกลเด้นชีนออบซิเดียน & สตรอว์เบอร์รีควอตซ์ | สุพรภา คนดวงดี',
+    seoTitle: 'กำไลหินโกลเด้นชีนออบซิเดียน & สตรอว์เบอร์รีควอตซ์ | สุพรภา (Suphonpha)',
     seoDesc: 'กำไลหินธรรมชาติแท้ เสริมพลังบารมี ขจัดพลังงานลบ คัดเกรดพรีเมียม มีใบรับรอง',
   },
   {
@@ -67,7 +67,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     certificateId: 'cert-003',
     certificateCode: 'KDD-2025-00103',
     isFeatured: true,
-    seoTitle: 'กำไลหินอาเกตลายแถบธรรมชาติแท้ | สุพรภา คนดวงดี 2025',
+    seoTitle: 'กำไลหินอาเกตลายแถบธรรมชาติแท้ | สุพรภา (Suphonpha)',
     seoDesc: 'กำไลหินโมราแท้ลายแถบธรรมชาติ เสริมสมาธิ ความมั่นคงในชีวิต ตรวจสอบ Certificate ได้',
   },
   {
@@ -182,7 +182,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     certificateId: 'cert-008',
     certificateCode: 'KDD-2025-00108',
     isFeatured: true,
-    seoTitle: 'กำไลหยกพม่า 5 สี คัดเกรดธรรมชาติแท้ | สุพรภา คนดวงดี',
+    seoTitle: 'กำไลหยกพม่า 5 สี คัดเกรดธรรมชาติแท้ | สุพรภา (Suphonpha)',
     seoDesc: 'กำไลหยกพม่าแท้ 5 สี เสริมพลังเบญจธาตุ มั่งคั่ง สุขภาพแข็งแรง ตรวจสอบแท้ได้ทันที',
   },
   {
@@ -205,7 +205,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     certificateId: 'cert-009',
     certificateCode: 'KDD-2025-00109',
     isFeatured: false,
-    seoTitle: 'กำไลหินสามทหารเสือ 3 สีแท้ 6 มม. | สุพรภา คนดวงดี 2025',
+    seoTitle: 'กำไลหินสามทหารเสือ 3 สีแท้ 6 มม. | สุพรภา (Suphonpha)',
     seoDesc: 'กำไลหินสามทหารเสือแท้ เสริมความมั่นใจ ปกป้องคุ้มครอง แคล้วคลาดปลอดภัย',
   },
   {
@@ -228,7 +228,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     certificateId: 'cert-010',
     certificateCode: 'KDD-2025-00110',
     isFeatured: false,
-    seoTitle: 'กำไลหินลาวาภูเขาไฟ เฮมาไทต์ นิลดำ | สุพรภา คนดวงดี',
+    seoTitle: 'กำไลหินลาวาภูเขาไฟ เฮมาไทต์ นิลดำ | สุพรภา (Suphonpha)',
     seoDesc: 'กำไลหินมงคลสไตล์เท่ เสริมความหนักแน่น ปกป้องพลังลบ พร้อมใบรับรองหินแท้',
   },
   {
@@ -274,7 +274,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     certificateId: 'cert-012',
     certificateCode: 'KDD-2025-00112',
     isFeatured: true,
-    seoTitle: 'แหวนนพเก้าดอกไม้ ตัวเรือนพิงก์โกลด์ | สุพรภา คนดวงดี',
+    seoTitle: 'แหวนนพเก้าดอกไม้ ตัวเรือนพิงก์โกลด์ | สุพรภา (Suphonpha)',
     seoDesc: 'แหวนนพเก้าดีไซน์กลีบดอกไม้ อัญมณีแท้ 9 ชนิด หรูหรา อ่อนหวาน มีใบรับรอง',
   },
   {
@@ -297,7 +297,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     certificateId: 'cert-013',
     certificateCode: 'KDD-2025-00113',
     isFeatured: true,
-    seoTitle: 'เหรียญพระพุทธพุทธคุณคุ้มครอง เลี่ยมทอง | สุพรภา คนดวงดี 2025',
+    seoTitle: 'เหรียญพระพุทธพุทธคุณคุ้มครอง เลี่ยมทอง | สุพรภา (Suphonpha)',
     seoDesc: 'เหรียญพระพุทธพิมพ์งดงามสง่า พร้อมบัตรรับรองความแท้ ตรวจสอบสถานะออนไลน์ได้ทันที',
   },
   {
@@ -317,7 +317,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     material: 'แผ่นฟอยล์ทองนูนพิเศษ เคลือบสารป้องกันรอยขีดข่วน',
     blessingInfo: 'ผ่านการประสิทธิ์โชคลาภและความปลอดภัย',
     isFeatured: true,
-    seoTitle: 'แผ่นสติ๊กเกอร์ยันต์มงคล เริ่มต้น 99 บาท | สุพรภา คนดวงดี 2025',
+    seoTitle: 'แผ่นสติ๊กเกอร์ยันต์มงคล เริ่มต้น 99 บาท | สุพรภา (Suphonpha)',
     seoDesc: 'สติ๊กเกอร์ยันต์ทองคำแท้ติดหลังมือถือ ดีไซน์มินิมอลพรีเมียม',
   },
 ];
@@ -577,10 +577,10 @@ export const INITIAL_ARTICLES: Article[] = [
 *ข้อสังเกต: ข้อมูลนี้เขียนขึ้นเพื่อให้ความรู้ทางแร่วิทยาและมุมมองเชิงสัญลักษณ์ ไม่ได้รับประกันผลทางโชคลาภส่วนบุคคล*`,
     coverImage: '/images/drive/550048_0.jpg',
     category: 'เกร็ดความรู้และแร่วิทยา',
-    author: 'ทีมวิชาการ สุพรภา คนดวงดี',
+    author: 'ทีมวิชาการ สุพรภา',
     status: 'published',
     publishDate: '2025-01-20',
-    seoTitle: 'ความหมายของหินมงคลและอัญมณีแท้ | สุพรภา คนดวงดี 2025',
+    seoTitle: 'ความหมายของหินมงคลและอัญมณีแท้ | สุพรภา (Suphonpha)',
     seoDesc: 'เจาะลึกความหมายของหินมงคล แร่วิทยาและมุมมองเชิงสัญลักษณ์เพื่อการใช้ชีวิตอย่างมีสติ',
   },
   {
@@ -588,7 +588,7 @@ export const INITIAL_ARTICLES: Article[] = [
     title: 'วิธีตรวจสอบความแท้ของวัตถุมงคลและบัตร Digital Certificate',
     slug: 'how-to-verify-sacred-amulet-certificate',
     excerpt: 'มาตรฐานการออกบัตรรับรองและการตรวจสอบย้อนกลับ เพื่อความมั่นใจและโปร่งใสสูงสุดสำหรับลูกค้าทุกท่าน',
-    content: `หนึ่งในเจตนารมณ์สำคัญของ "สุพรภา (Suphonpha) | คนดวงดี 2025" คือความโปร่งใสและตรงไปตรงมา วัตถุมงคลและเครื่องประดับแทบทุกชิ้นจะได้รับรหัสประจำตัวเฉพาะองค์ ซึ่งสามารถตรวจสอบผ่านระบบ Digital Certificate บนหน้าเว็บไซต์ได้ทันที
+    content: `หนึ่งในเจตนารมณ์สำคัญของ "สุพรภา (Suphonpha)" คือความโปร่งใสและตรงไปตรงมา วัตถุมงคลและเครื่องประดับแทบทุกชิ้นจะได้รับรหัสประจำตัวเฉพาะองค์ ซึ่งสามารถตรวจสอบผ่านระบบ Digital Certificate บนหน้าเว็บไซต์ได้ทันที
 
 ขั้นตอนการตรวจสอบ:
 1. นำรหัสตัวอักษรและตัวเลข เช่น KDD-2025-XXXXX ที่ปรากฏบนกล่องบรรจุภัณฑ์หรือการ์ดรับรอง
@@ -599,7 +599,7 @@ export const INITIAL_ARTICLES: Article[] = [
     author: 'ฝ่ายรับรองคุณภาพ สุพรภา',
     status: 'published',
     publishDate: '2025-02-05',
-    seoTitle: 'วิธีตรวจสอบบัตรรับรองวัตถุมงคล Digital Certificate | สุพรภา คนดวงดี 2025',
+    seoTitle: 'วิธีตรวจสอบบัตรรับรองวัตถุมงคล Digital Certificate | สุพรภา (Suphonpha)',
     seoDesc: 'ตรวจสอบความถูกต้องและประวัติของวัตถุมงคลได้อย่างมั่นใจผ่านระบบสแกน QR Code และรหัสอ้างอิง',
   },
 ];
@@ -610,8 +610,8 @@ export const INITIAL_SETTINGS: SystemSettings = {
   googleSearchConsoleToken: 'google-site-verification=AbCdEfGhIjKlMnOpQrStUvWxYz',
   lineChannelId: '2001899120',
   lineChannelSecret: '9f8b2c4e1a3d5e7f0b2a4c6e8d0f1a3b', // protected
-  lineWebhookUrl: 'https://konduangdee2025.com/api/line/webhook',
-  lineMessagingEnabled: true,
+  lineWebhookUrl: 'https://suphonpha.com/api/webhook',
+  lineMessagingEnabled: false,
   paymentGatewayProvider: 'omise',
   paymentGatewayKey: 'pkey_test_5kdd991209348123',
   bankAccountName: 'บริษัท สุพรภา จำกัด',
@@ -623,7 +623,7 @@ export const INITIAL_SETTINGS: SystemSettings = {
   address: 'เลขที่ 25 ซอยริมทางด่วน 2 แขวงพระโขนงใต้ เขตพระโขนง กรุงเทพมหานคร 10260',
   phoneNumber: '065-306-2263',
   googleMapsUrl: 'https://maps.google.com/?q=%E0%B8%9A%E0%B8%A3%E0%B8%B4%E0%B8%A9%E0%B8%B1%E0%B8%97+%E0%B8%AA%E0%B8%B8%E0%B8%9E%E0%B8%A3%E0%B8%A0%E0%B8%B2+%E0%B8%88%E0%B8%B3%E0%B8%81%E0%B8%B1%E0%B8%94+%E0%B9%80%E0%B8%A5%E0%B8%82%E0%B8%97%E0%B8%B5%E0%B9%88+25+%E0%B8%8b%E0%B8%AD%E0%B8%A2%E0%B8%A3%E0%B8%B4%E0%B8%A1%E0%B8%97%E0%B8%B2%E0%B8%87%E0%B8%94%E0%B9%88%E0%B8%A7%E0%B8%99+2+%E0%B9%81%E0%B8%82%E0%B8%A7%E0%B8%87%E0%B8%9E%E0%B8%A3%E0%B8%B0%E0%B9%82%E0%B8%82%E0%B8%99%E0%B8%87%E0%B9%83%E0%B8%95%E0%B9%89+%E0%B9%80%E0%B8%82%E0%B8%95%E0%B8%9E%E0%B8%A3%E0%B8%B0%E0%B9%82%E0%B8%82%E0%B8%99%E0%B8%87+%E0%B8%81%E0%B8%A3%E0%B8%B8%E0%B8%87%E0%B9%80%E0%B8%97%E0%B8%9E%E0%B8%A1%E0%B8%87%E0%B8%84%E0%B8%A5+10260',
-  siteName: 'สุพรภา (Suphonpha) | คนดวงดี 2025 วัตถุมงคลและเครื่องประดับมงคลร่วมสมัย',
+  siteName: 'สุพรภา (Suphonpha) วัตถุมงคลและเครื่องประดับมงคลร่วมสมัย',
   siteDescription: 'ดำเนินงานโดย บริษัท สุพรภา จำกัด จำหน่ายเครื่องรางนำโชค วัตถุมงคล พระเครื่อง และเครื่องประดับร่วมสมัย ดีไซน์มินิมอลอบอุ่น พร้อมระบบตรวจสอบ Digital Certificate',
 };
 
@@ -631,7 +631,7 @@ export const INITIAL_AUDIT_LOGS: AuditLog[] = [
   {
     id: 'log-001',
     timestamp: '2026-09-28 14:10:22',
-    userEmail: 'admin@konduangdee.com',
+    userEmail: 'admin@suphonpha.com',
     action: 'UPDATE_ORDER_STATUS',
     details: 'เปลี่ยนสถานะคำสั่งซื้อ #SPP-ORD-2026-0002 เป็น กำลังจัดส่ง (Kerry: KERRY-TH-890241829)',
     ipAddress: '171.96.12.89',
@@ -639,7 +639,7 @@ export const INITIAL_AUDIT_LOGS: AuditLog[] = [
   {
     id: 'log-002',
     timestamp: '2026-09-28 13:45:10',
-    userEmail: 'admin@konduangdee.com',
+    userEmail: 'admin@suphonpha.com',
     action: 'CREATE_CERTIFICATE',
     details: 'ออกใบรับรอง Certificate ใหม่ รหัส KDD-2025-00101 สำหรับกำไลสตรอว์เบอร์รีควอตซ์ & ไวท์ฮาวไลต์',
     ipAddress: '171.96.12.89',

@@ -20,18 +20,19 @@ export async function generateMetadata({
   const price = product.salePrice ?? product.regularPrice;
 
   return {
-    title: `${product.titleTh} | คนดวงดี 2025`,
+    title: `${product.titleTh} | สุพรภา (Suphonpha)`,
     description: product.shortDesc || product.fullDesc?.slice(0, 160),
     keywords: [
       product.titleTh,
       product.titleEn,
       product.categoryLabelTh,
-      'คนดวงดี 2025',
+      'สุพรภา',
+      'Suphonpha',
       'วัตถุมงคลแท้',
       'Digital Certificate',
     ],
     openGraph: {
-      title: `${product.titleTh} (฿${price.toLocaleString()}) | คนดวงดี 2025`,
+      title: `${product.titleTh} (฿${price.toLocaleString()}) | สุพรภา (Suphonpha)`,
       description: product.shortDesc,
       url: pageUrl,
       images: [
@@ -46,7 +47,7 @@ export async function generateMetadata({
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${product.titleTh} | คนดวงดี 2025`,
+      title: `${product.titleTh} | สุพรภา (Suphonpha)`,
       description: product.shortDesc,
       images: [product.image.startsWith('http') ? product.image : `${siteUrl}${product.image}`],
     },
@@ -76,7 +77,7 @@ export default async function ProductDetailPage({
     category: product.categoryLabelTh,
     brand: {
       '@type': 'Brand',
-      name: 'คนดวงดี 2025',
+      name: 'สุพรภา (Suphonpha)',
     },
     offers: {
       '@type': 'Offer',
@@ -87,7 +88,7 @@ export default async function ProductDetailPage({
       availability: product.stock > 0 ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
       seller: {
         '@type': 'Organization',
-        name: 'คนดวงดี 2025',
+        name: 'สุพรภา (Suphonpha)',
       },
     },
   };

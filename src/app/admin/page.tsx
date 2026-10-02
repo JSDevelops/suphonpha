@@ -39,7 +39,7 @@ export default function AdminDashboardPage() {
             ระบบคลาวด์ Google Sheet CMS
           </div>
           <h1 className="font-serif text-2xl sm:text-3xl font-bold tracking-tight mb-2">
-            ยินดีต้อนรับสู่ระบบจัดการร้าน คนดวงดี 2025
+            ยินดีต้อนรับสู่ระบบจัดการร้าน สุพรภา (Suphonpha)
           </h1>
           <p className="text-stone-200 text-sm sm:text-base leading-relaxed mb-6">
             คุณสามารถเพิ่มสินค้าใหม่ แก้ไขข้อมูล ปรับราคาและสต็อก โดยข้อมูลจะถูกจัดเก็บลงใน Google Sheet
@@ -207,7 +207,7 @@ export default function AdminDashboardPage() {
               งานสั่งสร้างเฉพาะบุคคล
             </h3>
             <p className="text-xs text-[var(--text-secondary)] leading-relaxed mb-4">
-              ติดตามคำขอสั่งสร้างพระเครื่อง มวลสาร พิธี และติดต่อกลับลูกค้าทางโทร/LINE
+              ติดตามคำขอสั่งสร้างพระเครื่อง มวลสาร พิธี และติดต่อกลับลูกค้าทางโทรศัพท์หรืออีเมล
             </p>
           </div>
           <Link

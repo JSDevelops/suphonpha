@@ -120,7 +120,7 @@ export function Footer() {
                   <div className="relative w-9 h-9 rounded-full overflow-hidden border border-[#C6A052]/70 ring-1 ring-[#C6A052]/30 bg-gradient-to-b from-white to-[#FAF7F2] p-0.5 shadow-2xs">
                     <Image
                       src={SUPHONPHA_EMBLEM_BASE64}
-                      alt="สุพรภา Suphonpha - คนดวงดี 2025"
+                      alt="สุพรภา Suphonpha"
                       fill
                       sizes="36px"
                       className="object-contain p-0.5"
@@ -131,7 +131,7 @@ export function Footer() {
                       SUPHONPHA
                     </span>
                     <span className="text-[10px] text-[#A98336] font-medium tracking-wide">
-                      คนดวงดี 2025
+                      สุพรภา
                     </span>
                   </div>
                 </div>
@@ -153,22 +153,13 @@ export function Footer() {
               </div>
 
               {/* Action Buttons */}
-              <div className="pt-2 flex items-center gap-2">
-                <a
-                  href="https://line.me"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex-1 inline-flex items-center justify-center gap-1.5 py-2.5 bg-[#06C755] hover:bg-[#05b34c] text-white rounded-xl font-medium text-xs transition-colors shadow-2xs"
-                >
-                  <MessageCircle className="w-4 h-4" />
-                  <span>LINE: @konduangdee</span>
-                </a>
+              <div className="pt-2">
                 <a
                   href="tel:0653062263"
-                  className="flex-1 inline-flex items-center justify-center gap-1.5 py-2.5 bg-[#F7F4EE] border border-[#D8D1C7] hover:border-[#4A5D4E] text-[#4A5D4E] rounded-xl font-medium text-xs transition-colors shadow-2xs"
+                  className="w-full inline-flex items-center justify-center gap-1.5 py-2.5 bg-[#4A5D4E] hover:bg-[#3d4d40] text-white rounded-xl font-medium text-xs transition-colors shadow-2xs"
                 >
                   <Phone className="w-4 h-4" />
-                  <span>โทร 065-306-2263</span>
+                  <span>โทรสอบถาม: 065-306-2263</span>
                 </a>
               </div>
             </div>
@@ -231,7 +222,7 @@ export function Footer() {
                 <ul className="space-y-2 text-xs">
                   <li>
                     <Link href="/about" className="block py-1 text-[#282522] hover:text-[#4A5D4E]">
-                      เรื่องราวแบรนด์ คนดวงดี
+                      เรื่องราวแบรนด์ สุพรภา
                     </Link>
                   </li>
                   <li>
@@ -327,7 +318,7 @@ export function Footer() {
               <div className="relative w-9 h-9 rounded-full overflow-hidden border border-[#C6A052]/70 ring-1 ring-[#C6A052]/30 bg-gradient-to-b from-white to-[#FAF7F2] p-0.5 shadow-2xs">
                 <Image
                   src={SUPHONPHA_EMBLEM_BASE64}
-                  alt="สุพรภา Suphonpha - คนดวงดี 2025"
+                  alt="สุพรภา Suphonpha"
                   fill
                   sizes="36px"
                   className="object-contain p-0.5"
@@ -338,7 +329,7 @@ export function Footer() {
                   SUPHONPHA
                 </span>
                 <span className="text-[10px] text-[#A98336] font-medium tracking-wide">
-                  คนดวงดี 2025
+                  สุพรภา
                 </span>
               </div>
             </div>
@@ -364,22 +355,13 @@ export function Footer() {
               </div>
             </div>
 
-            <div className="pt-2 flex flex-wrap items-center gap-2">
-              <a
-                href="https://line.me"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#06C755] hover:bg-[#05b34c] text-white rounded-lg font-medium text-xs transition-colors shadow-2xs"
-              >
-                <MessageCircle className="w-3.5 h-3.5" />
-                <span>LINE: @konduangdee</span>
-              </a>
+            <div className="pt-2">
               <a
                 href="tel:0653062263"
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-[#D8D1C7] hover:border-[#4A5D4E] text-[#4A5D4E] rounded-lg font-medium text-xs transition-colors shadow-2xs"
+                className="inline-flex items-center gap-1.5 px-4 py-2 bg-[#4A5D4E] hover:bg-[#3d4d40] text-white rounded-lg font-medium text-xs transition-colors shadow-2xs"
               >
                 <Phone className="w-3.5 h-3.5" />
-                <span>โทร 065-306-2263</span>
+                <span>โทรติดต่อ: 065-306-2263</span>
               </a>
             </div>
           </div>
@@ -422,7 +404,7 @@ export function Footer() {
             <ul className="space-y-2">
               <li>
                 <Link href="/about" className="hover:text-[#4A5D4E] transition-colors">
-                  เรื่องราวแบรนด์ คนดวงดี
+                  เรื่องราวแบรนด์ สุพรภา
                 </Link>
               </li>
               <li>
@@ -476,12 +458,12 @@ export function Footer() {
           <strong className="text-[#5C5852] block mb-1">
             คำชี้แจงเพื่อความโปร่งใสและความคุ้มครองผู้บริโภค:
           </strong>
-          วัตถุมงคล เครื่องประดับ และเครื่องรางนำโชคทั้งหมดที่จำหน่ายบนเว็บไซต์ &ldquo;คนดวงดี 2025&rdquo; เป็นงานพุทธศิลป์และเครื่องประดับที่ออกแบบเพื่อเป็นเครื่องเตือนสติในการดำรงชีวิตด้วยความดีงาม สุจริต และเป็นความเชื่อส่วนบุคคล ทางร้านไม่มีนโยบายกล่าวอ้างผลลัพธ์ทางโชคลาภ ปาฏิหาริย์ หรือความสำเร็จเกินจริงในเชิงพาณิชย์ โปรดใช้วิจารณญาณในการตัดสินใจ
+          วัตถุมงคล เครื่องประดับ และเครื่องรางนำโชคทั้งหมดที่จำหน่ายบนเว็บไซต์ &ldquo;สุพรภา (Suphonpha)&rdquo; เป็นงานพุทธศิลป์และเครื่องประดับที่ออกแบบเพื่อเป็นเครื่องเตือนสติในการดำรงชีวิตด้วยความดีงาม สุจริต และเป็นความเชื่อส่วนบุคคล ทางร้านไม่มีนโยบายกล่าวอ้างผลลัพธ์ทางโชคลาภ ปาฏิหาริย์ หรือความสำเร็จเกินจริงในเชิงพาณิชย์ โปรดใช้วิจารณญาณในการตัดสินใจ
         </div>
 
         {/* Copyright */}
         <div className="mt-8 text-center text-[11px] text-[#8E8A83] flex flex-col sm:flex-row items-center justify-between gap-2">
-          <span>&copy; {new Date().getFullYear()} KON DUANG DEE 2025. สงวนลิขสิทธิ์ทุกประการ.</span>
+          <span>&copy; {new Date().getFullYear()} SUPHONPHA. สงวนลิขสิทธิ์ทุกประการ.</span>
           <span className="text-[10px]">
             ออกแบบด้วยแนวคิด Warm Minimal | พัฒนาด้วย Next.js 16 Fullstack
           </span>

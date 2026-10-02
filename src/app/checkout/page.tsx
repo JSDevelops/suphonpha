@@ -26,7 +26,7 @@ export default function CheckoutPage() {
   // Form states
   const [customerName, setCustomerName] = useState('คุณณัฐพร วงศ์สว่าง');
   const [customerPhone, setCustomerPhone] = useState('081-234-5678');
-  const [customerEmail, setCustomerEmail] = useState('customer@konduangdee.com');
+  const [customerEmail, setCustomerEmail] = useState('customer@suphonpha.com');
   const [shippingAddress, setShippingAddress] = useState(
     '123/45 ถนนสุขุมวิท แขวงคลองเตย เขตคลองเตย กรุงเทพมหานคร 10110'
   );

@@ -48,7 +48,7 @@ const DEFAULT_CERT_FORM: CertificateFormData = {
   issuedDate: new Date().toISOString().slice(0, 10),
   status: 'active',
   blessingMaster: 'คณะสงฆ์และพระเกจิอาจารย์ร่วมเจริญพระพุทธมนต์',
-  notes: 'ออกโดยศูนย์พระเครื่องและวัตถุมงคล คนดวงดี 2025 (บจก. สุพรภา)',
+  notes: 'ออกโดยศูนย์พระเครื่องและวัตถุมงคล สุพรภา (บจก. สุพรภา)',
   verificationCount: 1,
 };
 
@@ -603,7 +603,7 @@ export default function AdminCertificatesPage() {
                 บัตรรับรองพระแท้และวัตถุมงคล
               </h3>
               <p className="text-[11px] text-[var(--text-muted)]">
-                ศูนย์พระเครื่อง คนดวงดี 2025 (บจก. สุพรภา)
+                ศูนย์พระเครื่อง สุพรภา (บจก. สุพรภา)
               </p>
             </div>
 

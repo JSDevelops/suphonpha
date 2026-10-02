@@ -189,7 +189,7 @@ export function CartDrawer() {
                 <form onSubmit={handleApplyPromo} className="flex gap-2">
                   <input
                     type="text"
-                    placeholder="โค้ดส่วนลด (เช่น LUCK2025)"
+                    placeholder="โค้ดส่วนลด (เช่น SUPHONPHA)"
                     value={inputCode}
                     onChange={(e) => setInputCode(e.target.value)}
                     className="flex-1 px-3 py-2 text-xs rounded-lg border border-gray-200 uppercase focus:outline-hidden focus:border-[#4A5D4E]"

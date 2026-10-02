@@ -47,7 +47,7 @@ export function CertificateModal({ isOpen, onClose, initialCode = '' }: Certific
                 ตรวจสอบใบรับรองความแท้ (Digital Certificate)
               </h3>
               <p className="text-xs text-white/80 font-light">
-                ระบบตรวจสอบย้อนกลับมาตรฐานความโปร่งใส &ldquo;คนดวงดี 2025&rdquo;
+                ระบบตรวจสอบย้อนกลับมาตรฐานความโปร่งใส &ldquo;สุพรภา (Suphonpha)&rdquo;
               </p>
             </div>
           </div>
@@ -208,7 +208,7 @@ export function CertificateModal({ isOpen, onClose, initialCode = '' }: Certific
 
               {/* Official Disclaimer Footer */}
               <div className="mt-6 pt-4 border-t border-[#E6E1D8] text-[10px] text-gray-400 leading-relaxed text-center">
-                * ใบรับรองดิจิทัลนี้ออกโดยระบบกลางของ คนดวงดี 2025 เพื่อยืนยันความแท้ของมวลสารและฝีมือเชิงช่าง วัตถุมงคลทุกชิ้นเป็นเครื่องยึดเหนี่ยวจิตใจและความเชื่อส่วนบุคคล ไม่มีการรับประกันผลลัพธ์เชิงพาณิชย์ใดๆ
+                * ใบรับรองดิจิทัลนี้ออกโดยระบบกลางของ สุพรภา (Suphonpha) เพื่อยืนยันความแท้ของมวลสารและฝีมือเชิงช่าง วัตถุมงคลทุกชิ้นเป็นเครื่องยึดเหนี่ยวจิตใจและความเชื่อส่วนบุคคล ไม่มีการรับประกันผลลัพธ์เชิงพาณิชย์ใดๆ
               </div>
             </div>
           ) : searched ? (

@@ -7,7 +7,6 @@ import {
   ShieldCheck,
   CheckCircle2,
   Calendar,
-  MessageCircle,
   FileCheck,
   Hammer,
   Send,
@@ -19,7 +18,6 @@ import { submitCustomInquiryToGoogleSheet } from '@/lib/googleSheets';
 export default function CustomOrderPage() {
   const [contactName, setContactName] = useState('');
   const [phone, setPhone] = useState('');
-  const [lineId, setLineId] = useState('');
   const [email, setEmail] = useState('');
   const [amuletType, setAmuletType] = useState('เหรียญปั๊มโลหะ / เหรียญพุทธศิลป์');
   const [quantity, setQuantity] = useState('300 - 500 ชิ้น');
@@ -34,8 +32,8 @@ export default function CustomOrderPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!contactName.trim() || !phone.trim() || !lineId.trim()) {
-      setErrorMessage('กรุณากรอกชื่อผู้ติดต่อ เบอร์โทรศัพท์ และ LINE ID ให้ครบถ้วน');
+    if (!contactName.trim() || !phone.trim()) {
+      setErrorMessage('กรุณากรอกชื่อผู้ติดต่อและเบอร์โทรศัพท์ให้ครบถ้วน');
       return;
     }
 
@@ -46,7 +44,7 @@ export default function CustomOrderPage() {
       const res = await submitCustomInquiryToGoogleSheet({
         contactName,
         phone,
-        lineId,
+        lineId: '',
         email,
         amuletType,
         quantity,
@@ -151,30 +149,21 @@ export default function CustomOrderPage() {
           <div className="p-4 bg-[#F7F4EE] rounded-2xl border border-[#E6E1D8] text-xs text-left text-gray-700 space-y-1.5">
             <p>• <strong>ผู้ติดต่อ:</strong> {contactName}</p>
             <p>• <strong>เบอร์โทรศัพท์:</strong> {phone}</p>
-            <p>• <strong>LINE ID:</strong> {lineId}</p>
+            {email && <p>• <strong>อีเมล:</strong> {email}</p>}
             <p>• <strong>ประเภทที่สนใจ:</strong> {amuletType} ({quantity})</p>
           </div>
 
           <div className="space-y-3 pt-2">
             <p className="text-xs text-gray-500">
-              เจ้าหน้าที่ฝ่ายพุทธศิลป์และการจัดสร้างจะติดต่อกลับทางเบอร์โทรศัพท์ หรือ LINE ID ของท่านโดยเร็วที่สุด
+              เจ้าหน้าที่ฝ่ายพุทธศิลป์และการจัดสร้างจะติดต่อกลับทางเบอร์โทรศัพท์ของท่านโดยเร็วที่สุด
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-3">
               <a
-                href={`https://line.me/R/ti/p/@konduangdee`}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-6 py-2.5 bg-[#06C755] hover:bg-[#05b34c] text-white text-xs font-semibold rounded-xl shadow-xs transition-colors"
-              >
-                <MessageCircle className="w-4 h-4" />
-                <span>แจ้งรหัสคำขอนี้ผ่าน LINE Official</span>
-              </a>
-              <a
                 href="tel:0653062263"
-                className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-white border border-[#D8D1C7] hover:border-[#4A5D4E] text-[#4A5D4E] text-xs font-semibold rounded-xl transition-colors shadow-2xs"
+                className="inline-flex items-center justify-center gap-2 px-6 py-2.5 bg-[#4A5D4E] hover:bg-[#37473A] text-white text-xs font-semibold rounded-xl transition-colors shadow-2xs"
               >
                 <Phone className="w-4 h-4" />
-                <span>โทรด่วน 065-306-2263</span>
+                <span>โทรติดต่อสอบถาม 065-306-2263</span>
               </a>
               <button
                 type="button"
@@ -244,33 +233,17 @@ export default function CustomOrderPage() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-gray-600 text-xs mb-1 font-medium">
-                    LINE ID (จำเป็น สำหรับส่งแบบและรูปตัวอย่าง) *
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    placeholder="ไอดีไลน์ของคุณ"
-                    value={lineId}
-                    onChange={(e) => setLineId(e.target.value)}
-                    className="w-full px-3.5 py-2.5 border border-gray-200 rounded-xl font-mono focus:outline-hidden focus:border-[#4A5D4E]"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-gray-600 text-xs mb-1 font-medium">
-                    อีเมล (ถ้ามี)
-                  </label>
-                  <input
-                    type="email"
-                    placeholder="name@example.com"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="w-full px-3.5 py-2.5 border border-gray-200 rounded-xl focus:outline-hidden focus:border-[#4A5D4E]"
-                  />
-                </div>
+              <div>
+                <label className="block text-gray-600 text-xs mb-1 font-medium">
+                  อีเมล (ถ้ามี สำหรับรับเอกสารเสนอราคา)
+                </label>
+                <input
+                  type="email"
+                  placeholder="name@example.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full px-3.5 py-2.5 border border-gray-200 rounded-xl font-mono focus:outline-hidden focus:border-[#4A5D4E]"
+                />
               </div>
             </div>
 
@@ -419,13 +392,11 @@ export default function CustomOrderPage() {
           </div>
         </div>
         <a
-          href="https://line.me"
-          target="_blank"
-          rel="noreferrer"
-          className="w-full sm:w-auto shrink-0 px-5 py-2.5 bg-[#06C755] hover:bg-[#05b34c] text-white rounded-xl font-medium text-xs flex items-center justify-center gap-1.5 transition-colors shadow-2xs touch-target"
+          href="tel:0653062263"
+          className="w-full sm:w-auto shrink-0 px-5 py-2.5 bg-[#4A5D4E] hover:bg-[#37473A] text-white rounded-xl font-medium text-xs flex items-center justify-center gap-1.5 transition-colors shadow-2xs touch-target"
         >
-          <MessageCircle className="w-4 h-4" />
-          <span>คุยกับช่างผ่าน LINE</span>
+          <Phone className="w-4 h-4" />
+          <span>ปรึกษาช่างโทร 065-306-2263</span>
         </a>
       </div>
     </div>

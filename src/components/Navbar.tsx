@@ -77,7 +77,7 @@ export function Navbar() {
                 <div className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-full overflow-hidden border border-[#C6A052]/60 ring-2 ring-[#C6A052]/20 shadow-xs shrink-0 bg-gradient-to-b from-white to-[#FAF7F2] p-1 flex items-center justify-center transition-all duration-300 group-hover:border-[#C6A052] group-hover:shadow-[0_0_12px_rgba(198,160,82,0.25)]">
                   <Image
                     src={SUPHONPHA_EMBLEM_BASE64}
-                    alt="สุพรภา Suphonpha - คนดวงดี 2025"
+                    alt="สุพรภา Suphonpha"
                     fill
                     sizes="(max-width: 640px) 36px, 40px"
                     className="object-contain p-0.5 transition-transform duration-300 group-hover:scale-105"
@@ -89,7 +89,7 @@ export function Navbar() {
                     SUPHONPHA
                   </span>
                   <span className="text-[9px] sm:text-[10px] tracking-widest text-[#A98336] uppercase font-sans whitespace-nowrap font-medium">
-                    คนดวงดี 2025
+                    สุพรภา
                   </span>
                 </div>
               </Link>

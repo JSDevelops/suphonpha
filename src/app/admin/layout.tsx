@@ -85,7 +85,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <div className="relative w-16 h-16 rounded-full overflow-hidden border-2 border-[#C6A052]/70 ring-4 ring-[#C6A052]/20 shadow-md bg-gradient-to-b from-white to-[#FAF7F2] p-2 mx-auto flex items-center justify-center">
               <Image
                 src={SUPHONPHA_EMBLEM_BASE64}
-                alt="สุพรภา Suphonpha - คนดวงดี 2025"
+                alt="สุพรภา Suphonpha"
                 fill
                 sizes="64px"
                 className="object-contain p-1"
@@ -94,7 +94,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             </div>
             <div>
               <h1 className="font-serif text-2xl sm:text-3xl font-bold text-[var(--brand-sage-dark)]">
-                สุพรภา | คนดวงดี 2025
+                สุพรภา (Suphonpha)
               </h1>
               <p className="text-xs sm:text-sm text-[var(--text-secondary)] mt-1">
                 ระบบจัดการหลังบ้าน (Admin & Super Admin Portal)
@@ -267,11 +267,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <div className="flex items-center gap-6">
               <Link href="/admin" className="flex items-center gap-2 group">
                 <div className="w-9 h-9 rounded-lg bg-[var(--brand-sage-dark)] text-[var(--brand-gold)] flex items-center justify-center font-serif font-bold text-lg shadow-sm">
-                  ด
+                  ส
                 </div>
                 <div>
                   <div className="font-serif font-bold text-base leading-tight tracking-wide text-[var(--brand-sage-dark)]">
-                    คนดวงดี 2025
+                    สุพรภา (Suphonpha)
                   </div>
                   <div className="text-[11px] text-[var(--text-muted)] tracking-wider">
                     ระบบจัดการหลังบ้าน (Admin CMS)
