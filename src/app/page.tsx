@@ -59,28 +59,43 @@ export default function HomePage() {
 
               <p className="text-sm sm:text-base text-[#5C5852] font-light leading-relaxed max-w-lg">
                 Authentic Thai amulets and sacred jewelry for protection, prosperity and peace in everyday life.
-                วัตถุมงคลและเครื่องประดับสายมูร่วมสมัย ตรวจสอบที่มาได้ทุกชิ้น
-              </p>
-
-              {/* Quick Category Tags with Dimensional Hover */}
+                วัตถ�              {/* Quick Category Tags with Dimensional Hover */}
               <div className="flex flex-wrap gap-2 pt-1">
                 <Link
-                  href="/shop"
+                  href="/shop?cat=amulet"
                   className="text-xs px-3 py-1 rounded-lg bg-white/70 hover:bg-white text-[#5C5852] hover:text-[#4A5D4E] border border-[#E0DACF] hover:border-[#C6A052] hover:shadow-xs hover:-translate-y-0.5 transition-all duration-200"
                 >
-                  ✨ พระเครื่องเลี่ยมทอง
+                  ✨ พระเครื่อง
                 </Link>
                 <Link
-                  href="/shop"
+                  href="/shop?cat=coin"
                   className="text-xs px-3 py-1 rounded-lg bg-white/70 hover:bg-white text-[#5C5852] hover:text-[#4A5D4E] border border-[#E0DACF] hover:border-[#C6A052] hover:shadow-xs hover:-translate-y-0.5 transition-all duration-200"
                 >
-                  📿 กำไลหินมงคลแท้
+                  🪙 เหรียญ
                 </Link>
                 <Link
-                  href="/shop"
+                  href="/shop?cat=bracelet"
+                  className="text-xs px-3 py-1 rounded-lg bg-white/70 hover:bg-white text-[#5C5852] hover:text-[#4A5D4E] border border-[#E0DACF] hover:border-[#C6A052] hover:shadow-xs hover:-translate-y-0.5 transition-all duration-200"
+                >
+                  📿 กำไลหินมงคล
+                </Link>
+                <Link
+                  href="/shop?cat=ring"
+                  className="text-xs px-3 py-1 rounded-lg bg-white/70 hover:bg-white text-[#5C5852] hover:text-[#4A5D4E] border border-[#E0DACF] hover:border-[#C6A052] hover:shadow-xs hover:-translate-y-0.5 transition-all duration-200"
+                >
+                  💍 แหวน
+                </Link>
+                <Link
+                  href="/shop?cat=necklace"
+                  className="text-xs px-3 py-1 rounded-lg bg-white/70 hover:bg-white text-[#5C5852] hover:text-[#4A5D4E] border border-[#E0DACF] hover:border-[#C6A052] hover:shadow-xs hover:-translate-y-0.5 transition-all duration-200"
+                >
+                  📿 สร้อย, จี้
+                </Link>
+                <Link
+                  href="/shop?cat=sticker"
                   className="text-xs px-3 py-1 rounded-lg bg-white/70 hover:bg-white text-[#5C5852] hover:text-[#A98336] border border-[#E0DACF] hover:border-[#C6A052] hover:shadow-xs hover:-translate-y-0.5 transition-all duration-200 font-medium"
                 >
-                  🧧 สติ๊กเกอร์ยันต์ 99.-
+                  🧧 สติ๊กเกอร์ยันต์
                 </Link>
               </div>
 
@@ -111,7 +126,7 @@ export default function HomePage() {
                 </button>
               </div>
 
-              {/* Trust Indicators */}
+              {/* Trust Badges */}
               <div className="pt-4 border-t border-[#D8D1C7]/60 flex flex-wrap items-center gap-5 sm:gap-7 text-xs text-[#5C5852]">
                 <div className="flex items-center gap-1.5 hover:text-[#4A5D4E] transition-colors cursor-default">
                   <CheckCircle className="w-4 h-4 text-[#4A5D4E] shrink-0" />
@@ -178,7 +193,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 2. CATEGORIES HIGHLIGHT (3D Tactile Cards) */}
+      {/* 2. CATEGORIES HIGHLIGHT (3D Tactile Cards - 6 Categories) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-xl mx-auto mb-8">
           <span className="text-[11px] tracking-widest text-[#8E8A83] uppercase font-semibold">
@@ -189,76 +204,146 @@ export default function HomePage() {
           </h2>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
-          <Link
-            href="/shop?cat=sticker"
-            className="card-3d group p-5 text-center flex flex-col items-center justify-between"
-          >
-            <div className="relative w-18 h-18 sm:w-20 sm:h-20 mx-auto mb-3 rounded-2xl overflow-hidden bg-[#F7F4EE] border border-[#E6E1D8] shadow-xs group-hover:shadow-md transition-shadow">
-              <Image
-                src="/images/products/yantra-sticker.jpg"
-                alt="สติ๊กเกอร์ยันต์มงคล"
-                fill
-                className="object-cover group-hover:scale-110 group-hover:rotate-1 transition-transform duration-500"
-              />
-            </div>
-            <div>
-              <h3 className="font-serif text-sm font-medium text-[#282522] group-hover:text-[#4A5D4E] transition-colors">
-                สติ๊กเกอร์ยันต์มงคล
-              </h3>
-              <span className="inline-block mt-1 px-2.5 py-0.5 text-[11px] font-semibold text-[#A98336] bg-[#F9F4E8] rounded-full border border-[#C6A052]/30 shadow-2xs">
-                เริ่มต้นเพียง 99 บาท
-              </span>
-            </div>
-          </Link>
-
-          <Link
-            href="/shop?cat=bracelet"
-            className="card-3d group p-5 text-center flex flex-col items-center justify-between"
-          >
-            <div className="relative w-18 h-18 sm:w-20 sm:h-20 mx-auto mb-3 rounded-2xl overflow-hidden bg-[#F7F4EE] border border-[#E6E1D8] shadow-xs group-hover:shadow-md transition-shadow">
-              <Image
-                src="/images/drive/550048_0.jpg"
-                alt="กำไลหินมงคลแท้"
-                fill
-                className="object-cover group-hover:scale-110 group-hover:rotate-1 transition-transform duration-500"
-              />
-            </div>
-            <div>
-              <h3 className="font-serif text-sm font-medium text-[#282522] group-hover:text-[#4A5D4E] transition-colors">
-                กำไลหินมงคลแท้
-              </h3>
-              <span className="inline-block mt-1 px-2.5 py-0.5 text-[11px] font-semibold text-[#A98336] bg-[#F9F4E8] rounded-full border border-[#C6A052]/30 shadow-2xs">
-                เริ่มต้น 1,190 บาท
-              </span>
-            </div>
-          </Link>
-
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
+          {/* 1. พระเครื่อง */}
           <Link
             href="/shop?cat=amulet"
-            className="card-3d group p-5 text-center flex flex-col items-center justify-between"
+            className="card-3d group p-4 text-center flex flex-col items-center justify-between"
           >
-            <div className="relative w-18 h-18 sm:w-20 sm:h-20 mx-auto mb-3 rounded-2xl overflow-hidden bg-[#F7F4EE] border border-[#E6E1D8] shadow-xs group-hover:shadow-md transition-shadow">
+            <div className="relative w-16 h-16 sm:w-18 sm:h-18 mx-auto mb-2.5 rounded-2xl overflow-hidden bg-[#F7F4EE] border border-[#E6E1D8] shadow-xs group-hover:shadow-md transition-shadow">
               <Image
-                src="/images/drive/550054_0.jpg"
-                alt="พระเครื่องและเทวรูปมงคล"
+                src="/images/hero-sacred-3d.jpg"
+                alt="พระเครื่อง"
                 fill
                 className="object-cover group-hover:scale-110 group-hover:rotate-1 transition-transform duration-500"
               />
             </div>
             <div>
-              <h3 className="font-serif text-sm font-medium text-[#282522] group-hover:text-[#4A5D4E] transition-colors">
-                พระเครื่องและเทวรูปมงคล
+              <h3 className="font-serif text-xs sm:text-sm font-medium text-[#282522] group-hover:text-[#4A5D4E] transition-colors">
+                พระเครื่อง
               </h3>
-              <span className="inline-block mt-1 px-2.5 py-0.5 text-[11px] font-semibold text-[#A98336] bg-[#F9F4E8] rounded-full border border-[#C6A052]/30 shadow-2xs">
-                ผ่านพิธีพุทธาภิเษกแท้
+              <span className="inline-block mt-1 px-2 py-0.5 text-[10px] font-semibold text-[#A98336] bg-[#F9F4E8] rounded-full border border-[#C6A052]/30">
+                พุทธศิลป์แท้
               </span>
             </div>
           </Link>
 
+          {/* 2. เหรียญ */}
+          <Link
+            href="/shop?cat=coin"
+            className="card-3d group p-4 text-center flex flex-col items-center justify-between"
+          >
+            <div className="relative w-16 h-16 sm:w-18 sm:h-18 mx-auto mb-2.5 rounded-2xl overflow-hidden bg-[#F7F4EE] border border-[#E6E1D8] shadow-xs group-hover:shadow-md transition-shadow">
+              <Image
+                src="/images/products/pendant-buddha.jpg"
+                alt="เหรียญมงคล"
+                fill
+                className="object-cover group-hover:scale-110 group-hover:rotate-1 transition-transform duration-500"
+              />
+            </div>
+            <div>
+              <h3 className="font-serif text-xs sm:text-sm font-medium text-[#282522] group-hover:text-[#4A5D4E] transition-colors">
+                เหรียญ
+              </h3>
+              <span className="inline-block mt-1 px-2 py-0.5 text-[10px] font-semibold text-[#A98336] bg-[#F9F4E8] rounded-full border border-[#C6A052]/30">
+                เกจิ & เทพมงคล
+              </span>
+            </div>
+          </Link>
+
+          {/* 3. กำไลหินมงคล */}
+          <Link
+            href="/shop?cat=bracelet"
+            className="card-3d group p-4 text-center flex flex-col items-center justify-between"
+          >
+            <div className="relative w-16 h-16 sm:w-18 sm:h-18 mx-auto mb-2.5 rounded-2xl overflow-hidden bg-[#F7F4EE] border border-[#E6E1D8] shadow-xs group-hover:shadow-md transition-shadow">
+              <Image
+                src="/images/drive/550048_0.jpg"
+                alt="กำไลหินมงคล"
+                fill
+                className="object-cover group-hover:scale-110 group-hover:rotate-1 transition-transform duration-500"
+              />
+            </div>
+            <div>
+              <h3 className="font-serif text-xs sm:text-sm font-medium text-[#282522] group-hover:text-[#4A5D4E] transition-colors">
+                กำไลหินมงคล
+              </h3>
+              <span className="inline-block mt-1 px-2 py-0.5 text-[10px] font-semibold text-[#A98336] bg-[#F9F4E8] rounded-full border border-[#C6A052]/30">
+                หินธรรมชาติ 100%
+              </span>
+            </div>
+          </Link>
+
+          {/* 4. แหวน (หินมงคล, อัญมณี) */}
           <Link
             href="/shop?cat=ring"
-            className="card-3d group p-5 text-center flex flex-col items-center justify-between"
+            className="card-3d group p-4 text-center flex flex-col items-center justify-between"
+          >
+            <div className="relative w-16 h-16 sm:w-18 sm:h-18 mx-auto mb-2.5 rounded-2xl overflow-hidden bg-[#F7F4EE] border border-[#E6E1D8] shadow-xs group-hover:shadow-md transition-shadow">
+              <Image
+                src="/images/drive/550058_0.jpg"
+                alt="แหวนอัญมณี"
+                fill
+                className="object-cover group-hover:scale-110 group-hover:rotate-1 transition-transform duration-500"
+              />
+            </div>
+            <div>
+              <h3 className="font-serif text-xs sm:text-sm font-medium text-[#282522] group-hover:text-[#4A5D4E] transition-colors truncate w-full">
+                แหวน (หิน, อัญมณี)
+              </h3>
+              <span className="inline-block mt-1 px-2 py-0.5 text-[10px] font-semibold text-[#A98336] bg-[#F9F4E8] rounded-full border border-[#C6A052]/30">
+                นพเก้า & กังหัน
+              </span>
+            </div>
+          </Link>
+
+          {/* 5. สร้อย, จี้ */}
+          <Link
+            href="/shop?cat=necklace"
+            className="card-3d group p-4 text-center flex flex-col items-center justify-between"
+          >
+            <div className="relative w-16 h-16 sm:w-18 sm:h-18 mx-auto mb-2.5 rounded-2xl overflow-hidden bg-[#F7F4EE] border border-[#E6E1D8] shadow-xs group-hover:shadow-md transition-shadow">
+              <Image
+                src="/images/drive/550052_0.jpg"
+                alt="สร้อยและจี้มงคล"
+                fill
+                className="object-cover group-hover:scale-110 group-hover:rotate-1 transition-transform duration-500"
+              />
+            </div>
+            <div>
+              <h3 className="font-serif text-xs sm:text-sm font-medium text-[#282522] group-hover:text-[#4A5D4E] transition-colors">
+                สร้อย, จี้
+              </h3>
+              <span className="inline-block mt-1 px-2 py-0.5 text-[10px] font-semibold text-[#A98336] bg-[#F9F4E8] rounded-full border border-[#C6A052]/30">
+                โซ่ทอง & จี้มงคล
+              </span>
+            </div>
+          </Link>
+
+          {/* 6. สติ๊กเกอร์ยันต์ */}
+          <Link
+            href="/shop?cat=sticker"
+            className="card-3d group p-4 text-center flex flex-col items-center justify-between"
+          >
+            <div className="relative w-16 h-16 sm:w-18 sm:h-18 mx-auto mb-2.5 rounded-2xl overflow-hidden bg-[#F7F4EE] border border-[#E6E1D8] shadow-xs group-hover:shadow-md transition-shadow">
+              <Image
+                src="/images/products/yantra-sticker.jpg"
+                alt="สติ๊กเกอร์ยันต์"
+                fill
+                className="object-cover group-hover:scale-110 group-hover:rotate-1 transition-transform duration-500"
+              />
+            </div>
+            <div>
+              <h3 className="font-serif text-xs sm:text-sm font-medium text-[#282522] group-hover:text-[#4A5D4E] transition-colors">
+                สติ๊กเกอร์ยันต์
+              </h3>
+              <span className="inline-block mt-1 px-2 py-0.5 text-[10px] font-semibold text-[#A98336] bg-[#F9F4E8] rounded-full border border-[#C6A052]/30">
+                เริ่มต้น 99.-
+              </span>
+            </div>
+          </Link>
+        </div>
+      </section>3d group p-5 text-center flex flex-col items-center justify-between"
           >
             <div className="relative w-18 h-18 sm:w-20 sm:h-20 mx-auto mb-3 rounded-2xl overflow-hidden bg-[#F7F4EE] border border-[#E6E1D8] shadow-xs group-hover:shadow-md transition-shadow">
               <Image

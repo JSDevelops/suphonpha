@@ -26,10 +26,12 @@ import { Product } from '@/types';
 import SafeImage from '@/components/SafeImage';
 
 const CATEGORY_OPTIONS = [
-  { value: 'amulet', label: 'วัตถุมงคล / พระเครื่อง' },
-  { value: 'bracelet', label: 'กำไล / สร้อยข้อมือ' },
-  { value: 'ring', label: 'แหวนมงคล' },
-  { value: 'sticker', label: 'ผ้ายันต์ / สติ๊กเกอร์' },
+  { value: 'amulet', label: 'พระเครื่อง' },
+  { value: 'coin', label: 'เหรียญ' },
+  { value: 'bracelet', label: 'กำไลหินมงคล' },
+  { value: 'ring', label: 'แหวน (หินมงคล, อัญมณี)' },
+  { value: 'necklace', label: 'สร้อย, จี้' },
+  { value: 'sticker', label: 'สติ๊กเกอร์ยันต์' },
   { value: 'sacred_object', label: 'ของมงคล / เครื่องราง' },
 ];
 
@@ -46,7 +48,8 @@ interface ProductFormData {
   sku: string;
   titleTh: string;
   titleEn: string;
-  category: 'amulet' | 'bracelet' | 'ring' | 'sticker' | 'sacred_object';
+  category: 'amulet' | 'coin' | 'bracelet' | 'ring' | 'necklace' | 'sticker' | 'sacred_object';
+  subCategory?: string;
   categoryLabelTh: string;
   shortDesc: string;
   fullDesc: string;

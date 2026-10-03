@@ -18,7 +18,8 @@ export interface Product {
   sku: string;
   titleTh: string;
   titleEn: string;
-  category: 'amulet' | 'bracelet' | 'ring' | 'sticker' | 'sacred_object';
+  category: 'amulet' | 'coin' | 'bracelet' | 'ring' | 'necklace' | 'sticker' | 'sacred_object';
+  subCategory?: string;
   categoryLabelTh: string;
   shortDesc: string;
   fullDesc: string;

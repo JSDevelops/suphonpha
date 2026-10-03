@@ -14,27 +14,35 @@ import {
   X,
   Sparkles,
   ChevronDown,
+  ChevronRight,
+  Layers,
 } from 'lucide-react';
 import { CartDrawer } from './CartDrawer';
 import { CertificateModal } from './CertificateModal';
 import { SUPHONPHA_EMBLEM_BASE64 } from '@/data/logoData';
+import { PRODUCT_CATEGORIES } from '@/data/categories';
 
 export function Navbar() {
   const { itemCount, setIsCartOpen } = useCart();
   const { user, logout } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileCategoryOpen, setMobileCategoryOpen] = useState(false);
+  const [categoryDropdownOpen, setCategoryDropdownOpen] = useState(false);
   const [searchModalOpen, setSearchModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [certModalOpen, setCertModalOpen] = useState(false);
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const categoryDropdownRef = useRef<HTMLDivElement>(null);
 
-  // ปิด user dropdown เมื่อ click outside (ทำงานบน touch device ด้วย)
+  // ปิด dropdown เมื่อ click outside
   useEffect(() => {
-    if (!userDropdownOpen) return;
     const handler = (e: MouseEvent | TouchEvent) => {
-      if (!dropdownRef.current?.contains(e.target as Node)) {
+      if (userDropdownOpen && !dropdownRef.current?.contains(e.target as Node)) {
         setUserDropdownOpen(false);
+      }
+      if (categoryDropdownOpen && !categoryDropdownRef.current?.contains(e.target as Node)) {
+        setCategoryDropdownOpen(false);
       }
     };
     document.addEventListener('mousedown', handler);
@@ -43,7 +51,7 @@ export function Navbar() {
       document.removeEventListener('mousedown', handler);
       document.removeEventListener('touchstart', handler);
     };
-  }, [userDropdownOpen]);
+  }, [userDropdownOpen, categoryDropdownOpen]);
 
   return (
     <>
@@ -97,6 +105,75 @@ export function Navbar() {
 
             {/* Desktop Navigation Links (Clean, concise, and no word-wrapping) */}
             <nav className="hidden lg:flex items-center space-x-4 xl:space-x-7 shrink-0">
+              {/* Category Dropdown with Submenus */}
+              <div className="relative" ref={categoryDropdownRef}>
+                <button
+                  type="button"
+                  onClick={() => setCategoryDropdownOpen(!categoryDropdownOpen)}
+                  onMouseEnter={() => setCategoryDropdownOpen(true)}
+                  className="flex items-center gap-1 text-xs xl:text-sm font-medium tracking-wide text-[#282522] hover:text-[#4A5D4E] transition-colors whitespace-nowrap py-2 cursor-pointer"
+                >
+                  <span>หมวดหมู่สินค้า</span>
+                  <ChevronDown className={`w-3.5 h-3.5 text-[#8E8A83] transition-transform duration-200 ${categoryDropdownOpen ? 'rotate-180 text-[#4A5D4E]' : ''}`} />
+                </button>
+
+                {/* Dropdown Menu Container */}
+                {categoryDropdownOpen && (
+                  <div
+                    onMouseLeave={() => setCategoryDropdownOpen(false)}
+                    className="absolute top-full left-0 w-[580px] bg-white rounded-2xl shadow-xl border border-[#E6E1D8] p-5 z-50 animate-in fade-in zoom-in-95 duration-150 grid grid-cols-2 gap-4"
+                  >
+                    <div className="col-span-2 pb-2.5 mb-1 border-b border-stone-100 flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <Layers className="w-4 h-4 text-[#C6A052]" />
+                        <span className="font-serif text-sm font-bold text-[#282522]">หมวดหมู่วัตถุมงคลและเครื่องประดับ</span>
+                      </div>
+                      <Link
+                        href="/shop"
+                        onClick={() => setCategoryDropdownOpen(false)}
+                        className="text-xs text-[#A98336] hover:text-[#4A5D4E] font-medium flex items-center gap-1"
+                      >
+                        <span>ดูสินค้าทั้งหมด</span>
+                        <ChevronRight className="w-3.5 h-3.5" />
+                      </Link>
+                    </div>
+
+                    {PRODUCT_CATEGORIES.map((cat) => (
+                      <div key={cat.id} className="p-2.5 rounded-xl hover:bg-[#F7F4EE]/80 transition-colors group">
+                        <Link
+                          href={`/shop?cat=${cat.id}`}
+                          onClick={() => setCategoryDropdownOpen(false)}
+                          className="flex items-center justify-between font-medium text-xs text-[#282522] group-hover:text-[#4A5D4E] mb-1.5"
+                        >
+                          <span className="font-bold flex items-center gap-1.5">
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#C6A052]" />
+                            {cat.label}
+                          </span>
+                          <ChevronRight className="w-3 h-3 text-stone-300 group-hover:text-[#4A5D4E] group-hover:translate-x-0.5 transition-all" />
+                        </Link>
+
+                        {/* Submenus */}
+                        {cat.subCategories && cat.subCategories.length > 0 && (
+                          <div className="pl-3 space-y-1 border-l border-stone-200/60 mt-1">
+                            {cat.subCategories.map((sub) => (
+                              <Link
+                                key={sub.id}
+                                href={`/shop?cat=${cat.id}&sub=${sub.id}`}
+                                onClick={() => setCategoryDropdownOpen(false)}
+                                className="block text-[11px] text-[#5C5852] hover:text-[#A98336] hover:underline truncate py-0.5"
+                                title={sub.description}
+                              >
+                                • {sub.label}
+                              </Link>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
               <Link
                 href="/shop"
                 className="text-xs xl:text-sm font-medium tracking-wide text-[#282522] hover:text-[#4A5D4E] transition-colors whitespace-nowrap"
@@ -210,11 +287,67 @@ export function Navbar() {
 
         {/* Mobile Navigation Drawer — slide-down animation */}
         <div
-          className={`lg:hidden border-t border-[#E6E1D8] bg-[#F7F4EE] overflow-hidden transition-all duration-300 ease-out ${
-            mobileMenuOpen ? 'max-h-[400px] opacity-100' : 'max-h-0 opacity-0'
+          className={`lg:hidden border-t border-[#E6E1D8] bg-[#F7F4EE] overflow-y-auto transition-all duration-300 ease-out ${
+            mobileMenuOpen ? 'max-h-[80vh] opacity-100' : 'max-h-0 opacity-0'
           }`}
         >
           <div className="px-4 pt-3 pb-6 space-y-1">
+            {/* Category Accordion */}
+            <div className="border-b border-[#F0ECE6]">
+              <button
+                type="button"
+                onClick={() => setMobileCategoryOpen(!mobileCategoryOpen)}
+                className="flex items-center justify-between w-full text-base font-medium text-[#282522] hover:text-[#4A5D4E] py-2.5"
+              >
+                <span className="flex items-center gap-2">
+                  <Layers className="w-4 h-4 text-[#C6A052]" />
+                  <span>หมวดหมู่สินค้า</span>
+                </span>
+                <ChevronDown className={`w-4 h-4 text-stone-400 transition-transform duration-200 ${mobileCategoryOpen ? 'rotate-180 text-[#4A5D4E]' : ''}`} />
+              </button>
+
+              {mobileCategoryOpen && (
+                <div className="pb-3 pl-3 pr-1 space-y-3 bg-white/70 rounded-xl p-3 mb-2 border border-stone-200/60">
+                  {PRODUCT_CATEGORIES.map((cat) => (
+                    <div key={cat.id} className="space-y-1">
+                      <Link
+                        href={`/shop?cat=${cat.id}`}
+                        onClick={() => {
+                          setMobileMenuOpen(false);
+                          setMobileCategoryOpen(false);
+                        }}
+                        className="flex items-center justify-between text-xs font-bold text-[#282522] hover:text-[#4A5D4E] py-1 border-b border-stone-100"
+                      >
+                        <span className="flex items-center gap-1.5">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#C6A052]" />
+                          {cat.label}
+                        </span>
+                        <ChevronRight className="w-3.5 h-3.5 text-stone-400" />
+                      </Link>
+
+                      {cat.subCategories && cat.subCategories.length > 0 && (
+                        <div className="pl-3 space-y-1">
+                          {cat.subCategories.map((sub) => (
+                            <Link
+                              key={sub.id}
+                              href={`/shop?cat=${cat.id}&sub=${sub.id}`}
+                              onClick={() => {
+                                setMobileMenuOpen(false);
+                                setMobileCategoryOpen(false);
+                              }}
+                              className="block text-[11px] text-[#5C5852] hover:text-[#A98336] py-0.5"
+                            >
+                              • {sub.label}
+                            </Link>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
             <Link
               href="/shop"
               onClick={() => setMobileMenuOpen(false)}
