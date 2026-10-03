@@ -37,7 +37,6 @@ function ShopContent() {
         const matchesCategory = selectedCategory === 'all' || p.category === selectedCategory;
         const matchesSubCategory =
           selectedSubCategory === 'all' ||
-          !p.subCategory ||
           p.subCategory === selectedSubCategory;
         const matchesQuery =
           !searchQuery.trim() ||

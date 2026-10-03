@@ -48,11 +48,11 @@ export const PRODUCT_CATEGORIES: CategoryItem[] = [
   {
     id: 'ring',
     label: 'แหวน (หินมงคล, อัญมณี)',
-    description: 'แหวนนพเก้า แหวนกังหัน และแหวนอัญมณีแท้เสริมสิริมงคล',
+    description: 'แหวนหินมงคล แหวนนพเก้า และแหวนอัญมณีแท้เสริมสิริมงคล',
     subCategories: [
-      { id: 'ring-stone', label: 'แหวนหินมงคลธรรมชาติ', description: 'หัวแหวนหินแท้ พลังธาตุธรรมชาติ' },
-      { id: 'ring-gemstone', label: 'แหวนอัญมณีนพเก้าแท้ (9 รัตนชาติ)', description: 'ตัวเรือนทองคำแท้ ฝังอัญมณีมงคล 9 ประการ' },
-      { id: 'ring-windmill', label: 'แหวนกังหันนำโชค วัดแชกงหมิว', description: 'ใบพัดหมุนคล่องตัว ดึงดูดโชคลาภ ปัดเป่าสิ่งไม่ดี' },
+      { id: 'ring-stone', label: 'หินมงคล (แหวนหินแท้ธรรมชาติ)', description: 'หัวแหวนหินแท้ พลังธาตุธรรมชาติ' },
+      { id: 'ring-gemstone', label: 'อัญมณี (แหวนนพเก้า & พลอยมงคล)', description: 'ตัวเรือนทองคำแท้ ฝังอัญมณีมงคล 9 ประการ' },
+      { id: 'ring-windmill', label: 'กังหันนำโชค (วัดแชกงหมิว)', description: 'ใบพัดหมุนคล่องตัว ดึงดูดโชคลาภ ปัดเป่าสิ่งไม่ดี' },
     ],
   },
   {
@@ -60,9 +60,9 @@ export const PRODUCT_CATEGORIES: CategoryItem[] = [
     label: 'สร้อย, จี้',
     description: 'สร้อยคอ สร้อยข้อมือสายโซ่ และจี้มงคลเลี่ยมทอง',
     subCategories: [
-      { id: 'chain-pyrite', label: 'สร้อยสายโซ่ & ไพไรต์เพชรหน้าทั่ง', description: 'ดีไซน์ T-Bar ร่วมสมัย สลับหินแร่ธรรมชาติ' },
-      { id: 'pendant-ganesha', label: 'จี้พระพิฆเนศ & เทพมงคล', description: 'จี้หล่อพิมพ์จิ๋ว เลี่ยมกรอบทองคำแท้' },
-      { id: 'pendant-locket', label: 'จี้ล็อกเก็ต & พระประจำวันเกิด', description: 'เสริมดวงชะตาตามราศีและวันเกิด' },
+      { id: 'chain-pyrite', label: 'สร้อย (สายโซ่ & ไพไรต์เพชรหน้าทั่ง)', description: 'ดีไซน์ T-Bar ร่วมสมัย สลับหินแร่ธรรมชาติ' },
+      { id: 'pendant-ganesha', label: 'จี้ (จี้พระพิฆเนศ & เทพมงคล)', description: 'จี้หล่อพิมพ์จิ๋ว เลี่ยมกรอบทองคำแท้' },
+      { id: 'pendant-locket', label: 'ล็อกเก็ต & พระประจำวันเกิด', description: 'เสริมดวงชะตาตามราศีและวันเกิด' },
     ],
   },
   {

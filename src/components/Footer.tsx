@@ -173,28 +173,40 @@ export function Footer() {
                     ของแท้ 100%
                   </span>
                 </div>
-                <ul className="space-y-2.5 text-xs">
+                <ul className="space-y-2 text-xs">
                   <li>
-                    <Link href="/shop?cat=amulet" className="flex items-center justify-between py-1 text-[#282522] hover:text-[#4A5D4E]">
-                      <span>✨ พระเครื่องและเหรียญมงคล</span>
+                    <Link href="/shop?cat=amulet" className="flex items-center justify-between py-0.5 text-[#282522] hover:text-[#4A5D4E]">
+                      <span>✨ พระเครื่อง</span>
                       <span className="text-gray-400 text-xs">→</span>
                     </Link>
                   </li>
                   <li>
-                    <Link href="/shop?cat=bracelet" className="flex items-center justify-between py-1 text-[#282522] hover:text-[#4A5D4E]">
-                      <span>📿 กำไลและสร้อยข้อมือหินแท้</span>
+                    <Link href="/shop?cat=coin" className="flex items-center justify-between py-0.5 text-[#282522] hover:text-[#4A5D4E]">
+                      <span>🪙 เหรียญ</span>
                       <span className="text-gray-400 text-xs">→</span>
                     </Link>
                   </li>
                   <li>
-                    <Link href="/shop?cat=ring" className="flex items-center justify-between py-1 text-[#282522] hover:text-[#4A5D4E]">
-                      <span>💍 แหวนอัญมณีเสริมดวง</span>
+                    <Link href="/shop?cat=bracelet" className="flex items-center justify-between py-0.5 text-[#282522] hover:text-[#4A5D4E]">
+                      <span>📿 กำไลหินมงคล</span>
                       <span className="text-gray-400 text-xs">→</span>
                     </Link>
                   </li>
                   <li>
-                    <Link href="/shop?cat=sticker" className="flex items-center justify-between py-1 text-[#282522] hover:text-[#4A5D4E]">
-                      <span>🧧 สติ๊กเกอร์ยันต์มงคล (เริ่มต้น 99.-)</span>
+                    <Link href="/shop?cat=ring" className="flex items-center justify-between py-0.5 text-[#282522] hover:text-[#4A5D4E]">
+                      <span>💍 แหวน (หินมงคล, อัญมณี)</span>
+                      <span className="text-gray-400 text-xs">→</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/shop?cat=necklace" className="flex items-center justify-between py-0.5 text-[#282522] hover:text-[#4A5D4E]">
+                      <span>📿 สร้อย, จี้</span>
+                      <span className="text-gray-400 text-xs">→</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/shop?cat=sticker" className="flex items-center justify-between py-0.5 text-[#282522] hover:text-[#4A5D4E]">
+                      <span>🧧 สติ๊กเกอร์ยันต์</span>
                       <span className="text-gray-400 text-xs">→</span>
                     </Link>
                   </li>
@@ -369,30 +381,40 @@ export function Footer() {
           {/* Column 1: Shop */}
           <div>
             <h4 className="font-serif text-sm font-semibold text-[#282522] mb-3">หมวดหมู่วัตถุมงคล</h4>
-            <ul className="space-y-2">
+            <ul className="space-y-1.5 text-xs">
               <li>
                 <Link href="/shop?cat=amulet" className="hover:text-[#4A5D4E] transition-colors">
-                  พระเครื่องและเหรียญมงคล
+                  พระเครื่อง
+                </Link>
+              </li>
+              <li>
+                <Link href="/shop?cat=coin" className="hover:text-[#4A5D4E] transition-colors">
+                  เหรียญ
                 </Link>
               </li>
               <li>
                 <Link href="/shop?cat=bracelet" className="hover:text-[#4A5D4E] transition-colors">
-                  กำไลและสร้อยข้อมือหินแท้
+                  กำไลหินมงคล
                 </Link>
               </li>
               <li>
                 <Link href="/shop?cat=ring" className="hover:text-[#4A5D4E] transition-colors">
-                  แหวนอัญมณีเสริมดวง
+                  แหวน (หินมงคล, อัญมณี)
+                </Link>
+              </li>
+              <li>
+                <Link href="/shop?cat=necklace" className="hover:text-[#4A5D4E] transition-colors">
+                  สร้อย, จี้
                 </Link>
               </li>
               <li>
                 <Link href="/shop?cat=sticker" className="hover:text-[#4A5D4E] transition-colors">
-                  สติ๊กเกอร์ยันต์มงคล (เริ่มต้น 99.-)
+                  สติ๊กเกอร์ยันต์
                 </Link>
               </li>
-              <li>
+              <li className="pt-1">
                 <Link href="/certificate" className="text-[#C6A052] font-medium hover:underline">
-                  ตรวจสอบ Digital Certificate
+                  ตรวจสอบ Digital Certificate →
                 </Link>
               </li>
             </ul>

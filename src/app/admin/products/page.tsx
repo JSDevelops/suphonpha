@@ -24,6 +24,7 @@ import {
 import { useStoreData } from '@/context/StoreDataContext';
 import { Product } from '@/types';
 import SafeImage from '@/components/SafeImage';
+import { PRODUCT_CATEGORIES } from '@/data/categories';
 
 const CATEGORY_OPTIONS = [
   { value: 'amulet', label: 'พระเครื่อง' },
@@ -436,6 +437,11 @@ export default function AdminProductsPage() {
                       <span className="inline-block bg-[var(--brand-sage-light)] text-[var(--brand-sage-dark)] px-2.5 py-1 rounded-full text-xs font-medium">
                         {p.categoryLabelTh || p.category}
                       </span>
+                      {p.subCategory && (
+                        <span className="block text-[11px] text-stone-500 mt-0.5">
+                          • {PRODUCT_CATEGORIES.flatMap((c) => c.subCategories || []).find((s) => s.id === p.subCategory)?.label || p.subCategory}
+                        </span>
+                      )}
                     </td>
 
                     {/* Price */}
@@ -629,6 +635,7 @@ export default function AdminProductsPage() {
                           ...formData,
                           category: val,
                           categoryLabelTh: label,
+                          subCategory: undefined,
                         });
                       }}
                       className="w-full text-sm px-3 py-2 rounded-xl border border-stone-200 focus:outline-none focus:ring-2 focus:ring-[var(--brand-sage)]"
@@ -640,6 +647,26 @@ export default function AdminProductsPage() {
                       ))}
                     </select>
                   </div>
+
+                  {PRODUCT_CATEGORIES.find((c) => c.id === formData.category)?.subCategories && (
+                    <div>
+                      <label className="block text-xs font-semibold text-stone-700 mb-1">
+                        หมวดหมู่ย่อย (Submenu / ซับเมนู)
+                      </label>
+                      <select
+                        value={formData.subCategory || ''}
+                        onChange={(e) => setFormData({ ...formData, subCategory: e.target.value || undefined })}
+                        className="w-full text-sm px-3 py-2 rounded-xl border border-stone-200 focus:outline-none focus:ring-2 focus:ring-[var(--brand-sage)]"
+                      >
+                        <option value="">-- ทั้งหมด / ไม่ระบุ --</option>
+                        {PRODUCT_CATEGORIES.find((c) => c.id === formData.category)?.subCategories?.map((sub) => (
+                          <option key={sub.id} value={sub.id}>
+                            {sub.label}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  )}
 
                   <div>
                     <label className="block text-xs font-semibold text-stone-700 mb-1">

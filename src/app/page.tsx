@@ -59,7 +59,10 @@ export default function HomePage() {
 
               <p className="text-sm sm:text-base text-[#5C5852] font-light leading-relaxed max-w-lg">
                 Authentic Thai amulets and sacred jewelry for protection, prosperity and peace in everyday life.
-                วัตถ�              {/* Quick Category Tags with Dimensional Hover */}
+                วัตถุมงคลและเครื่องประดับสายมูร่วมสมัย ตรวจสอบที่มาได้ทุกชิ้น
+              </p>
+
+              {/* Quick Category Tags with Dimensional Hover */}
               <div className="flex flex-wrap gap-2 pt-1">
                 <Link
                   href="/shop?cat=amulet"
@@ -339,26 +342,6 @@ export default function HomePage() {
               </h3>
               <span className="inline-block mt-1 px-2 py-0.5 text-[10px] font-semibold text-[#A98336] bg-[#F9F4E8] rounded-full border border-[#C6A052]/30">
                 เริ่มต้น 99.-
-              </span>
-            </div>
-          </Link>
-        </div>
-      </section>3d group p-5 text-center flex flex-col items-center justify-between"
-          >
-            <div className="relative w-18 h-18 sm:w-20 sm:h-20 mx-auto mb-3 rounded-2xl overflow-hidden bg-[#F7F4EE] border border-[#E6E1D8] shadow-xs group-hover:shadow-md transition-shadow">
-              <Image
-                src="/images/drive/550058_0.jpg"
-                alt="แหวนอัญมณีนพเก้า"
-                fill
-                className="object-cover group-hover:scale-110 group-hover:rotate-1 transition-transform duration-500"
-              />
-            </div>
-            <div>
-              <h3 className="font-serif text-sm font-medium text-[#282522] group-hover:text-[#4A5D4E] transition-colors">
-                แหวนอัญมณีนพเก้าแท้
-              </h3>
-              <span className="inline-block mt-1 px-2.5 py-0.5 text-[11px] font-semibold text-[#A98336] bg-[#F9F4E8] rounded-full border border-[#C6A052]/30 shadow-2xs">
-                อัญมณี 9 ประการ
               </span>
             </div>
           </Link>
