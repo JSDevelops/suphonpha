@@ -106,6 +106,8 @@ export interface Article {
   publishDate: string;
   seoTitle?: string;
   seoDesc?: string;
+  keywords?: string[];
+  readTime?: string;
 }
 
 export interface SystemSettings {

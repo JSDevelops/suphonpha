@@ -471,10 +471,10 @@ export default function HomePage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {articles.map((art) => (
+          {articles.slice(0, 4).map((art) => (
             <Link
               key={art.id}
-              href="/articles"
+              href={`/articles/${art.slug}`}
               className="card-3d group flex flex-col sm:flex-row gap-5 p-5 transition-all duration-300"
             >
               <div className="relative w-full sm:w-44 h-44 shrink-0 rounded-xl overflow-hidden bg-[#F7F4EE]">

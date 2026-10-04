@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next';
-import { INITIAL_PRODUCTS } from '@/data/mockData';
+import { INITIAL_PRODUCTS, INITIAL_ARTICLES } from '@/data/mockData';
 
 export const dynamic = 'force-static';
 
@@ -85,5 +85,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.85,
   }));
 
-  return [...staticRoutes, ...productRoutes];
+  const articleRoutes: MetadataRoute.Sitemap = INITIAL_ARTICLES.map((article) => ({
+    url: `${baseUrl}/articles/${article.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly',
+    priority: 0.8,
+  }));
+
+  return [...staticRoutes, ...productRoutes, ...articleRoutes];
 }
