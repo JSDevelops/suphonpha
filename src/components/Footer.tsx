@@ -277,14 +277,26 @@ export function Footer() {
                 </div>
                 <ul className="space-y-2.5 text-xs mb-4">
                   <li>
+                    <Link href="/user-guide" className="flex items-center justify-between py-1 text-[#282522] hover:text-[#4A5D4E] font-medium">
+                      <span>📖 คู่มือการใช้เว็บไซต์ (User Guide)</span>
+                      <span className="text-gray-400 text-xs">→</span>
+                    </Link>
+                  </li>
+                  <li>
                     <Link href="/privacy" className="flex items-center justify-between py-1 text-[#282522] hover:text-[#4A5D4E]">
-                      <span>นโยบายความเป็นส่วนตัว (PDPA)</span>
+                      <span>นโยบายความเป็นส่วนตัว & คุกกี้ (PDPA)</span>
                       <span className="text-gray-400 text-xs">→</span>
                     </Link>
                   </li>
                   <li>
                     <Link href="/terms" className="flex items-center justify-between py-1 text-[#282522] hover:text-[#4A5D4E]">
                       <span>ข้อกำหนดและเงื่อนไขการสั่งซื้อ</span>
+                      <span className="text-gray-400 text-xs">→</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/certificate" className="flex items-center justify-between py-1 text-[#282522] hover:text-[#4A5D4E]">
+                      <span>ตรวจสอบบัตรรับรองดิจิทัล</span>
                       <span className="text-gray-400 text-xs">→</span>
                     </Link>
                   </li>
@@ -462,13 +474,23 @@ export function Footer() {
             <h4 className="font-serif text-sm font-semibold text-[#282522] mb-3">นโยบายความโปร่งใส</h4>
             <ul className="space-y-2">
               <li>
+                <Link href="/user-guide" className="hover:text-[#4A5D4E] transition-colors font-medium text-[#4A5D4E]">
+                  📖 คู่มือการใช้เว็บไซต์ (User Guide)
+                </Link>
+              </li>
+              <li>
                 <Link href="/privacy" className="hover:text-[#4A5D4E] transition-colors">
-                  นโยบายความเป็นส่วนตัว (PDPA)
+                  นโยบายความเป็นส่วนตัวและคุกกี้ (PDPA)
                 </Link>
               </li>
               <li>
                 <Link href="/terms" className="hover:text-[#4A5D4E] transition-colors">
                   ข้อกำหนดและเงื่อนไขการสั่งซื้อ
+                </Link>
+              </li>
+              <li>
+                <Link href="/certificate" className="hover:text-[#4A5D4E] transition-colors">
+                  ตรวจสอบบัตรรับรองดิจิทัล
                 </Link>
               </li>
             </ul>
