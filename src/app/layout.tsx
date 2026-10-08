@@ -40,31 +40,30 @@ const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'สุพรภา (Suphonpha) | วัตถุมงคลและเครื่องประดับมงคลร่วมสมัย',
-    template: '%s | สุพรภา Suphonpha',
+    default: 'สุพรภา suphonpha',
+    template: '%s | สุพรภา suphonpha',
   },
   description:
-    'ศูนย์รวมวัตถุมงคล พระเครื่อง เครื่องรางนำโชค กำไลหินมงคล และเครื่องประดับสายมูร่วมสมัย สุพรภา (Suphonpha) ตรวจสอบ Digital Certificate ความแท้ได้ทุกชิ้น รับสั่งสร้างวัตถุมงคลและประสานงานพิธีพุทธาภิเษก',
-  applicationName: 'สุพรภา Suphonpha',
+    'วัตถุมงคลและเครื่องประดับ คัดสรรงานพุทธศิลป์และเครื่องประดับสายมูร่วมสมัย ทุกชิ้นมีบัตรรับรองความแท้ จัดส่งฟรีทั่วประเทศ | รับประกันของแท้พร้อม Digital Certificate',
+  applicationName: 'สุพรภา suphonpha',
   keywords: [
     'สุพรภา',
-    'Suphonpha',
+    'suphonpha',
     'วัตถุมงคล',
+    'เครื่องประดับ',
+    'พุทธศิลป์',
+    'เครื่องประดับสายมูร่วมสมัย',
+    'บัตรรับรองความแท้',
+    'จัดส่งฟรีทั่วประเทศ',
+    'Digital Certificate',
     'พระเครื่อง',
     'พระแท้',
     'กำไลหินมงคล',
-    'เครื่องประดับสายมู',
-    'แหวนมงคล',
-    'สติ๊กเกอร์ยันต์',
-    'สั่งสร้างวัตถุมงคล',
-    'Digital Certificate พระแท้',
     'เครื่องรางนำโชค',
-    'ของขวัญมงคล',
-    'Amulet Thailand',
   ],
-  authors: [{ name: 'สุพรภา Suphonpha' }],
-  creator: 'สุพรภา Suphonpha',
-  publisher: 'สุพรภา Suphonpha',
+  authors: [{ name: 'สุพรภา suphonpha' }],
+  creator: 'สุพรภา suphonpha',
+  publisher: 'สุพรภา suphonpha',
   formatDetection: {
     email: false,
     address: false,
@@ -84,11 +83,11 @@ export const metadata: Metadata = {
   },
   manifest: `${basePath}/site.webmanifest`,
   openGraph: {
-    title: 'สุพรภา (Suphonpha) | วัตถุมงคลและเครื่องประดับมงคลร่วมสมัย',
+    title: 'สุพรภา suphonpha',
     description:
-      'วัตถุมงคล พระเครื่อง เครื่องรางนำโชค และเครื่องประดับสายมูมินิมอล ดีไซน์ร่วมสมัย มวลสารแท้ พร้อมระบบตรวจสอบ Digital Certificate เฉพาะองค์',
+      'วัตถุมงคลและเครื่องประดับ คัดสรรงานพุทธศิลป์และเครื่องประดับสายมูร่วมสมัย ทุกชิ้นมีบัตรรับรองความแท้ จัดส่งฟรีทั่วประเทศ | รับประกันของแท้พร้อม Digital Certificate',
     url: siteUrl,
-    siteName: 'สุพรภา Suphonpha',
+    siteName: 'สุพรภา suphonpha',
     locale: 'th_TH',
     type: 'website',
     images: [
@@ -96,15 +95,15 @@ export const metadata: Metadata = {
         url: '/images/hero-banner.jpg',
         width: 1200,
         height: 630,
-        alt: 'สุพรภา Suphonpha วัตถุมงคลและเครื่องประดับมงคลร่วมสมัย',
+        alt: 'สุพรภา suphonpha - วัตถุมงคลและเครื่องประดับ คัดสรรงานพุทธศิลป์และเครื่องประดับสายมูร่วมสมัย',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'สุพรภา (Suphonpha) | วัตถุมงคลและเครื่องประดับมงคลร่วมสมัย',
+    title: 'สุพรภา suphonpha',
     description:
-      'วัตถุมงคล พระเครื่อง และเครื่องประดับสายมูร่วมสมัย ตรวจสอบ Digital Certificate ความแท้ได้ทุกชิ้น',
+      'วัตถุมงคลและเครื่องประดับ คัดสรรงานพุทธศิลป์และเครื่องประดับสายมูร่วมสมัย ทุกชิ้นมีบัตรรับรองความแท้ จัดส่งฟรีทั่วประเทศ | รับประกันของแท้พร้อม Digital Certificate',
     images: ['/images/hero-banner.jpg'],
   },
   robots: {
@@ -129,7 +128,7 @@ const jsonLd = {
     {
       '@type': 'Organization',
       '@id': `${siteUrl}/#organization`,
-      name: 'สุพรภา (Suphonpha)',
+      name: 'สุพรภา suphonpha',
       url: siteUrl,
       logo: {
         '@type': 'ImageObject',
@@ -149,7 +148,7 @@ const jsonLd = {
       '@type': 'WebSite',
       '@id': `${siteUrl}/#website`,
       url: siteUrl,
-      name: 'สุพรภา (Suphonpha)',
+      name: 'สุพรภา suphonpha',
       publisher: {
         '@id': `${siteUrl}/#organization`,
       },
@@ -162,14 +161,15 @@ const jsonLd = {
     {
       '@type': 'Store',
       '@id': `${siteUrl}/#store`,
-      name: 'สุพรภา (Suphonpha)',
-      description: 'ร้านวัตถุมงคล พระเครื่อง เครื่องราง และเครื่องประดับสายมูร่วมสมัย พร้อมระบบ Digital Certificate',
+      name: 'สุพรภา suphonpha',
+      description:
+        'วัตถุมงคลและเครื่องประดับ คัดสรรงานพุทธศิลป์และเครื่องประดับสายมูร่วมสมัย ทุกชิ้นมีบัตรรับรองความแท้ จัดส่งฟรีทั่วประเทศ | รับประกันของแท้พร้อม Digital Certificate',
       url: siteUrl,
       telephone: '+66-65-306-2263',
       priceRange: '฿99 - ฿50,000',
       image: `${siteUrl}/images/hero-banner.jpg`,
       currenciesAccepted: 'THB',
-      paymentAccepted: 'Cash, Credit Card, Bank Transfer, PromptPay',
+      paymentAccepted: 'Bank Transfer',
       openingHoursSpecification: [
         {
           '@type': 'OpeningHoursSpecification',
