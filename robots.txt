@@ -8,4 +8,4 @@ Allow: /
 Disallow: /checkout
 Disallow: /account
 
-Sitemap: https://jsdevelops.github.io/suphonpha/sitemap.xml
+Sitemap: http://localhost:3000/sitemap.xml
