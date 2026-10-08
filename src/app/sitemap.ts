@@ -4,10 +4,7 @@ import { INITIAL_PRODUCTS, INITIAL_ARTICLES } from '@/data/mockData';
 export const dynamic = 'force-static';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const isProdDeploy = process.env.NEXT_PUBLIC_BASE_PATH === '/suphonpha' || process.env.NODE_ENV === 'production';
-  const baseUrl = isProdDeploy
-    ? 'https://jsdevelops.github.io/suphonpha'
-    : (process.env.NEXT_PUBLIC_SITE_URL || 'https://jsdevelops.github.io/suphonpha');
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://suphonpha.com';
 
   const staticRoutes: MetadataRoute.Sitemap = [
     {

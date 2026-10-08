@@ -34,7 +34,7 @@ export const viewport: Viewport = {
   themeColor: '#4A5D4E',
 };
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://jsdevelops.github.io/suphonpha';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://suphonpha.com';
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
 export const metadata: Metadata = {

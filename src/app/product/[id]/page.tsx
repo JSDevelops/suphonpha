@@ -33,7 +33,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const resolvedParams = await params;
   const product = INITIAL_PRODUCTS.find((p) => p.id === resolvedParams.id) || INITIAL_PRODUCTS[0];
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://jsdevelops.github.io/suphonpha';
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://suphonpha.com';
   const pageUrl = `${siteUrl}/product/${product.id}`;
   const price = product.salePrice ?? product.regularPrice;
 
@@ -82,7 +82,7 @@ export default async function ProductDetailPage({
 }) {
   const resolvedParams = await params;
   const product = INITIAL_PRODUCTS.find((p) => p.id === resolvedParams.id) || INITIAL_PRODUCTS[0];
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://jsdevelops.github.io/suphonpha';
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://suphonpha.com';
   const price = product.salePrice ?? product.regularPrice;
 
   const productJsonLd = {

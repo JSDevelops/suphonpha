@@ -39,7 +39,7 @@ export async function generateMetadata({
     };
   }
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://jsdevelops.github.io/suphonpha';
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://suphonpha.com';
   const pageUrl = `${siteUrl}/articles/${article.slug}`;
   const imageUrl = article.coverImage.startsWith('http')
     ? article.coverImage
@@ -100,7 +100,7 @@ export default async function ArticlePage({
     notFound();
   }
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://jsdevelops.github.io/suphonpha';
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://suphonpha.com';
   const pageUrl = `${siteUrl}/articles/${article.slug}`;
   const imageUrl = article.coverImage.startsWith('http')
     ? article.coverImage
