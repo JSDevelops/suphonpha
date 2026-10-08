@@ -26,6 +26,7 @@ import { Product } from '@/types';
 import SafeImage from '@/components/SafeImage';
 import { PRODUCT_CATEGORIES } from '@/data/categories';
 import { getProductUrl } from '@/lib/productUrl';
+import { saveProductToGoogleSheet } from '@/lib/googleSheets';
 
 const CATEGORY_OPTIONS = [
   { value: 'amulet', label: 'พระเครื่อง' },
@@ -101,6 +102,7 @@ export default function AdminProductsPage() {
   const [formData, setFormData] = useState<ProductFormData>(DEFAULT_FORM_DATA);
   const [formSubmitting, setFormSubmitting] = useState(false);
   const [notification, setNotification] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
+  const [isSyncingAll, setIsSyncingAll] = useState(false);
 
   // State Modal ยืนยันการลบ
   const [deleteConfirmTarget, setDeleteConfirmTarget] = useState<Product | null>(null);
@@ -254,6 +256,27 @@ export default function AdminProductsPage() {
     }, 4000);
   };
 
+  const handleSyncAllToGoogleSheets = async () => {
+    if (!confirm(`ต้องการซิงค์สินค้าทั้งหมด (${products.length} รายการ) ขึ้น Google Sheet หรือไม่?`)) {
+      return;
+    }
+    setIsSyncingAll(true);
+    let successCount = 0;
+    try {
+      for (const p of products) {
+        const res = await saveProductToGoogleSheet(p);
+        if (res.success) {
+          successCount++;
+        }
+      }
+      showNotification('success', `ซิงค์สินค้าขึ้น Google Sheet สำเร็จ (${successCount}/${products.length} รายการ)`);
+    } catch (err: any) {
+      showNotification('error', `เกิดข้อผิดพลาดในการซิงค์: ${err.message}`);
+    } finally {
+      setIsSyncingAll(false);
+    }
+  };
+
   return (
     <div className="space-y-6">
       {/* Toast Notification */}
@@ -299,14 +322,27 @@ export default function AdminProductsPage() {
           </p>
         </div>
 
-        <button
-          type="button"
-          onClick={handleOpenAddModal}
-          className="inline-flex items-center justify-center gap-2 bg-[var(--brand-sage-dark)] hover:bg-[var(--brand-sage)] text-white font-bold px-4 py-2.5 rounded-xl text-sm transition-all shadow-sm hover:shadow shrink-0"
-        >
-          <Plus className="w-4 h-4" />
-          <span>+ ลงสินค้าใหม่</span>
-        </button>
+        <div className="flex items-center gap-2.5 flex-wrap">
+          <button
+            type="button"
+            disabled={isSyncingAll}
+            onClick={handleSyncAllToGoogleSheets}
+            className="inline-flex items-center justify-center gap-2 bg-stone-100 hover:bg-stone-200 text-stone-700 font-medium px-3.5 py-2.5 rounded-xl text-sm transition-all border border-stone-200 shrink-0 cursor-pointer disabled:opacity-50"
+            title="ซิงค์สินค้าทั้งหมดขึ้น Google Sheet"
+          >
+            <RefreshCw className={`w-4 h-4 text-stone-600 ${isSyncingAll ? 'animate-spin' : ''}`} />
+            <span>{isSyncingAll ? 'กำลังซิงค์...' : 'ซิงค์ขึ้น Google Sheet'}</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={handleOpenAddModal}
+            className="inline-flex items-center justify-center gap-2 bg-[var(--brand-sage-dark)] hover:bg-[var(--brand-sage)] text-white font-bold px-4 py-2.5 rounded-xl text-sm transition-all shadow-sm hover:shadow shrink-0 cursor-pointer"
+          >
+            <Plus className="w-4 h-4" />
+            <span>+ ลงสินค้าใหม่</span>
+          </button>
+        </div>
       </div>
 
       {/* Filters & Search Toolbar */}
