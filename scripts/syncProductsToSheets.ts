@@ -2,7 +2,7 @@ import { INITIAL_PRODUCTS } from '../src/data/mockData';
 
 const GOOGLE_SHEET_URL =
   process.env.NEXT_PUBLIC_GOOGLE_SHEETS_API_URL ||
-  'https://script.google.com/macros/s/AKfycbwSZjHlo3sF3U9Jdi1p4aZXw3aIBicoHuNkvn5KGSEG98fxPUXgvF_wQ_z-ektQkM15/exec';
+  'https://script.google.com/macros/s/AKfycbwnuBZYi9m-RMtnhYSfxqSFvdD9Njcrg3iqjvINPX2gW9LKi5ZtWWvVLV1w1bCXlb_L/exec';
 
 async function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
