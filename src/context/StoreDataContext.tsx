@@ -58,17 +58,52 @@ export const StoreDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   const [settings] = useState(INITIAL_SETTINGS);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  // Sync with Google Sheet / LocalStorage on mount
+  // Helper บันทึกข้อมูลลงแคชเครื่องเพื่อความเร็วสูงสุด (Instant Load)
+  const persistToCache = (updated: {
+    products?: Product[];
+    certificates?: Certificate[];
+    orders?: Order[];
+    inquiries?: CustomInquiry[];
+  }) => {
+    if (typeof window === 'undefined') return;
+    try {
+      const raw = localStorage.getItem('suphonpha_sheet_cache');
+      const prev = raw ? JSON.parse(raw) : {};
+      const merged = {
+        ...prev,
+        ...updated,
+        cachedAt: Date.now(),
+      };
+      localStorage.setItem('suphonpha_sheet_cache', JSON.stringify(merged));
+    } catch {}
+  };
+
+  // Sync with Google Sheet / LocalStorage on mount (Stale-While-Revalidate)
   useEffect(() => {
     async function loadData() {
+      // 1. Fast Cache Hydration (0.01s - แสดงข้อมูลทันที ไม่ต้องรอดาวน์โหลด)
+      try {
+        const raw = localStorage.getItem('suphonpha_sheet_cache');
+        if (raw) {
+          const cached = JSON.parse(raw);
+          if (cached.products?.length > 0) setProducts(cached.products);
+          if (cached.certificates?.length > 0) setCertificates(cached.certificates);
+          if (cached.orders?.length > 0) setOrders(cached.orders);
+          if (cached.inquiries?.length > 0) setInquiries(cached.inquiries);
+          setIsLoading(false); // ปลดล็อก UI ทันที
+        }
+      } catch {}
+
+      // 2. Background Revalidation จาก Google Sheets (ทำงานเบื้องหลัง)
       try {
         const sheetData = await fetchGoogleSheetData();
         if (sheetData.products?.length > 0) setProducts(sheetData.products);
         if (sheetData.certificates?.length > 0) setCertificates(sheetData.certificates);
         if (sheetData.orders?.length > 0) setOrders(sheetData.orders);
         if (sheetData.inquiries?.length > 0) setInquiries(sheetData.inquiries);
+        persistToCache(sheetData);
       } catch (err) {
-        console.warn('Using local starter data:', err);
+        console.warn('Using local starter data / cache:', err);
       } finally {
         setIsLoading(false);
       }
@@ -85,6 +120,7 @@ export const StoreDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       if (sheetData.certificates?.length > 0) setCertificates(sheetData.certificates);
       if (sheetData.orders?.length > 0) setOrders(sheetData.orders);
       if (sheetData.inquiries?.length > 0) setInquiries(sheetData.inquiries);
+      persistToCache(sheetData);
     } catch (e) {
       console.error('Failed to refresh from Google Sheet:', e);
     } finally {
@@ -116,8 +152,12 @@ export const StoreDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       createdAt: new Date().toISOString().replace('T', ' ').slice(0, 19),
     };
 
-    // 1. Update local state
-    setOrders((prev) => [newOrder, ...prev]);
+    // 1. Update local state & persist to cache
+    setOrders((prev) => {
+      const next = [newOrder, ...prev];
+      persistToCache({ orders: next });
+      return next;
+    });
 
     // 2. Post directly to Google Sheet
     try {
@@ -154,8 +194,8 @@ export const StoreDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     }
     const targetOrder = orders.find((o) => o.id === orderId || o.orderNumber === orderId);
 
-    setOrders((prev) =>
-      prev.map((o) => {
+    setOrders((prev) => {
+      const next = prev.map((o) => {
         if (o.id === orderId || o.orderNumber === orderId) {
           return {
             ...o,
@@ -166,8 +206,10 @@ export const StoreDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
           };
         }
         return o;
-      })
-    );
+      });
+      persistToCache({ orders: next });
+      return next;
+    });
 
     if (targetOrder) {
       try {
@@ -211,8 +253,12 @@ export const StoreDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       gallery: productData.gallery?.length ? productData.gallery : [productData.image],
     };
 
-    // 1. Optimistic update
-    setProducts((prev) => [newProduct, ...prev]);
+    // 1. Optimistic update & cache
+    setProducts((prev) => {
+      const next = [newProduct, ...prev];
+      persistToCache({ products: next });
+      return next;
+    });
 
     // 2. Sync to Google Sheet
     try {
@@ -230,8 +276,12 @@ export const StoreDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     if (!isAuthorizedAdmin()) {
       return { success: false, message: 'สิทธิ์ไม่เพียงพอ: สงวนสิทธิ์เฉพาะผู้ดูแลระบบ (Admin) เท่านั้น' };
     }
-    // 1. Optimistic update
-    setProducts((prev) => prev.map((p) => (p.id === product.id ? product : p)));
+    // 1. Optimistic update & cache
+    setProducts((prev) => {
+      const next = prev.map((p) => (p.id === product.id ? product : p));
+      persistToCache({ products: next });
+      return next;
+    });
 
     // 2. Sync to Google Sheet
     try {
@@ -250,8 +300,12 @@ export const StoreDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     if (!isAuthorizedAdmin()) {
       return { success: false, message: 'สิทธิ์ไม่เพียงพอ: สงวนสิทธิ์เฉพาะผู้ดูแลระบบ (Admin) เท่านั้น' };
     }
-    // 1. Optimistic update
-    setProducts((prev) => prev.filter((p) => p.id !== productId && (!sku || p.sku !== sku)));
+    // 1. Optimistic update & cache
+    setProducts((prev) => {
+      const next = prev.filter((p) => p.id !== productId && (!sku || p.sku !== sku));
+      persistToCache({ products: next });
+      return next;
+    });
 
     // 2. Sync to Google Sheet
     try {
@@ -276,7 +330,11 @@ export const StoreDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       verificationCount: certData.verificationCount || 1,
     };
 
-    setCertificates((prev) => [newCert, ...prev]);
+    setCertificates((prev) => {
+      const next = [newCert, ...prev];
+      persistToCache({ certificates: next });
+      return next;
+    });
 
     try {
       const res = await saveCertificateToGoogleSheet(newCert);
@@ -293,7 +351,11 @@ export const StoreDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     if (!isAuthorizedAdmin()) {
       return { success: false, message: 'สิทธิ์ไม่เพียงพอ: สงวนสิทธิ์เฉพาะผู้ดูแลระบบ (Admin) เท่านั้น' };
     }
-    setCertificates((prev) => prev.map((c) => (c.id === cert.id || c.certNumber === cert.certNumber ? cert : c)));
+    setCertificates((prev) => {
+      const next = prev.map((c) => (c.id === cert.id || c.certNumber === cert.certNumber ? cert : c));
+      persistToCache({ certificates: next });
+      return next;
+    });
 
     try {
       const res = await saveCertificateToGoogleSheet(cert);
@@ -311,7 +373,11 @@ export const StoreDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     if (!isAuthorizedAdmin()) {
       return { success: false, message: 'สิทธิ์ไม่เพียงพอ: สงวนสิทธิ์เฉพาะผู้ดูแลระบบ (Admin) เท่านั้น' };
     }
-    setCertificates((prev) => prev.filter((c) => c.certNumber !== certNumber && (!id || c.id !== id)));
+    setCertificates((prev) => {
+      const next = prev.filter((c) => c.certNumber !== certNumber && (!id || c.id !== id));
+      persistToCache({ certificates: next });
+      return next;
+    });
 
     try {
       const res = await deleteCertificateFromGoogleSheet(certNumber, id);
@@ -329,9 +395,11 @@ export const StoreDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     if (!isAuthorizedAdmin()) {
       return { success: false, message: 'สิทธิ์ไม่เพียงพอ: สงวนสิทธิ์เฉพาะผู้ดูแลระบบ (Admin) เท่านั้น' };
     }
-    setInquiries((prev) =>
-      prev.map((inq) => (inq.id === inquiryId ? { ...inq, status } : inq))
-    );
+    setInquiries((prev) => {
+      const next = prev.map((inq) => (inq.id === inquiryId ? { ...inq, status } : inq));
+      persistToCache({ inquiries: next });
+      return next;
+    });
 
     try {
       const res = await updateInquiryStatusInGoogleSheet(inquiryId, status);

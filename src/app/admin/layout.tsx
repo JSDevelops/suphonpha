@@ -24,6 +24,7 @@ import {
   Check,
   Copy,
   AlertCircle,
+  BookOpen,
 } from 'lucide-react';
 import { useStoreData } from '@/context/StoreDataContext';
 import { useAuth, OFFICIAL_ADMIN_ACCOUNTS } from '@/context/AuthContext';
@@ -339,6 +340,22 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                   <Sparkles className="w-4 h-4" />
                   งานสั่งสร้าง
                 </Link>
+
+                <Link
+                  href="/admin/guide"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors inline-flex items-center gap-1.5 ${
+                    pathname.startsWith('/admin/guide')
+                      ? 'bg-[var(--brand-sage-light)] text-[var(--brand-sage-dark)] font-semibold'
+                      : 'text-[var(--brand-sage-dark)] hover:text-[var(--text-primary)] hover:bg-stone-50'
+                  }`}
+                  title="เปิดคู่มือการใช้งานระบบในหน้าต่างใหม่"
+                >
+                  <BookOpen className="w-4 h-4 text-[var(--brand-gold)]" />
+                  <span>คู่มือการใช้งาน</span>
+                  <ExternalLink className="w-3 h-3 text-stone-400" />
+                </Link>
               </nav>
             </div>
 
@@ -411,6 +428,19 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           >
             <Sparkles className="w-3.5 h-3.5" />
             สั่งสร้าง
+          </Link>
+          <Link
+            href="/admin/guide"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`px-2.5 py-1.5 rounded text-xs font-medium whitespace-nowrap inline-flex items-center gap-1 ${
+              pathname.startsWith('/admin/guide')
+                ? 'bg-[var(--brand-sage-dark)] text-white'
+                : 'text-[var(--text-secondary)]'
+            }`}
+          >
+            <BookOpen className="w-3.5 h-3.5" />
+            คู่มือ
           </Link>
         </div>
       </header>

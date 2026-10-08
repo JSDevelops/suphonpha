@@ -14,6 +14,7 @@ import {
   TrendingUp,
   Tag,
   CheckCircle2,
+  BookOpen,
 } from 'lucide-react';
 import { useStoreData } from '@/context/StoreDataContext';
 import SafeImage from '@/components/SafeImage';
@@ -46,13 +47,23 @@ export default function AdminDashboardPage() {
             และสะท้อนไปยังหน้าร้านแบบอัตโนมัติ
           </p>
 
-          <div className="flex flex-wrap gap-3">
+          <div className="flex flex-wrap items-center gap-3">
             <Link
               href="/admin/products"
               className="inline-flex items-center gap-2 bg-[var(--brand-gold)] hover:bg-[var(--brand-gold-dark)] text-stone-950 font-bold px-4 py-2.5 rounded-xl text-sm transition-all shadow-sm"
             >
               <PlusCircle className="w-4 h-4" />
               ลงสินค้าใหม่ / จัดการสินค้า
+            </Link>
+            <Link
+              href="/admin/guide"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-white/20 hover:bg-white/30 text-white font-medium px-4 py-2.5 rounded-xl text-sm transition-all border border-white/30 shadow-xs"
+            >
+              <BookOpen className="w-4 h-4 text-[var(--brand-gold)]" />
+              <span>คู่มือการใช้งานระบบ (เปิดแท็บใหม่)</span>
+              <ExternalLink className="w-3.5 h-3.5" />
             </Link>
             <Link
               href="/shop"
