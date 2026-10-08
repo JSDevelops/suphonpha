@@ -1,7 +1,15 @@
 import { Product, Certificate, Order, CustomInquiry } from '@/types';
 import { INITIAL_PRODUCTS, INITIAL_CERTIFICATES, INITIAL_INQUIRIES } from '@/data/mockData';
 
-const GOOGLE_SHEET_API_URL = process.env.NEXT_PUBLIC_GOOGLE_SHEET_API_URL;
+function getGoogleSheetApiUrl(): string | undefined {
+  const url =
+    process.env.NEXT_PUBLIC_GOOGLE_SHEET_API_URL ||
+    (typeof process !== 'undefined' ? process.env.GOOGLE_SHEET_API_URL : undefined);
+  if (!url || url === 'undefined' || url === 'null' || !url.trim()) {
+    return undefined;
+  }
+  return url.trim();
+}
 
 export interface SheetDataResponse {
   products: Product[];
@@ -40,7 +48,8 @@ async function fetchWithRetry(url: string, retries = 2): Promise<Response> {
 }
 
 export async function fetchGoogleSheetData(): Promise<SheetDataResponse> {
-  if (!GOOGLE_SHEET_API_URL) {
+  const apiUrl = getGoogleSheetApiUrl();
+  if (!apiUrl) {
     return {
       products: INITIAL_PRODUCTS,
       certificates: INITIAL_CERTIFICATES,
@@ -50,7 +59,7 @@ export async function fetchGoogleSheetData(): Promise<SheetDataResponse> {
   }
 
   try {
-    const res = await fetchWithRetry(GOOGLE_SHEET_API_URL);
+    const res = await fetchWithRetry(apiUrl);
 
     if (!res.ok) {
       throw new Error(`Google Sheet response status: ${res.status}`);
@@ -137,11 +146,62 @@ export async function fetchGoogleSheetData(): Promise<SheetDataResponse> {
         createdAt: inq['วันที่เวลา'] || new Date().toISOString(),
       }));
 
+      // ผสานข้อมูลสินค้า (Merge Products):
+      // นำ INITIAL_PRODUCTS เป็นฐาน แล้วอัปเดตหรือเพิ่มสินค้าจาก Google Sheets
+      const mergedProductsMap = new Map<string, Product>();
+      INITIAL_PRODUCTS.forEach((p) => {
+        mergedProductsMap.set(p.id, p);
+      });
+
+      mappedProducts.forEach((sp) => {
+        // หาตัวที่มี id หรือ sku ตรงกัน
+        let existingKey: string | undefined;
+        for (const [key, val] of mergedProductsMap.entries()) {
+          if (val.id === sp.id || (sp.sku && val.sku && val.sku.trim().toUpperCase() === sp.sku.trim().toUpperCase())) {
+            existingKey = key;
+            break;
+          }
+        }
+        if (existingKey) {
+          const old = mergedProductsMap.get(existingKey)!;
+          mergedProductsMap.set(existingKey, {
+            ...old,
+            ...sp,
+            // คง gallery ไว้หาก sp ไม่มี gallery เพิ่มเติม
+            gallery: sp.gallery && sp.gallery.length > 0 ? sp.gallery : old.gallery,
+          });
+        } else {
+          mergedProductsMap.set(sp.id, sp);
+        }
+      });
+
+      // ผสานข้อมูลใบรับรอง (Merge Certificates)
+      const mergedCertsMap = new Map<string, Certificate>();
+      INITIAL_CERTIFICATES.forEach((c) => {
+        mergedCertsMap.set(c.certNumber.trim().toUpperCase(), c);
+      });
+
+      mappedCerts.forEach((sc) => {
+        const certKey = sc.certNumber.trim().toUpperCase();
+        if (mergedCertsMap.has(certKey)) {
+          mergedCertsMap.set(certKey, { ...mergedCertsMap.get(certKey)!, ...sc });
+        } else {
+          mergedCertsMap.set(certKey, sc);
+        }
+      });
+
+      // ผสานคำขอสั่งสร้าง (Merge Inquiries)
+      const mergedInquiriesMap = new Map<string, CustomInquiry>();
+      INITIAL_INQUIRIES.forEach((inq) => mergedInquiriesMap.set(inq.id, inq));
+      mappedInquiries.forEach((sinq) => {
+        if (sinq.id) mergedInquiriesMap.set(sinq.id, sinq);
+      });
+
       return {
-        products: mappedProducts.length > 0 ? mappedProducts : INITIAL_PRODUCTS,
-        certificates: mappedCerts.length > 0 ? mappedCerts : INITIAL_CERTIFICATES,
+        products: Array.from(mergedProductsMap.values()),
+        certificates: Array.from(mergedCertsMap.values()),
         orders: mappedOrders,
-        inquiries: mappedInquiries,
+        inquiries: Array.from(mergedInquiriesMap.values()),
       };
     }
   } catch (error) {
@@ -152,7 +212,7 @@ export async function fetchGoogleSheetData(): Promise<SheetDataResponse> {
     products: INITIAL_PRODUCTS,
     certificates: INITIAL_CERTIFICATES,
     orders: [],
-    inquiries: [],
+    inquiries: INITIAL_INQUIRIES,
   };
 }
 
@@ -160,13 +220,14 @@ export async function fetchGoogleSheetData(): Promise<SheetDataResponse> {
  * ส่งคำสั่งซื้อใหม่ไปยัง Google Sheet
  */
 export async function submitOrderToGoogleSheet(order: Order): Promise<{ success: boolean; message?: string }> {
-  if (!GOOGLE_SHEET_API_URL) {
+  const apiUrl = getGoogleSheetApiUrl();
+  if (!apiUrl) {
     // ถ้ายังไม่ได้ตั้งค่า Google Sheet ให้บันทึกลง LocalStorage
     return { success: true, message: 'บันทึกคำสั่งซื้อลง Local Storage เรียบร้อย' };
   }
 
   try {
-    const res = await fetch(GOOGLE_SHEET_API_URL, {
+    const res = await fetch(apiUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'text/plain;charset=utf-8',
@@ -203,7 +264,8 @@ export async function submitOrderToGoogleSheet(order: Order): Promise<{ success:
 export async function submitCustomInquiryToGoogleSheet(
   inquiry: any
 ): Promise<{ success: boolean; message?: string; inquiryId?: string }> {
-  if (!GOOGLE_SHEET_API_URL) {
+  const apiUrl = getGoogleSheetApiUrl();
+  if (!apiUrl) {
     return {
       success: true,
       message: 'บันทึกคำขอสั่งสร้างเรียบร้อย (ระบบจะจัดเก็บในชีตเมื่อตั้งค่า URL)',
@@ -212,7 +274,7 @@ export async function submitCustomInquiryToGoogleSheet(
   }
 
   try {
-    const res = await fetch(GOOGLE_SHEET_API_URL, {
+    const res = await fetch(apiUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'text/plain;charset=utf-8',
@@ -242,7 +304,8 @@ export async function submitCustomInquiryToGoogleSheet(
 export async function saveProductToGoogleSheet(
   product: Product
 ): Promise<{ success: boolean; message?: string; id?: string }> {
-  if (!GOOGLE_SHEET_API_URL) {
+  const apiUrl = getGoogleSheetApiUrl();
+  if (!apiUrl) {
     return {
       success: true,
       message: 'บันทึกสินค้าเรียบร้อย (บันทึกในเครื่อง/Local Mode)',
@@ -251,7 +314,7 @@ export async function saveProductToGoogleSheet(
   }
 
   try {
-    const res = await fetch(GOOGLE_SHEET_API_URL, {
+    const res = await fetch(apiUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'text/plain;charset=utf-8',
@@ -282,7 +345,8 @@ export async function deleteProductFromGoogleSheet(
   id: string,
   sku?: string
 ): Promise<{ success: boolean; message?: string }> {
-  if (!GOOGLE_SHEET_API_URL) {
+  const apiUrl = getGoogleSheetApiUrl();
+  if (!apiUrl) {
     return {
       success: true,
       message: 'ลบสินค้าเรียบร้อย (บันทึกในเครื่อง/Local Mode)',
@@ -290,7 +354,7 @@ export async function deleteProductFromGoogleSheet(
   }
 
   try {
-    const res = await fetch(GOOGLE_SHEET_API_URL, {
+    const res = await fetch(apiUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'text/plain;charset=utf-8',
@@ -323,7 +387,8 @@ export async function updateOrderStatusInGoogleSheet(
   trackingNumber?: string,
   courierName?: string
 ): Promise<{ success: boolean; message?: string }> {
-  if (!GOOGLE_SHEET_API_URL) {
+  const apiUrl = getGoogleSheetApiUrl();
+  if (!apiUrl) {
     return {
       success: true,
       message: 'อัปเดตสถานะคำสั่งซื้อเรียบร้อย (บันทึกในเครื่อง/Local Mode)',
@@ -331,7 +396,7 @@ export async function updateOrderStatusInGoogleSheet(
   }
 
   try {
-    const res = await fetch(GOOGLE_SHEET_API_URL, {
+    const res = await fetch(apiUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'text/plain;charset=utf-8',
@@ -363,7 +428,8 @@ export async function updateOrderStatusInGoogleSheet(
 export async function saveCertificateToGoogleSheet(
   certificate: Certificate
 ): Promise<{ success: boolean; message?: string; certNumber?: string }> {
-  if (!GOOGLE_SHEET_API_URL) {
+  const apiUrl = getGoogleSheetApiUrl();
+  if (!apiUrl) {
     return {
       success: true,
       message: 'บันทึกใบรับรองเรียบร้อย (บันทึกในเครื่อง/Local Mode)',
@@ -372,7 +438,7 @@ export async function saveCertificateToGoogleSheet(
   }
 
   try {
-    const res = await fetch(GOOGLE_SHEET_API_URL, {
+    const res = await fetch(apiUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'text/plain;charset=utf-8',
@@ -403,7 +469,8 @@ export async function deleteCertificateFromGoogleSheet(
   certNumber: string,
   id?: string
 ): Promise<{ success: boolean; message?: string }> {
-  if (!GOOGLE_SHEET_API_URL) {
+  const apiUrl = getGoogleSheetApiUrl();
+  if (!apiUrl) {
     return {
       success: true,
       message: 'ลบใบรับรองเรียบร้อย (บันทึกในเครื่อง/Local Mode)',
@@ -411,7 +478,7 @@ export async function deleteCertificateFromGoogleSheet(
   }
 
   try {
-    const res = await fetch(GOOGLE_SHEET_API_URL, {
+    const res = await fetch(apiUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'text/plain;charset=utf-8',
@@ -442,7 +509,8 @@ export async function updateInquiryStatusInGoogleSheet(
   inquiryId: string,
   status: string
 ): Promise<{ success: boolean; message?: string }> {
-  if (!GOOGLE_SHEET_API_URL) {
+  const apiUrl = getGoogleSheetApiUrl();
+  if (!apiUrl) {
     return {
       success: true,
       message: 'อัปเดตสถานะคำขอสั่งสร้างเรียบร้อย (บันทึกในเครื่อง/Local Mode)',
@@ -450,7 +518,7 @@ export async function updateInquiryStatusInGoogleSheet(
   }
 
   try {
-    const res = await fetch(GOOGLE_SHEET_API_URL, {
+    const res = await fetch(apiUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'text/plain;charset=utf-8',

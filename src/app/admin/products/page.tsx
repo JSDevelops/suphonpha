@@ -25,6 +25,7 @@ import { useStoreData } from '@/context/StoreDataContext';
 import { Product } from '@/types';
 import SafeImage from '@/components/SafeImage';
 import { PRODUCT_CATEGORIES } from '@/data/categories';
+import { getProductUrl } from '@/lib/productUrl';
 
 const CATEGORY_OPTIONS = [
   { value: 'amulet', label: 'พระเครื่อง' },
@@ -494,7 +495,7 @@ export default function AdminProductsPage() {
                     <td className="px-4 py-3 text-right whitespace-nowrap">
                       <div className="flex items-center justify-end gap-1.5">
                         <Link
-                          href={`/product/${p.sku || p.id}`}
+                          href={getProductUrl(p)}
                           target="_blank"
                           className="p-1.5 text-stone-400 hover:text-[var(--brand-sage-dark)] hover:bg-stone-100 rounded-lg transition-colors"
                           title="ดูหน้าสินค้าจริง"

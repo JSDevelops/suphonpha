@@ -1,11 +1,29 @@
 import { Metadata } from 'next';
+import { Suspense } from 'react';
 import { INITIAL_PRODUCTS } from '@/data/mockData';
 import ProductDetailClient from './ProductDetailClient';
 
-export function generateStaticParams() {
-  return INITIAL_PRODUCTS.map((product) => ({
+export async function generateStaticParams() {
+  const initialParams = INITIAL_PRODUCTS.map((product) => ({
     id: product.id,
   }));
+
+  try {
+    const { fetchGoogleSheetData } = await import('@/lib/googleSheets');
+    const sheetData = await fetchGoogleSheetData();
+    const sheetParams = (sheetData.products || []).map((p) => ({ id: p.id }));
+    const idSet = new Set<string>();
+    const result: { id: string }[] = [];
+    [...initialParams, ...sheetParams].forEach((item) => {
+      if (!idSet.has(item.id)) {
+        idSet.add(item.id);
+        result.push(item);
+      }
+    });
+    return result;
+  } catch {
+    return initialParams;
+  }
 }
 
 export async function generateMetadata({
@@ -99,7 +117,15 @@ export default async function ProductDetailPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
       />
-      <ProductDetailClient productId={resolvedParams.id} />
+      <Suspense
+        fallback={
+          <div className="max-w-7xl mx-auto px-4 py-20 text-center">
+            <div className="inline-block w-8 h-8 border-3 border-[#4A5D4E] border-t-transparent rounded-full animate-spin" />
+          </div>
+        }
+      >
+        <ProductDetailClient productId={resolvedParams.id} />
+      </Suspense>
     </>
   );
 }

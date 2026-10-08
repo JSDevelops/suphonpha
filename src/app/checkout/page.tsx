@@ -131,7 +131,7 @@ export default function CheckoutPage() {
     );
   }
 
-  const handleSubmitOrder = (e: React.FormEvent) => {
+  const handleSubmitOrder = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!customerName || !customerPhone || !shippingAddress) {
       alert('กรุณากรอกข้อมูลที่อยู่จัดส่งให้ครบถ้วน');
@@ -139,8 +139,8 @@ export default function CheckoutPage() {
     }
     setSubmitting(true);
 
-    setTimeout(() => {
-      const order = createOrder({
+    try {
+      const order = await createOrder({
         customerName,
         customerEmail,
         customerPhone,
@@ -157,8 +157,12 @@ export default function CheckoutPage() {
 
       clearCart();
       setConfirmedOrder(order);
+    } catch (err) {
+      console.error('Error creating order:', err);
+      alert('เกิดข้อผิดพลาดในการบันทึกคำสั่งซื้อ กรุณาลองใหม่อีกครั้ง');
+    } finally {
       setSubmitting(false);
-    }, 600);
+    }
   };
 
   return (

@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from '@/components/SafeImage';
 import { Product } from '@/types';
 import { useCart } from '@/context/CartContext';
+import { getProductUrl } from '@/lib/productUrl';
 import { ShoppingBag, ShieldCheck, Check } from 'lucide-react';
 
 interface ProductCardProps {
@@ -25,11 +26,12 @@ export function ProductCard({ product, onOpenCert }: ProductCardProps) {
   };
 
   const price = product.salePrice ?? product.regularPrice;
+  const productHref = getProductUrl(product);
 
   return (
     <div className="group relative bg-white rounded-2xl border border-[#E6E1D8] overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_16px_32px_-8px_rgba(40,37,34,0.12),0_4px_12px_rgba(198,160,82,0.15)] hover:border-[#C6A052]/50 flex flex-col">
       {/* Product Image Frame */}
-      <Link href={`/product/${product.id}`} className="block relative aspect-square bg-[#F7F4EE] overflow-hidden">
+      <Link href={productHref} className="block relative aspect-square bg-[#F7F4EE] overflow-hidden">
         <Image
           src={product.image}
           alt={product.titleTh}
@@ -71,7 +73,7 @@ export function ProductCard({ product, onOpenCert }: ProductCardProps) {
           <span className="text-xs tracking-wider text-[#8E8A83] uppercase block truncate">
             {product.categoryLabelTh}
           </span>
-          <Link href={`/product/${product.id}`}>
+          <Link href={productHref}>
             <h3 className="font-serif text-[13px] sm:text-sm font-medium text-[#282522] mt-0.5 line-clamp-2 group-hover:text-[#4A5D4E] transition-colors leading-snug">
               {product.titleTh}
             </h3>

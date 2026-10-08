@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import React, { useState, useEffect, useMemo } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Image from '@/components/SafeImage';
 import Link from 'next/link';
 import { useStoreData } from '@/context/StoreDataContext';
@@ -20,31 +20,87 @@ import {
   ChevronRight,
 } from 'lucide-react';
 
-export default function ProductDetailClient({ productId }: { productId: string }) {
+export default function ProductDetailClient({ productId }: { productId?: string }) {
   const router = useRouter();
-  const { products } = useStoreData();
+  const searchParams = useSearchParams();
+  const queryId = searchParams?.get('id') || searchParams?.get('sku') || '';
+  const effectiveId = (productId || queryId).trim();
+
+  const { products, isLoading } = useStoreData();
   const { addToCart, setIsCartOpen } = useCart();
 
-  const product = products.find((p) => p.id === productId) || products[0];
+  // ค้นหาสินค้าจาก id หรือ sku
+  const product = useMemo(() => {
+    if (!effectiveId) return products[0];
+    const clean = effectiveId.toLowerCase();
+    const found = products.find(
+      (p) => p.id.toLowerCase() === clean || (p.sku && p.sku.toLowerCase() === clean)
+    );
+    if (found) return found;
+    // ถ้ายังโหลดอยู่ อย่าเพิ่ง fallback
+    if (isLoading) return null;
+    return products[0];
+  }, [products, effectiveId, isLoading]);
 
-  const [activeImage, setActiveImage] = useState<string>(product.image);
+  const [activeImage, setActiveImage] = useState<string>(
+    product?.image || '/images/products/pendant-buddha.jpg'
+  );
   const [quantity, setQuantity] = useState<number>(1);
   const [certModalOpen, setCertModalOpen] = useState<boolean>(false);
   const [addedToast, setAddedToast] = useState<boolean>(false);
 
-  const price = product.salePrice ?? product.regularPrice;
+  // Sync activeImage เมื่อ product เปลี่ยนแปลง
+  useEffect(() => {
+    if (product?.image) {
+      setActiveImage(product.image);
+    }
+  }, [product?.id, product?.image]);
+
+  const price = product ? (product.salePrice ?? product.regularPrice) : 0;
 
   const handleAddToCart = () => {
+    if (!product) return;
     addToCart(product, quantity);
     setAddedToast(true);
     setTimeout(() => setAddedToast(false), 2000);
   };
 
   const handleBuyNow = () => {
+    if (!product) return;
     addToCart(product, quantity);
     setIsCartOpen(false);
     router.push('/checkout');
   };
+
+  if (isLoading && !product) {
+    return (
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center space-y-4">
+        <div className="inline-block w-8 h-8 border-3 border-[#4A5D4E] border-t-transparent rounded-full animate-spin" />
+        <p className="text-xs text-stone-500">กำลังโหลดข้อมูลสินค้ามงคล...</p>
+      </div>
+    );
+  }
+
+  if (!product) {
+    return (
+      <div className="max-w-xl mx-auto px-4 py-20 text-center space-y-5">
+        <div className="w-16 h-16 rounded-full bg-amber-50 text-[#A98336] flex items-center justify-center mx-auto">
+          <Sparkles className="w-8 h-8" />
+        </div>
+        <h2 className="font-serif text-2xl text-[#282522]">ไม่พบข้อมูลสินค้า</h2>
+        <p className="text-xs text-gray-500">
+          สินค้ารหัสนี้อาจถูกย้าย หรือมีการปรับปรุงข้อมูลในระบบ กรุณาเลือกชมสินค้าอื่นๆ ในร้าน
+        </p>
+        <Link
+          href="/shop"
+          className="inline-flex items-center gap-2 px-6 py-2.5 bg-[#4A5D4E] text-white text-xs font-semibold rounded-xl hover:bg-[#37473A] transition-colors"
+        >
+          <ShoppingBag className="w-4 h-4" />
+          <span>ไปยังหน้ารวมสินค้าทั้งหมด</span>
+        </Link>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-28 sm:pb-12 space-y-10">
